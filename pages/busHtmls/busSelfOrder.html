@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busMake">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">返回</button>
+			    <h1 class="mui-title">公交定制</h1>
+			    <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right mui-pull-right-noBorder" @click="makeSelfOrder">发起</button>
+			</header>
+			<div class="mui-content">
+				<div class="title">
+					已发起的定制
+				</div>
+				<ul class="mui-table-view bus-make-ul">
+					<li class="mui-table-view-cell" @click="makeRouteInfo">
+						<a class="mui-navigate-right">
+							万达广场--印象城
+							<span>09:30</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							万达广场--印象城
+							<span>09:30</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							万达广场--印象城
+							<span>09:30</span>
+						</a>
+						
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<style type="text/css">
+	ul.bus-make-ul li span{
+		color: #BBBBBB;
+		padding: 0 0 0 10px;
+		font-size: 12px;
+	}
+	.mui-pull-right-noBorder:{
+		outline: none!important;
+		border: 1px solid red!important;
+	}
+</style>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busMake',
+		data: {
+			
+		},
+		mounted() {
+			
+		},
+		methods: {
+			//公交定制详情
+			makeRouteInfo: function() {
+				mui.openWindow({
+					url: 'busMakeInfo.html',
+					id: 'busMakeInfo',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					}
+				})
+			},
+			//发起定制
+			makeSelfOrder: function() {
+				mui.openWindow({
+					url: 'makeSelfOrder.html',
+					id: 'makeSelfOrder',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					}
+				})
+			}
+		}
+	})
+</script>

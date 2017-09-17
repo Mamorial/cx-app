@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style>
+		body, html{
+			height: 100%;
+		}
+		.mui-control-content {
+			background-color: white;
+			height: 100%;
+		}
+		ul.coll-info-ul li span{
+			display: block;
+			float: left;
+		}
+		ul.coll-info-ul li span:nth-of-type(1) {
+			width: auto;
+			padding: 2px 10px;
+			border: 1px solid #3AA6F2;
+			border-radius: 5px;
+			text-align: center;
+			color: #3AA6F2;
+			margin: 0 10px 0 0;
+		}
+		ul.coll-info-ul li span:nth-of-type(2) {
+			padding: 5px 0;
+		}
+		ul.coll-info-ul li span:nth-of-type(3) {
+			float: right;
+			padding: 5px 0;
+		}
+	</style>
+	<body>
+	<div id="collList" style="height: 100%;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			<h1 class="mui-title">收藏</h1>
+		</header>
+		<div class="mui-content" style="height: 100%;">
+			<div id="slider" class="mui-slider" style="height: 100%;">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+				全部
+			</a>
+					<a class="mui-control-item" href="#item2mobile">
+				站点
+			</a>
+					<a class="mui-control-item" href="#item3mobile">
+				车次
+			</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group" style="height: 100%;padding-bottom: 40px;">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view coll-info-ul">
+									<li class="mui-table-view-cell">
+										<span>车次</span>
+										<span>118路</span>
+										<span>收藏</span>
+									</li>
+									<li class="mui-table-view-cell">
+										<span>车次</span>
+										<span>118路</span>
+										<span>收藏</span>
+									</li>
+									<li class="mui-table-view-cell">
+										<span>车次</span>
+										<span>118路</span>
+										<span>收藏</span>
+									</li>
+									<li class="mui-table-view-cell">
+										<span>站点</span>
+										<span>鄞州电信局</span>
+										<span>收藏</span>
+									</li>
+									<li class="mui-table-view-cell">
+										<span>站点</span>
+										<span>鄞州电信局</span>
+										<span>收藏</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view coll-info-ul">
+									<li class="mui-table-view-cell">
+										<span>站点</span>
+										<span>鄞州电信局</span>
+										<span>收藏</span>
+									</li>
+									<li class="mui-table-view-cell">
+										<span>站点</span>
+										<span>鄞州电信局</span>
+										<span>收藏</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view coll-info-ul">
+									<li class="mui-table-view-cell">
+										<span>车次</span>
+										<span>118路</span>
+										<span>收藏</span>
+									</li>
+									<li class="mui-table-view-cell">
+										<span>车次</span>
+										<span>118路</span>
+										<span>收藏</span>
+									</li>
+									<li class="mui-table-view-cell">
+										<span>车次</span>
+										<span>118路</span>
+										<span>收藏</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#collList',
+			data: {
+				
+			},
+			mounted() {
+				mui.init({
+					swipeBack: false
+				});
+			}
+		})
+	</script>
+		<script>
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+			})(mui);
+		</script>
+
+	</body>
+
+</html>

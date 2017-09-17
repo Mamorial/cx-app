@@ -1,0 +1,262 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busMapInfo">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">{{busName}}</h1>
+		</header>
+		<div id="container"></div>
+		<div class="bottom">
+			<div class="mui-button-row">
+				<button class="mui-btn-primary">反向</button>
+				<button class="mui-btn-primary" @click="newRun">重新模拟</button>
+				<button class="mui-btn-primary" @click="stopRun">停止模拟</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+<script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=dc6703c9c958fa056f0b0e077e920051&plugin=AMap.LineSearch,AMap.ToolBar"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busMapInfo',
+		data: {
+			busName: '403路',
+			busStations: [],  //所有车站信息
+			busCars: [],    //所有车的信息
+			map: '',     //地图
+			markerCars: [],  //路线上所有的车
+			carsLines: '',   //公交车行驶路线
+			startPot: '',   //起点
+			endPot: '',     //终点
+			allLocation: []   //路线所有的经纬度
+		},
+		mounted() {
+			var toolBar = new AMap.ToolBar({   //地图的控件
+			        visible: true
+			   });
+			  //该路线的起始站和终点站
+			  self.startPot = [116.507614,39.988102];
+			  self.endPot = [116.433533,39.905582];
+			   //该时段路上所有在行驶的公交车
+			this.busCars = [{
+				id: 1,
+				icon: 'http://webapi.amap.com/images/car.png',
+				position: [116.507614,39.988102],
+				runRoute: [116.433533,39.905582]
+			},{
+				id: 2,
+				icon: 'http://webapi.amap.com/images/car.png',
+				position: [116.476288,39.978600],
+				runRoute: [116.457916,39.955193]
+			}]
+			//公交所经过的站点
+			this.busStations = [{
+				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b1.png',
+				name: '京顺路丽都饭店',
+				position: [116.476288,39.978600]
+			},{
+				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b2.png',
+				name: '四元桥东',
+				position: [116.473480,39.976070]
+			},{
+				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b3.png',
+				name: '四元桥西',
+				position: [116.463608,39.967155]
+			},{
+				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b4.png',
+				name: '三元桥东站',
+				position: [116.460396,39.964237]
+			},{
+				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+				name: '三元桥',
+				position: [116.457916,39.955193]
+			}]
+			//显示地图
+			this.map = new AMap.Map("container", {
+		        resizeEnable: true,
+		        zoom: 18 //地图显示的缩放级别
+		    });
+		    this.map.addControl(toolBar);  //添加控件
+			this.lineSearch();   //绘制整条公交车路线
+			this.init();         //绘制公交路线上的所有站点
+		},
+		methods: {
+			//公交路线下的所有站点
+			init: function() {
+				var self = this;
+				//实例化在行驶中的公交车
+				this.busCars.forEach(function(marker) {
+					var obj = {id: '', markerCar: '', route: []};
+					obj.id = marker.id;
+					obj.markerCar = new AMap.Marker({
+			            map: self.map,
+			            icon: marker.icon,
+			            position: [marker.position[0], marker.position[1]],
+			            offset: new AMap.Pixel(-26, -13),
+        				autoRotation: true
+			        });
+			        obj.route.push(marker.position);
+			        obj.route.push(marker.runRoute);
+			        self.markerCars.push(obj);
+				});
+				//实例化所有站点
+				this.busStations.forEach(function(marker) {
+				var content= "<div class = 'taiwan'>"+marker.name+"</div>";
+			        new AMap.Marker({   //站点
+			            map: self.map,
+			            icon: marker.icon,
+			            position: [marker.position[0], marker.position[1]]
+			        });
+		        var baodao = new AMap.Marker({    //站点信息
+		            content: content,
+		            position: [marker.position[0], marker.position[1]],
+		            title: marker.name,
+		            offset: new AMap.Pixel(0,0),
+		            map: self.map
+		          });
+		          self.map.setCenter(baodao.getPosition());
+			    });
+			},
+			//公交路线的绘制
+			lineSearch: function() {
+				var self = this;
+				//实例化公交线路查询类，只取回一条路线
+		        var linesearch = new AMap.LineSearch({
+		            pageIndex: 1,
+		            city: '北京',
+		            pageSize: 1,
+		            extensions: 'all'
+		        });
+		        //搜索“536”相关公交线路
+		        linesearch.search(self.busName, function(status, result) {
+		            if (status === 'complete' && result.info === 'OK') {
+		                self.lineSearch_Callback(result);
+		            } else {
+		                alert(result);
+		            }
+		        });
+			},
+			//查询公交后的回调
+			lineSearch_Callback: function(data) {
+				var lineArr = data.lineInfo;
+		        var lineNum = data.lineInfo.length;
+		        var self = this;
+		        if (lineNum == 0) {
+		        } else {
+		            for (var i = 0; i < lineNum; i++) {
+		                var pathArr = lineArr[i].path;
+		                var stops = lineArr[i].via_stops;
+		                var startPot = stops[0].location;
+		                var endPot = stops[stops.length - 1].location;
+
+		                if (i == 0) self.drawbusLine(startPot, endPot, pathArr);
+		            }
+		        }
+			},
+			//绘制公交路线地图
+			drawbusLine: function(startPot, endPot, BusArr) {
+				console.log('起点 = ' + startPot.lng + ',' + startPot.lat);
+				console.log('终点 = ' + endPot.lng + ',' + endPot.lat);
+				console.log(BusArr);
+				//绘制起点，终点
+				var self = this;
+				this.allLocation = BusArr;
+		        new AMap.Marker({
+		            map: self.map,
+		            position: [startPot.lng, startPot.lat], //基点位置
+		            icon: "http://webapi.amap.com/theme/v1.3/markers/n/start.png",
+		            zIndex: 10
+		        });
+		        new AMap.Marker({
+		            map: self.map,
+		            position: [endPot.lng, endPot.lat], //基点位置
+		            icon: "http://webapi.amap.com/theme/v1.3/markers/n/end.png",
+		            zIndex: 10
+		        });
+		        //绘制乘车的路线
+		        busPolyline = new AMap.Polyline({
+		            map: self.map,
+		            path: BusArr,
+		            strokeColor: "#09f",//线颜色
+		            strokeOpacity: 0.8,//线透明度
+		            strokeWeight: 6//线宽
+		        });
+		        self.map.setFitView();
+		        setTimeout(function() {
+		        	self.map.setZoomAndCenter(15, [116.476288,39.978600]);
+		        	self.runcar();
+//		        	self.markerCar.moveAlong(BusArr, 500);
+		        }, 1000)
+			},
+			// 绘制公交车行驶路线和动画效果
+			runcar: function() {
+				var self = this;
+				var len = self.allLocation.length;
+				console.log(self.allLocation.length);
+				this.markerCars.forEach(function(v, i, a) {
+					var r = [],routeBus = [],s = '',e = '';
+					console.log('执行了');
+					for(var i = 0; i < len; i++) {  //根据公交车的起终点来获取整条公交线路在这个路段的所有地点，生成一条公交车走的路线
+						var ar = '';
+						ar = self.allLocation[i].lng + ',' + self.allLocation[i].lat;
+//						console.log(self.allLocation[i].lat);
+						if(ar == v.route[0]) {
+							s = i;  //起点
+							console.log('s = ' + s);
+						}
+						if(ar == v.route[1]) {
+							e = i;  //终点
+							console.log('e = ' + e);
+						}
+					}
+					for(var j = s; j <= e; j++) {  //插入公交车走的路线所有经纬度
+						routeBus.push(self.allLocation[j])
+					}
+					setTimeout(function() {console.log('路线 = ' + routeBus);}, 5000)
+					r[i] = new AMap.Polyline({
+				        map: self.map,
+				        path: routeBus,
+				        strokeColor: "#00A",  //线颜色
+				        strokeWeight: 3,      //线宽
+				    });
+				    v.markerCar.moveAlong(routeBus, 500);
+				})
+			},
+			//重新模拟动画效果
+			newRun: function() {
+				this.runcar();
+			},
+			//停止模拟
+			stopRun: function() {
+				this.markerCars.forEach(function(v, i, a) {
+					v.markerCar.pauseMove();
+				})
+			}
+		}
+	})
+
+</script>
+<style type="text/css">
+	#container{
+		height: 500px;
+	}
+	.bottom{
+		margin-top: 10px;
+	}
+	.taiwan{
+      	border: solid 1px red;
+      	color: red;
+      	display: block;
+      	width: auto;
+      	white-space:nowrap;
+      	background-color: rgba(255,0,0,0.1);
+      	margin: -10px 0 0 10px
+      }
+</style>

@@ -1,0 +1,262 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busNum">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">{{busName}}</h1>
+			<a class="mui-icon mui-icon-map mui-pull-right" @click="busMap"></a>
+		</header>
+		<div class="mui-content">
+			<div class="bus-info">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<img class="mui-media-object mui-pull-right" src="../images/yuantiao.jpg">
+							<div class="mui-media-body">
+								<div style="font-weight: bold;font-size: 16px;">
+									{{bus_station.start}}--{{bus_station.end}}
+								</div>
+								<p class='mui-ellipsis' style="margin-top: 5px;">
+									首 {{bus_station.firstBus}}&nbsp;&nbsp;&nbsp;&nbsp;末 {{bus_station.lastBus}}&nbsp;&nbsp;&nbsp;&nbsp;票价 {{bus_station.total}}元
+								</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="bus-route">
+				<div class="bus-route-top"><span></span></div>
+				<div class="bus-route-bottom"><span></span></div>
+				<div class="bus-car1" style="width: 30px;height: 30px;border: 1px solid blue;position: absolute;top: 224px;left: 128px;"></div>
+				<div class="bus-car2" style="width: 30px;height: 30px;border: 1px solid green;position: absolute;top: 224px;left: 206px;"></div>
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td colspan="3">日丽中路口</td>
+						</tr>
+						<tr>
+							<td>南苑社区<span></span></td>
+							<td></td>
+							<td>南苑社区<span></span></td>
+						</tr>
+						<tr>
+							<td>南苑社区<span></span></td>
+							<td></td>
+							<td>南苑社区<span></span></td>
+						</tr>
+						<tr>
+							<td>南苑社区<span id="s1" style="background: red;"></span></td>
+							<td></td>
+							<td>南苑社区<span id="s2" style="background: blue;"></span></td>
+						</tr>
+						<tr>
+							<td>南苑社区<span></span></td>
+							<td></td>
+							<td>南苑社区<span></span></td>
+						</tr>
+						<tr>
+							<td>南苑社区<span></span></td>
+							<td></td>
+							<td>南苑社区<span></span></td>
+						</tr>
+						<tr>
+							<td>南苑社区<span></span></td>
+							<td></td>
+							<td>南苑社区<span></span></td>
+						</tr>
+						<tr>
+							<td>南苑社区<span></span></td>
+							<td></td>
+							<td>南苑社区<span></span></td>
+						</tr>
+
+						<tr>
+							<td colspan="3">宁波火车站</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="mui-button-row">
+				<button class="mui-btn-primary" @click="runCar">开始模拟</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busNum',
+		data: {
+			items: [],
+			busName: '',
+			route1: [240, 250, 270, 280, 350],
+			route2: [260, 270, 280, 298, 340, 370],
+			bus_station:{
+				start: '鄞州电信局',
+				end: '宁波火车站',
+				firstBus: '05:40',
+				lastBus: '21:30',
+				total: 2
+			}
+		},
+		mounted() {
+			var self = this;
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui.plusReady(function() {
+				var _name = plus.webview.currentWebview().name;
+				self.busName = _name;
+			});
+			this.init();
+
+		},
+		methods: {
+			//获取站点位置
+			init: function() {
+				var y = $("#s2").position().top;
+				var x = $("#s2").position().left;
+				console.log("x = " + x + "," + "y = " + y);
+			},
+			//模拟车动画
+			runCar: function() {
+				var self = this;
+				console.log(self.route1.length)
+				for(var i = 0; i < self.route1.length; i++) {
+					console.log(self.route1[i] + 'px');
+					$(".bus-car1").animate({top: self.route1[i] + 'px'});
+				}
+				for(var i = 0; i < self.route2.length; i++) {
+					console.log(self.route2[i] + 'px');
+					$(".bus-car2").animate({top: self.route2[i] + 'px'});
+				}
+
+			},
+			busMap: function() {     //查看地图
+				var self = this;
+				mui.openWindow({
+					url: 'busMapShow.html',
+					id: 'busMapShow',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						name: self.busName
+					}
+				})
+			}
+		}
+	})
+</script>
+<style type="text/css">
+	.bus-route{
+		width: 100%;
+		height: auto;
+		/*border: 1px solid red;*/
+		padding: 3px;
+		background: #fff;
+		position: relative;
+		margin-top: 10px;
+	}
+	.bus-route table{
+		width: 100%;
+		height: auto;
+		/*border: 1px solid blue;*/
+	}
+	.bus-route table tr td{
+		text-align: center;
+		padding: 15px 10px 0 10px;
+		position: relative;
+		max-width: 110px;
+		word-wrap:break-word
+	}
+	/*.bus-route table tbody tr:nth-of-type(2) td:nth-of-type(2){
+		border-top: 2px solid #ccc;
+	}
+	.bus-route table tbody tr:nth-last-child(2) td:nth-of-type(2){
+		border-bottom: 2px solid #ccc;
+	}*/
+	.bus-route table tbody tr td:nth-of-type(1) {
+		text-align: right;
+		line-height: 50px;
+		width: 110px;
+		/*height: 50px;*/
+	}
+	.bus-route table tbody tr td:nth-of-type(2){
+		/*width: 150px!important;*/
+		border-right: 2px solid #ccc;
+		border-left: 2px solid #ccc;
+	}
+	.bus-route table tbody tr td:nth-of-type(3) {
+		text-align: left;
+		width: 110px;
+	}
+	.bus-route table tbody tr:first-child td, .bus-route table tbody tr:last-child td{
+		text-align: center;
+	}
+	.bus-route table tbody tr:first-child td span {
+		position: absolute;
+		top: 60px;
+		float: none;
+		display: block;
+	}
+	.bus-route table tbody tr td span{
+		width: 15px;
+		height: 15px;
+		border: 2px solid #ccc;
+		border-radius: 50%;
+		position: absolute;
+		background: #fff;
+	}
+	.bus-route table tbody tr td:nth-of-type(1) span{
+		top: 50%;
+		right: -8px;
+	}
+	.bus-route table tbody tr td:nth-of-type(3) span {
+		top: 50%;
+		left: -8px;
+	}
+	.bus-route-top{
+		width: calc(100% - 224px);
+		height: 30px;
+		border: 2px solid #ccc;
+		border-bottom: none;
+		position: absolute;
+		top: 60px;
+		left: 112px;
+		border-radius: 10px 10px 0 0;
+	}
+	.bus-route-bottom {
+		width: calc(100% - 224px);
+		height: 30px;
+		border: 2px solid #ccc;
+		border-top: none;
+		position: absolute;
+		bottom: 60px;
+		left: 112px;
+		border-radius: 0 0 10px 10px;
+	}
+	.bus-route-top span, .bus-route-bottom span{
+		width: 15px;
+		height: 15px;
+		border: 2px solid #ccc;
+		position: absolute;
+		border-radius: 50%;
+		left: 46%;
+		top: -8px;
+		background: #fff;
+	}
+	.bus-route-bottom span{
+		top: 21px;
+		bottom: -10px;
+	}
+</style>

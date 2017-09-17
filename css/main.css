@@ -1,0 +1,137 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body, html{
+	width: 100%;
+	height: 100%;
+}
+ul li, span, a, p, img{
+	direction: block;
+}
+ds-none{
+	display: none!important;
+}
+
+/*首页css  sub1.html*/
+.index-header{
+	width: 100%;
+	height: 120px;;
+	background: #28B6F6;
+	/*border: 1px solid red;*/
+}
+.index-searchNav{
+	height: 120px;;
+	padding: 0;
+	margin: 0;
+}
+.index-header-left{
+	width: auto;
+	float: left;
+	color: #fff!important;
+}
+.index-header-top{
+	/*width: 100%;*/
+	height: 50px;
+	/*float: left;*/
+	margin-left: 60px;
+	overflow: hidden;
+	/*border: 1px solid red;*/
+}
+.index-searchInput{
+	width: 90%;
+	height: auto;
+	float: left;
+	padding: 0 5px;
+}
+.index-search{
+	width: 100%;
+	height: 30px;
+	background: #7FD2FA;
+	border-radius: 5px;
+	margin-top: 5px;
+	padding: 5px;
+	color: #fff;
+}
+.index-search-L{
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	float: left;
+	color: #fff;
+	font-weight: bold;
+}
+.index-search-R span{
+	font-size: 14px;
+	color: #fff;
+}
+.index-header-bottom{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin: auto;
+}
+.index-header-bottom > div{
+	width: 30%;
+	float: left;
+	margin-left: 3%;
+}
+.index-header-bottom  div span{
+	display: block;
+	width: 100%;
+	height: auto;
+	float: none;
+	text-align: center;
+	color: #fff;
+}
+.index-searchIcon{
+	margin: 0!important;
+	padding: 0!important;
+	font-size: 19px!important;
+}
+.index-header-topMsg{
+	width: 10%;
+	height: auto;
+	float: right;
+	text-align: left;
+	color: #fff;
+	padding: 0;
+}
+.index-msg{
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background: red;
+	border: 1px solid red;
+	display: block;
+	position: relative;
+	margin: -22px 0 0 17px;
+}
+/*刷新样式的位置*/
+.mui-bar-nav ~ .mui-content .mui-pull-top-pocket{
+    top: 210px !important;
+}
+/*查找公交css  search.html*/
+#busNum{
+	font-size: 12px;
+}
+.sub-searchInput{
+	float: none!important;
+	margin: 0;
+	padding: 0!important;
+	width: 80%;
+	position: absolute;
+	left: 45px;
+	top: 3px;
+
+}
+.sub-searchInput input{
+	border: none;
+	background: none;
+}
+.title{
+	margin: 20px 15px 7px;
+	color: #6d6d72;
+	font-size: 15px;
+}
+

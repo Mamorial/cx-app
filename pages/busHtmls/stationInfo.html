@@ -1,0 +1,119 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="station_info">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">{{stationName}}</h1>
+		</header>
+		<div class="mui-content">
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr v-for="item in stationBus">
+						<td>{{item.name}}</td>
+						<td>
+							<span class="nextS">距到站</span>
+							<span>下一辆</span>
+						</td>
+						<td>
+							<span>{{item.time1}}</span>
+							<span>{{item.time2}}</span>
+						</td>
+						<td>2</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="mui-button-row goStation">
+				<button class="mui-btn-primary" @click="go_station">前往该站牌</button>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#station_info',
+		data: {
+			stationName: '',
+			stationBus: []
+		},
+		mounted() {
+			var self = this;
+			mui.plusReady(function() {
+				var name = plus.webview.currentWebview().name;
+				self.stationName = name;
+			});
+			this.stationBus = [{
+				name: '118路',
+				time1: '1站/10分钟',
+				time2: '2站/20分钟',
+			},{
+				name: '128路',
+				time1: '1站/10分钟',
+				time2: '2站/20分钟',
+			},{
+				name: '138路',
+				time1: '1站/10分钟',
+				time2: '2站/20分钟',
+			}]
+		},
+		methods: {
+			//前往该站台
+			go_station: function() {
+				var self = this;
+				mui.openWindow({
+					url: 'busMap.html',
+					id: 'busMap',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						name: self.stationName
+					}
+				})
+			}
+		}
+
+	})
+</script>
+<style type="text/css">
+	#station_info table{
+		width: 100%;
+		height: auto;
+	}
+	#station_info table tr{
+		background: #fff;
+		border-bottom: 1px solid #ccc;
+	}
+	#station_info table tr td{
+		text-align: center;
+		padding: 10px 0;
+	}
+	#station_info table tr td:nth-of-type(1) {
+		width: 40%;
+		text-align: left;
+		padding: 10px;
+	}
+	#station_info table tr td span{
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+	#station_info table tr td span.nextS{
+		color: #007AFF;
+	}
+	#station_info .goStation {
+		position: absolute;
+		bottom: 20px;
+		width: 100%;
+		text-align: center;
+	}
+</style>

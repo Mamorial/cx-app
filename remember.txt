@@ -1,0 +1,5 @@
+1、busHtmls
+	index.html 首页
+	user.html  我
+	busTake.html 公交乘车
+	userCollIndex.html 公交乘车-子页面

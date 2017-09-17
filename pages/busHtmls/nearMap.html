@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="nearMap">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+		    <h1 class="mui-title">地图</h1>
+		    <a class="mui-icon mui-icon-search mui-pull-right"></a>
+		</header>
+		<div class="mui-content">
+			<div id="container" style="height: 100%;"></div>
+		</div>
+	</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#nearMap',
+		data: {
+			map: '',
+			marker: ''
+		},
+		mounted() {
+			var self = this;
+			var _location = localStorage.getItem('nearState');
+		    _location = JSON.parse(_location);
+		    var lnglatXY = [_location.lng, _location.lat]; //已知点坐标
+			self.map = new AMap.Map("container", {
+		        resizeEnable: true
+		    });
+		    AMap.service(["AMap.PlaceSearch"], function() {
+	        	var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
+		            pageSize: 5,
+		            type: '公交',
+		            pageIndex: 1,
+		            city: "宁波", //城市
+		            map: self.map
+		        });
+	        
+	        placeSearch.searchNearBy('', lnglatXY, 500, function(status, result) {
+	
+	        });
+	        this.marker = new AMap.Marker({
+	            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+	            position: lnglatXY
+	        });
+	        this.marker.setMap(self.map);
+	    });
+		},
+		methods: {
+			
+		}
+	})
+</script>

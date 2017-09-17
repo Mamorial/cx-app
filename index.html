@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8"/>
+		<script src="js/head.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<nav class="mui-bar mui-bar-tab">
+		    <a class="mui-tab-item mui-active" data-id="index">
+		        <span class="mui-icon mui-icon-home"></span>
+		        <span class="mui-tab-label">首页</span>
+		    </a>
+		    <a class="mui-tab-item" data-id="user">
+		        <span class="mui-icon mui-icon-gear"></span>
+		        <span class="mui-tab-label">我</span>
+		    </a>
+		</nav>
+	</body>
+</html>
+<script type="text/javascript">
+	var pageUrl = './pages/busHtmls/';
+	mui.init({
+		//预加载
+		preloadPages: [{
+			url: pageUrl + 'busTake.html',
+			id: 'busTake'
+		},{
+			url: pageUrl + 'userCollIndex.html',
+			id: 'userCollIndex'
+		},{
+			url: pageUrl + 'search.html',
+			id: 'search'
+		},{
+			url: pageUrl + 'nowTakeBus.html',
+			id: 'nowTakeBus'
+		},{
+			url: pageUrl + 'busSelfOrder.html',
+			id: 'busSelfOrder'
+		},{
+			url: pageUrl + 'makeSelfOrder.html',
+			id: 'makeSelfOrder'
+		}]
+	})
+	var map = new AMap.Map('', {
+        resizeEnable: true
+    });
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+    });
+    function onComplete(data) {
+    	console.log('经度：' + data.position.getLng() + '纬度：' + data.position.getLat());
+    	var obj = {
+    		lng: data.position.getLng(),
+    		lat: data.position.getLat()
+    	};
+    	obj = JSON.stringify(obj);
+    	localStorage.setItem('nearState', obj);
+    }
+
+	mui.plusReady(function() {
+		var _path = "./pages/busHtmls/";
+		var subInfos = [{
+			url: _path + 'index.html',
+			id: 'index'
+		},{
+			url: _path + 'user.html',
+			id: 'user'
+		}];
+	var subStyles = {
+		top: '0',
+		bottom: '51px'
+	};
+	var getSubInfoById = function(infoList, id) {
+		var result = null;
+		for(var i = 0, len = infoList.length; i < len; i++) {
+			var _info = infoList[i];
+			if(_info.id === id) {
+				result = _info;
+				break;
+			}
+		}
+		return result;
+	};
+	var mainWv = plus.webview.currentWebview();
+	var activeTab = '';
+	var homeWv = plus.webview.create(subInfos[0].url, subInfos[0].id, subStyles);
+	mainWv.append(homeWv);
+	activeTab = subInfos[0].id;
+
+	mui('.mui-bar-tab').on('tap', 'a.mui-tab-item', function(e) {
+		var _self = this;
+		var targetTab = _self.getAttribute('data-id');
+		if(targetTab === activeTab) {
+			return;
+		}
+		var _subWv = plus.webview.getWebviewById(targetTab);
+		if(!_subWv) {
+			var _subInfo = getSubInfoById(subInfos, targetTab);
+			_subWv = plus.webview.create(_subInfo.url, _subInfo.id, subStyles);
+			mainWv.append(_subWv);
+		}
+		_subWv.show();
+		plus.webview.getWebviewById(activeTab).hide('none');
+		activeTab = targetTab;
+	})
+	})
+</script>

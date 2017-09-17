@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busNum">
+		<header class="mui-bar mui-bar-nav">
+	    	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <div class="mui-input-row sub-searchInput">
+		        <input type="text" v-model="searchMore" id="keyword" name="keyword" autofocus="autofocus" class="mui-input-clear" placeholder="请输入内容" @input="busInfos(inputType)" />
+		    </div>
+	</header>
+	<div class="mui-content">
+		<div class="mui-content-businfo">
+			<ul class="mui-table-view">
+				 <li class="mui-table-view-cell" v-for="item in items" @click="busNumInfo(item.name)">
+				 	<span class="mui-icon mui-icon-location"></span>
+				 	{{item.name}}
+				 </li>
+			</ul>
+		</div>
+	</div>
+	</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busNum',
+		data: {
+			items: [],
+			searchMore: '',
+			inputType: '',
+		},
+		mounted() {
+			var self = this;
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui.plusReady(function() {
+				var value = plus.webview.currentWebview().name;
+				var type = plus.webview.currentWebview().type;
+				self.searchMore = value;
+				self.inputType = type;
+				self.busInfos(type);
+			});
+
+		},
+		methods: {
+			busNumInfo: function(name) {
+				mui.openWindow({
+					url: 'sub3.html',
+					id: 'sub3',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						name: name
+					}
+				})
+			},
+			busInfos: function(type) {
+				var _type;
+				if(type == 'bus') {
+					_type = 'busline';
+				} else if(type == 'station') {
+					_type = 'bus'
+				} else {
+					_type = 'poi';
+				}
+				var self = this,
+					keywords = self.searchMore,
+					_url;
+				_url = "v3/assistant/inputtips?key=e00e7ed74876f674fa2f01bf36f429c8&keywords="+keywords+"&city=宁波&datatype="+_type+"&citylimit=true";
+				console.log(_url);
+				self.items = [];
+				fc.ajax(_url, 'get').done(function(data) {
+					data.tips.forEach(function(v, i, a) {
+						var obj = {};
+						obj.name = v.name;
+						self.items.push(obj);
+					})
+				}).fail(function(error) {
+					mui.toast('error');
+				});
+			}
+		}
+	})
+</script>

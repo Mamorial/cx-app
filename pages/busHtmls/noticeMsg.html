@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="noticeMsg">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">返回</button>
+			    <h1 class="mui-title">公告</h1>
+			</header>
+			<div class="mui-content">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media" @click="noticeMsgInfo">
+						<a class="mui-navigate-right">
+							<img class="mui-media-object mui-pull-left" src="../../images/logo.png">
+							<div class="mui-media-body" style="line-height: 45px;">
+								161路站牌变更提醒
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#noticeMsg',
+		data: {
+			
+		},
+		mounted() {
+			
+		},
+		methods: {
+			//公告提示详情
+			noticeMsgInfo: function() {
+				mui.openWindow({
+					url: 'noticeMsgInfo.html',
+					id: 'noticeMsgInfo',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					}
+				})
+			}
+		}
+	})
+</script>

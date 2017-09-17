@@ -1,0 +1,20 @@
+<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	<h1>this is user page</h1>
+<script src="../../js/foot.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+// H5 plus事件处理
+function plusReady(){
+	// 弹出系统选择按钮框
+	var actionbuttons=[{title:"不同意",style:"destructive"},{title:"1"},{title:"2"},{title:"3"}];
+	var actionstyle={title:"Plus is ready!",cancel:"取消",buttons:actionbuttons};
+	plus.nativeUI.actionSheet({title:"Plus is ready!",cancel:"取消",actionstyle, function(e){
+		console.log( "User pressed: "+e.index );
+	}
+});
+	}
+if(window.plus){
+	plusReady();
+}else{
+	document.addEventListener("plusready",plusReady,false);
+}
+		</script>

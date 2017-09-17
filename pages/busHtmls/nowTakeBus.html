@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busTecket">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="-blue mui-btn-link mui-btn-nav mui-pull-left">返回</button>
+			    <h1 class="mui-title">公交乘车</h1>
+			    <a class="mui-icon mui-icon-right-nav mui-pull-right mui-icon-camera"></a>
+			</header>
+			<div class="mui-content bustecketCon">
+				<div class="bus-tecket">
+					<div class="bus-tecket-top">
+						<div class="bus-tecket-topL">
+							<span>出行金额: 10元</span>
+							<span>姓名</span>
+						</div>
+						<div class="bus-tecket-topR">
+							<img src="../../images/logo.png" />
+						</div>
+					</div>
+					<div class="bus-tecket-bottom">
+						NO.3155801080
+					</div>
+				</div>
+				<div class="bus-rcode">
+					<div class="bus-rcode-img">
+						<div id="qrcode" class="qrcode"></div>
+					</div>
+					<div class="bus-rcode-tip">
+						消费码，每分钟自动刷新，限当页使用
+					</div>
+				</div>
+				<div class="mui-button-row bus-tecket-in">
+					<button class="mui-btn-primary">充值</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busTecket',
+		data: {
+			qrcodeUrl: ''
+		},
+		mounted() {
+			var self = this;
+			this.qrcodeUrl = "www.baidu.com";
+				mui.init();
+				mui.plusReady(function(){
+					self.makrQRCode();
+				})
+		},
+		methods: {
+			makrQRCode: function() {
+				$('.qrcode').qrcode(this.qrcodeUrl);
+			}
+		}
+	})
+</script>
+<style type="text/css">
+	#busTecket, body, html{
+		height: 100%;
+	}
+	.bustecketCon{
+		height: 100%;
+		background: #E7E7E7;
+	}
+	.bus-tecket{
+		width: 300px;
+		height: auto;
+		border: 1px solid #CFCFCF;
+		box-shadow: 0 0 2px #CFCFCF;
+		margin: 15px auto;
+		border-radius: 5px;
+		padding: 10px;
+		background: #fff;
+	}
+	.bus-tecket-top{
+		width: 100%;
+		height: auto;
+		border-bottom: 1px dotted #CCCCCC;
+		overflow: hidden;
+		padding: 0 0 10px 0;
+	}
+	.bus-tecket-topL{
+		width: 70%;
+		height: auto;
+		float: left;
+	}
+	.bus-tecket-topL span{
+		display: block;
+		width: 100%;
+		font-size: 15px;
+	}
+	.bus-tecket-topL span:nth-of-type(1) {
+		color: #4CABF1;
+	}
+	.bus-tecket-topR{
+		width: 20%;
+		height: auto;
+		float: right;
+	}
+	.bus-tecket-topR img{
+		width: 100%;
+		height: 50px;
+	}
+	.bus-tecket-bottom{
+		width: 100%;
+		height: auto;
+		color: #4CABF1;
+		padding: 3px 0 0 0;
+	}
+	.bus-rcode{
+		width: 90%;
+		height: auto;
+		overflow: hidden;
+		margin: 50px auto;
+		overflow: hidden;
+	}
+	.bus-rcode-img {
+		width: 100%;
+		height: auto;
+		text-align: center;
+		overflow: hidden;
+	}
+	.bus-rcode-img .qrcode {
+		width: auto;
+		height: auto;
+		text-align: center;
+		margin: auto;
+	}
+	.bus-rcode-img .qrcode > canvas{
+		width: 150px;
+		height: 150px;
+	}
+	.bus-rcode-tip{
+		width: 100%;
+		height: auto;
+		text-align: center;
+		margin-top: 10px;
+		color: #9E9E9E;
+	}
+	.bus-tecket-in{
+		width: 100%;
+		text-align: center;
+		position: absolute;
+		bottom: 10px;
+	}
+	.bus-tecket-in button{
+		width: 70%;
+		height: 45px;
+		background: #1B99F0;
+	}
+</style>

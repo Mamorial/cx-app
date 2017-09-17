@@ -1,0 +1,176 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="index-vue">
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">慈溪行</h1>
+		</header>
+		<div id="slider" class="mui-slider" style="height: 220px;margin-top: 45px;">
+			<div class="mui-slider-group mui-slider-loop">
+			<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="../../images/yuantiao.jpg">
+				</a>
+			</div>
+			<!-- 第一张 -->
+			<div class="mui-slider-item">
+				<a href="#">
+					<img src="../../images/shuijiao.jpg">
+				</a>
+			</div>
+			<!-- 第二张 -->
+			<div class="mui-slider-item">
+				<a href="#">
+					<img src="../../images/muwu.jpg">
+				</a>
+			</div>
+			<!-- 第三张 -->
+			<div class="mui-slider-item">
+				<a href="#">
+					<img src="../../images/cbd.jpg">
+				</a>
+			</div>
+			<!-- 第四张 -->
+			<div class="mui-slider-item">
+				<a href="#">
+					<img src="../../images/yuantiao.jpg">
+				</a>
+			</div>
+			<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="../../images/shuijiao.jpg">
+				</a>
+			</div>
+		</div>
+		<div class="mui-slider-indicator">
+			<div class="mui-indicator mui-active"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+		</div>
+		</div>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-grid-view mui-grid-9">
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2 index-tar-li" v-for="itemBar in index_tabBar">
+				    <a :id="itemBar.bar_id" @click="indexBarIn(itemBar.bar_href, itemBar.bar_id)">
+				        <span class="mui-icon mui-icon-home"></span>
+				        <!--<img src="../../images/logo.png" style="width: 50%;"/>-->
+				        <div class="mui-media-body">{{itemBar.bar_name}}</div>
+				    </a>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#index-vue',
+		data: {
+			index_tabBar: []
+		},
+		mounted() {
+			var slider = mui("#slider"),
+				self = this;
+			slider.slider({
+				interval: 3000
+			});
+			this.init();
+		},
+		methods: {
+			//初始化
+			init: function() {
+				var self = this;
+				this.index_tabBar = [{
+					bar_href: 'nowTakeBus.html',
+					bar_id: 'nowTakeBus',
+					bar_name: '公交乘车'
+				},{
+					bar_href: 'busTake.html',
+					bar_id: 'busTake',
+					bar_name: '公交查询'
+				},{
+					bar_href: 'busSelfOrder.html',
+					bar_id: 'busSelfOrder',
+					bar_name: '公交定制'
+				},{
+					bar_href: 'busTake.html',
+					bar_id: 'busTake',
+					bar_name: '旅游包车'
+				},{
+					bar_href: 'busTake.html',
+					bar_id: 'busTake',
+					bar_name: '定制包车'
+				},{
+					bar_href: 'busTake.html',
+					bar_id: 'busTake',
+					bar_name: '长途售票'
+				},{
+					bar_href: 'busTake.html',
+					bar_id: 'busTake',
+					bar_name: '长途查询'
+				},{
+					bar_href: 'busTake.html',
+					bar_id: 'busTake',
+					bar_name: '投诉'
+				}];
+			},
+			//模块进入
+			indexBarIn: function(url, id) {
+				mui.openWindow({
+					url: url,
+					id: id,
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					}
+				})
+			}
+		}
+	})
+</script>
+<style type="text/css">
+	.index-tar-li{
+		margin: 5px!important;
+		width: calc(100% / 4 - 10px)!important;
+		padding: 0!important;
+		border-radius: 5px;
+	}
+	.index-tar-li:nth-of-type(1) {
+		background: #1B99F0!important;
+	}
+	.index-tar-li:nth-of-type(2) {
+		background: #3CBFA0!important;
+	}
+	.index-tar-li:nth-of-type(3) {
+		background: #F67D48!important;
+	}
+	.index-tar-li:nth-of-type(4) {
+		background: #AA72D3!important;
+	}
+	.index-tar-li:nth-of-type(5) {
+		background: #AA72D3!important;
+	}
+	.index-tar-li:nth-of-type(6) {
+		background: #F67D48!important;
+	}
+	.index-tar-li:nth-of-type(7) {
+		background: #3CBFA0!important;
+	}
+	.index-tar-li:nth-of-type(8) {
+		background: #1B99F0!important;
+	}
+	.index-tar-li a span, .index-tar-li a div{
+		color: #fff!important;
+	}
+</style>
