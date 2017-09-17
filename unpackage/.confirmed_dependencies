@@ -302,7 +302,8 @@
 			"pages/busHtmls/test.html",
 			"js/mui.pullToRefresh.js",
 			"js/mui.picker.min.js",
-			"css/mui.picker.min.css"
+			"css/mui.picker.min.css",
+			"js/mui.pullToRefresh.material.js"
 		],
 		"refer": [
 			"pages/busHtmls/busTake.html",
