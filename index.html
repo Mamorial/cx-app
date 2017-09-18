@@ -18,29 +18,6 @@
 	</body>
 </html>
 <script type="text/javascript">
-	var pageUrl = './pages/busHtmls/';
-	mui.init({
-		//预加载
-		preloadPages: [{
-			url: pageUrl + 'busTake.html',
-			id: 'busTake'
-		},{
-			url: pageUrl + 'userCollIndex.html',
-			id: 'userCollIndex'
-		},{
-			url: pageUrl + 'search.html',
-			id: 'search'
-		},{
-			url: pageUrl + 'nowTakeBus.html',
-			id: 'nowTakeBus'
-		},{
-			url: pageUrl + 'busSelfOrder.html',
-			id: 'busSelfOrder'
-		},{
-			url: pageUrl + 'makeSelfOrder.html',
-			id: 'makeSelfOrder'
-		}]
-	})
 	var map = new AMap.Map('', {
         resizeEnable: true
     });
@@ -93,6 +70,7 @@
 	var mainWv = plus.webview.currentWebview();
 	var activeTab = '';
 	var homeWv = plus.webview.create(subInfos[0].url, subInfos[0].id, subStyles);
+	fc.preLoadPagesTab();
 	mainWv.append(homeWv);
 	activeTab = subInfos[0].id;
 
@@ -112,5 +90,13 @@
 		plus.webview.getWebviewById(activeTab).hide('none');
 		activeTab = targetTab;
 	})
+	setTimeout(function(){
+        var array = plus.webview.all();
+        if(array){
+            for(var i=0,len=array.length;i<len;i++){
+                    console.log('所有加载页面的URL' + array[i].getURL());
+                }
+        }
+    },5000)
 	})
 </script>

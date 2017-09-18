@@ -23,34 +23,41 @@
 		el: '#nearMap',
 		data: {
 			map: '',
-			marker: ''
+			marker: '',
+			dist: ''     //范围半径
 		},
-		mounted() {
+		mounted: function() {
 			var self = this;
 			var _location = localStorage.getItem('nearState');
 		    _location = JSON.parse(_location);
 		    var lnglatXY = [_location.lng, _location.lat]; //已知点坐标
+		    mui.plusReady(function() {
+				self.dist = plus.webview.currentWebview().dist;
+				console.log(self.dist);
+			});
 			self.map = new AMap.Map("container", {
 		        resizeEnable: true
 		    });
-		    AMap.service(["AMap.PlaceSearch"], function() {
+		    setTimeout(function() {
+		    	AMap.service(["AMap.PlaceSearch"], function() {
 	        	var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
-		            pageSize: 5,
+		            pageSize: 50,
 		            type: '公交',
 		            pageIndex: 1,
 		            city: "宁波", //城市
 		            map: self.map
 		        });
-	        
-	        placeSearch.searchNearBy('', lnglatXY, 500, function(status, result) {
-	
-	        });
-	        this.marker = new AMap.Marker({
-	            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-	            position: lnglatXY
-	        });
-	        this.marker.setMap(self.map);
-	    });
+		        console.log(self.dist);
+		        placeSearch.searchNearBy('', lnglatXY, self.dist, function(status, result) {
+		        	
+		        });
+		        this.marker = new AMap.Marker({
+		            icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
+		            position: lnglatXY
+		        });
+		        this.marker.setMap(self.map);
+		    });
+		    }, 1000)
 		},
 		methods: {
 			

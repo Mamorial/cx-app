@@ -104,13 +104,14 @@
 				total: 2
 			}
 		},
-		mounted() {
+		mounted: function() {
 			var self = this;
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
 			mui.plusReady(function() {
-				var _name = plus.webview.currentWebview().name;
+				var _name = plus.webview.currentWebview().busName;
+				console.log(_name)
 				self.busName = _name;
 			});
 			this.init();

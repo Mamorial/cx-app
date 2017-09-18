@@ -15,7 +15,7 @@
 	<div class="mui-content">
 		<div class="mui-content-businfo">
 			<ul class="mui-table-view">
-				 <li class="mui-table-view-cell" v-for="item in items" @click="busNumInfo(item.name)">
+				 <li class="mui-table-view-cell" v-for="item in items" @click="busNumInfo(item.name, item.fn)">
 				 	<span class="mui-icon mui-icon-location"></span>
 				 	{{item.name}}
 				 </li>
@@ -29,9 +29,10 @@
 	var app = new Vue({
 		el: '#busNum',
 		data: {
-			items: [],
-			searchMore: '',
-			inputType: '',
+			items: [],       //查询列表
+			searchMore: '',    // 关键字
+			inputType: '',   //输入框里的值  类型
+			placeType: ''
 		},
 		mounted() {
 			var self = this;
@@ -41,6 +42,7 @@
 			mui.plusReady(function() {
 				var value = plus.webview.currentWebview().name;
 				var type = plus.webview.currentWebview().type;
+				self.placeType = plus.webview.currentWebview().placeType;
 				self.searchMore = value;
 				self.inputType = type;
 				self.busInfos(type);
@@ -48,30 +50,68 @@
 
 		},
 		methods: {
-			busNumInfo: function(name) {
-				mui.openWindow({
-					url: 'sub3.html',
-					id: 'sub3',
-					show: {
-						duration: 300
-					},
-					waiting: {
-						autoshow: false,
-						title: '正在加载...'
-					},
-					extras: {
-						name: name
-					}
-				})
+			busNumInfo: function(name, ty) {
+				var self = this;
+				if(ty == 'bus') {
+					mui.openWindow({
+						url: 'busRoute.html',
+						id: 'busRoute',
+						show: {
+							duration: 300
+						},
+						waiting: {
+							autoshow: false,
+							title: '正在加载...'
+						},
+						extras: {
+							busName: name
+						}
+					})
+				} else if(ty == 'station') {
+					mui.openWindow({
+						url: 'stationInfo.html',
+						id: 'stationInfo',
+						show: {
+							duration: 300
+						},
+						waiting: {
+							autoshow: false,
+							title: '正在加载...'
+						},
+						extras: {
+							name: name
+						}
+					})
+				} else {
+					mui.openWindow({
+						url: 'busRouteInfo.html',
+						id: 'busRouteInfo',
+						show: {
+							duration: 300
+						},
+						waiting: {
+							autoshow: false,
+							title: '正在加载...'
+						},
+						extras: {
+							name: name,
+							type: self.placeType
+						}
+					})
+				}
+				
 			},
 			busInfos: function(type) {
-				var _type;
+				var _type,fn;
 				if(type == 'bus') {
 					_type = 'busline';
+					fn = 'bus';
 				} else if(type == 'station') {
-					_type = 'bus'
+					_type = 'bus';
+					fn = 'station';
 				} else {
 					_type = 'poi';
+					fn = 'place';
 				}
 				var self = this,
 					keywords = self.searchMore,
@@ -83,6 +123,7 @@
 					data.tips.forEach(function(v, i, a) {
 						var obj = {};
 						obj.name = v.name;
+						obj.fn = fn;
 						self.items.push(obj);
 					})
 				}).fail(function(error) {

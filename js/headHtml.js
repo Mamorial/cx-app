@@ -8,6 +8,7 @@ var htm = '<meta name="viewport" content="width=device-width,initial-scale=1,min
 '		<script src="../../js/jquery-1.11.1.js"></script>'+
 '		<script src="../../js/jquery.qrcode.min.js"></script>'+
 '		<script src="../../js/common.js"></script>'+
+'		<script src="../../js/data.js"></script>'+
 '		<script src="../../js/vue2.0.js"></script>'+
 '		<script src="../../js/babel.js"></script>'+
 '		<script src="../../js/mui.min.js"></script>'+

@@ -56,12 +56,22 @@
 		</div>
 		</div>
 		<div class="mui-content">
-			<ul class="mui-table-view mui-grid-view mui-grid-9">
+			<ul class="mui-table-view mui-grid-view mui-grid-9 index-tab-showPre" v-if="showTar">
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
+			</ul>
+			<ul id="index-tab-show" class="mui-table-view mui-grid-view mui-grid-9 mui-hidden" v-else>
 				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2 index-tar-li" v-for="itemBar in index_tabBar">
 				    <a :id="itemBar.bar_id" @click="indexBarIn(itemBar.bar_href, itemBar.bar_id)">
 				        <span class="mui-icon mui-icon-home"></span>
 				        <!--<img src="../../images/logo.png" style="width: 50%;"/>-->
-				        <div class="mui-media-body">{{itemBar.bar_name}}</div>
+				        <div class="mui-media-body" v-cloak>{{itemBar.bar_name}}</div>
 				    </a>
 				</li>
 			</ul>
@@ -74,6 +84,7 @@
 	var app = new Vue({
 		el: '#index-vue',
 		data: {
+			showTar: true,
 			index_tabBar: []
 		},
 		mounted() {
@@ -88,44 +99,17 @@
 			//初始化
 			init: function() {
 				var self = this;
-				this.index_tabBar = [{
-					bar_href: 'nowTakeBus.html',
-					bar_id: 'nowTakeBus',
-					bar_name: '公交乘车'
-				},{
-					bar_href: 'busTake.html',
-					bar_id: 'busTake',
-					bar_name: '公交查询'
-				},{
-					bar_href: 'busSelfOrder.html',
-					bar_id: 'busSelfOrder',
-					bar_name: '公交定制'
-				},{
-					bar_href: 'test.html',
-					bar_id: 'test',
-					bar_name: '旅游包车'
-				},{
-					bar_href: 'busTake.html',
-					bar_id: 'busTake',
-					bar_name: '定制包车'
-				},{
-					bar_href: 'busTake.html',
-					bar_id: 'busTake',
-					bar_name: '长途售票'
-				},{
-					bar_href: 'busTake.html',
-					bar_id: 'busTake',
-					bar_name: '长途查询'
-				},{
-					bar_href: 'busTake.html',
-					bar_id: 'busTake',
-					bar_name: '投诉'
-				}];
+				this.index_tabBar = indexTabData;
+				setTimeout(function() {
+					self.showTar = false;
+					setTimeout(function() {
+						$("#index-tab-show").removeClass('mui-hidden');
+					}, 500)
+				}, 500)
 			},
 			//模块进入
 			indexBarIn: function(url, id) {
 				mui.openWindow({
-					url: url,
 					id: id,
 					show: {
 						duration: 300
@@ -140,6 +124,16 @@
 	})
 </script>
 <style type="text/css">
+	[v-cloak] {
+        display: none!important;
+    }
+    .index-tab-showPre li{
+    	height: 80px;
+    	background: #ccc!important;
+    	margin: 5px!important;
+		width: calc(100% / 4 - 10px)!important;
+		border-radius: 5px;
+    }
 	.index-tar-li{
 		margin: 5px!important;
 		width: calc(100% / 4 - 10px)!important;

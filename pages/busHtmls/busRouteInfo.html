@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busRoute" class="mui-content" style="overflow: hidden;">
+			<div class="routeL">
+				<div class="mui-input-row">
+					<input type="text" v-model="inputF" @click="inputPlace(inputF, 'topI')" placeholder="我的位置" />
+				</div>
+				<div class="mui-input-row">
+					<input type="text" v-model="inputC" @click="inputPlace(inputC, 'bottomI')" placeholder="请输入目的地" />
+				</div>
+	
+			</div>
+			<div class="routeR">
+				<button type="button" @click="exChange">换向</button>
+			</div>
+			<div class="bus_info">
+				<div class="title">
+					公交线路
+				</div>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media" v-for="item in busInfo">
+						<a href="javascript:;">
+							<span class="mui-icon mui-icon-arrowthindown mui-media-object mui-pull-left"></span>
+							<div class="mui-media-body">
+								<div>
+									{{item.name}}
+								</div>
+								<p class='mui-ellipsis'>乘车站：{{item.startStation}}</p>
+								<p class='mui-ellipsis'>下车站：{{item.endStation}}</p>
+							</div>
+						</a>
+					</li>
+	
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	 var app = new Vue({
+	 	el: '#busRoute',
+	 	data: {
+			inputF: '我的位置',
+			inputC: '',
+			busInfo: [],
+			startPlace: '',
+			endPlace: ''
+	 	},
+	 	mounted: function() {
+	 		var self = this;
+//	 		mui.init({
+//	 			preloadPages: [{
+//	 				url: 'searchInputPlace.html',
+//	 				id: 'searchInputPlace'
+//	 			}]
+//	 		})
+	 		mui.plusReady(function() {
+				var _name = plus.webview.currentWebview().name;
+				var type = plus.webview.currentWebview().type;
+				if(!_name) {
+					self.inputF = '我的位置';
+				} else {
+					if(type == 'radioS') {
+						self.inputF = _name;
+					} else {
+						self.inputC = _name;
+					}
+					
+				}
+				console.log(self.inputF);
+			});
+			window.addEventListener('refresh', function(e){//执行刷新
+
+				var val = e.detail.inputVal;
+				var type = e.detail.type;
+				console.log(type);
+				if(type == 'topI') {
+					self.inputF = val
+				} else if(type == 'bottomI') {
+					self.inputC = val
+				}
+				console.log(val);
+				self.init();
+			});
+	 		setTimeout(function() {
+	 			self.init();
+	 		}, 1000);
+	 	},
+	 	methods: {
+	 		init: function() {  //  初始化
+	 			var self = this;
+//	 			self.placeToLoc();
+	 			if(this.inputF == '我的位置') {
+	 				var _obj = localStorage.getItem('nearState');
+	 				_obj = JSON.parse(_obj);
+	 				self.startPlace = _obj.lng + ',' + _obj.lat;
+	 				console.log(self.startPlace);
+	 			} else {
+	 				self.placeToLoc('inputF', 'self.startPlace');
+	 			}
+	 			if(this.inputC == '我的位置') {
+	 				var _obj = localStorage.getItem('nearState');
+	 				_obj = JSON.parse(_obj);
+	 				self.endPlace = _obj.lng + ',' + _obj.lat;
+	 				console.log(self.endPlace);
+	 			} else {
+	 				self.placeToLoc('inputC', 'self.endPlace');
+	 			}
+
+	 			setTimeout(function() {
+	 				console.log('位置： ' + self.startPlace + '......' + self.endPlace);
+		 			if(self.startPlace && self.endPlace) {
+		 				var _url = "v3/direction/transit/integrated?key=e00e7ed74876f674fa2f01bf36f429c8&origin="+self.startPlace+"&destination="+self.endPlace+"&city=宁波&cityd=宁波&strategy=0&nightflag=0";
+		 				self.busInfo = [];
+		 				fc.ajax(_url, 'get').done(function(data) {
+							var bus = data.route.transits;
+							bus.forEach(function(v, i, a) {
+								var obj = {};
+								console.log(v.segments[0].bus);
+								obj.name = v.segments[0].bus.buslines[0].name;
+								obj.startStation = v.segments[0].bus.buslines[0].departure_stop.name;
+								obj.endStation = v.segments[0].bus.buslines[0].arrival_stop.name;
+								self.busInfo.push(obj);
+							})
+							mui.toast(bus.length);
+						}).fail(function(error) {
+							mui.toast('error');
+						});
+		 			}
+	 			}, 1000)
+	 		},
+	 		inputPlace: function(con, type) {   //  输入地名页面
+				mui.openWindow({
+					url: 'searchInputPlace.html',
+					id: 'searchInputPlace',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						name: con,
+						type: type
+					}
+				})
+	 		},
+	 		exChange: function() {  //起终点互换
+	 			var m;
+	 			m = this.inputF;
+	 			this.inputF = this.inputC;
+	 			this.inputC = m;
+	 			this.init();
+	 		},
+	 		placeToLoc: function(type, eara) {  //地理编码
+	 			console.log('执行了');
+	 			console.log(this.inputF);
+	 			var self = this,_type;
+	 			if(type == 'inputF') {
+	 				_type = self.inputF;
+//	 				eara = self.startPlace;
+	 			} else {
+	 				_type = self.inputC;
+//	 				eara = self.endPlace
+	 			}
+	 			setTimeout(function() {
+	 				console.log('eara = ' + _type);
+	 				var _url = "v3/geocode/geo?key=e00e7ed74876f674fa2f01bf36f429c8&address="+_type+"&city=宁波";
+	 				fc.ajax(_url, 'get').done(function(data) {
+	 					console.log(data.geocodes[0].location);
+	 					if(type == 'inputF') {
+	 						self.startPlace = data.geocodes[0].location;
+	 					} else if(type == 'inputC') {
+	 						self.endPlace = data.geocodes[0].location;
+	 					}
+//						console.log(eara);
+					}).fail(function(error) {
+						mui.toast('error');
+					});
+	 			}, 500)
+	 		}
+	 	}
+	 })
+</script>
+<style type="text/css">
+	.routeL{
+		width: 80%;
+		height: auto;
+		float: left;
+		padding: 10px 0;
+	}
+	.routeL input{
+		color: blue;
+	}
+	.routeR{
+		float: left;
+		width: 20%;
+		padding: 10px 3px;
+		height: auto;
+		margin-top: 30px
+	}
+	.bus_info{
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+	}
+</style>

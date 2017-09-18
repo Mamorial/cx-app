@@ -245,7 +245,8 @@
 					"pages/busHtmls/sub1.html",
 					"js/common.js",
 					"pages/busHtmls/index.html",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"js/data.js"
 				],
 				"refer": [
 					"pages/busHtmls/sub3.html",
@@ -257,7 +258,19 @@
 					"pages/busHtmls/userCollIndex.html",
 					"pages/busHtmls/nowTakeBus.html",
 					"pages/busHtmls/busSelfOrder.html",
-					"pages/busHtmls/makeSelfOrder.html"
+					"pages/busHtmls/makeSelfOrder.html",
+					"pages/busHtmls/userCollList.html",
+					"pages/busHtmls/nearMap.html",
+					"pages/busHtmls/stationInfo.html",
+					"pages/busHtmls/noticeMsg.html",
+					"pages/busHtmls/busMakeInfo.html",
+					"pages/busHtmls/busRoute.html",
+					"pages/busHtmls/test2.html",
+					"pages/busHtmls/makeSelfBus.html",
+					"pages/busHtmls/complaint.html",
+					"pages/busHtmls/longDistanceTicket.html",
+					"pages/busHtmls/tourBus.html",
+					"pages/busHtmls/longDistanceSearch.html"
 				],
 				"priority": 0
 			},
@@ -334,12 +347,17 @@
 					"js/vue2.0.js",
 					"js/jquery.qrcode.min.js",
 					"js/foot.js",
-					"js/babel.js"
+					"js/babel.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js"
 				],
 				"refer": [
 					"pages/busHtmls/busRoute.html",
 					"pages/busHtmls/busMore.html",
-					"pages/busHtmls/stationInfo.html"
+					"pages/busHtmls/stationInfo.html",
+					"pages/busHtmls/busRouteInfo.html"
 				],
 				"priority": 0
 			},
@@ -359,7 +377,10 @@
 				],
 				"refer": [
 					"pages/busHtmls/busMap.html",
-					"pages/busHtmls/sub3.html"
+					"pages/busHtmls/sub3.html",
+					"pages/busHtmls/busRoute.html",
+					"pages/busHtmls/stationInfo.html",
+					"pages/busHtmls/busRouteInfo.html"
 				],
 				"priority": 0
 			},
@@ -529,7 +550,10 @@
 					"js/foot.js",
 					"js/babel.js",
 					"js/headHtml.js",
-					"js/mui.pullToRefresh.js"
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js"
 				],
 				"refer": [
 					"pages/busHtmls/busMap.html"
@@ -552,7 +576,12 @@
 					"js/mui.pullToRefresh.js",
 					"js/mui.picker.min.js",
 					"css/mui.picker.min.css",
-					"js/mui.pullToRefresh.material.js"
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js",
+					"js/mui.min.js",
+					"js/jquery-1.11.1.js",
+					"js/vue2.0.js",
+					"js/babel.js"
 				],
 				"refer": [
 					"pages/busHtmls/nowTakeBus.html"
@@ -582,7 +611,16 @@
 					"pages/busHtmls/userCollIndex.html",
 					"css/main.css",
 					"js/jquery-1.11.1.js",
-					"js/babel.js"
+					"js/babel.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js"
 				],
 				"refer": [
 					"pages/busHtmls/nearMap.html",
@@ -590,7 +628,8 @@
 					"pages/busHtmls/test.html",
 					"pages/busHtmls/noticeMsg.html",
 					"pages/busHtmls/stationInfo.html",
-					"pages/busHtmls/busRoute.html"
+					"pages/busHtmls/busRoute.html",
+					"pages/busHtmls/search.html"
 				],
 				"priority": 0
 			},
@@ -637,7 +676,10 @@
 					"js/jquery.qrcode.min.js",
 					"js/foot.js",
 					"js/headHtml.js",
-					"js/mui.pullToRefresh.js"
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -651,13 +693,20 @@
 			},
 			"pages/busHtmls/nowTakeBus.html": {
 				"resources": [
-					"images/logo.png"
+					"images/logo.png",
+					"js/mui.min.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/babel.js"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"pages/busHtmls/busSelfOrder.html": {
-				"resources": [],
+				"resources": [
+					"js/babel.js"
+				],
 				"refer": [
 					"pages/busHtmls/busMakeInfo.html",
 					"pages/busHtmls/makeSelfOrder.html"
@@ -675,7 +724,9 @@
 					"js/vue2.0.js",
 					"js/jquery.qrcode.min.js",
 					"js/babel.js",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"js/mui.pullToRefresh.material.js",
+					"images/logo.png"
 				],
 				"refer": [
 					"pages/busHtmls/noticeMsgInfo.html"
@@ -693,9 +744,36 @@
 					"js/vue2.0.js",
 					"js/jquery.qrcode.min.js",
 					"js/babel.js",
+					"js/headHtml.js",
+					"js/mui.pullToRefresh.material.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/busMakeInfo.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/jquery.qrcode.min.js",
+					"js/babel.js",
 					"js/headHtml.js"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/busRouteInfo.html": {
+				"resources": [
+					"js/babel.js"
+				],
+				"refer": [
+					"pages/busHtmls/searchInputPlace.html"
+				],
 				"priority": 0
 			}
 		},

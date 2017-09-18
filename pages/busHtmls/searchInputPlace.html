@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="inputResult">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <input v-model="inputCon" type="text" class="mui-input-clear searchInput" autofocus="autofocus" @input="queryPlace" />
+			    <a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" @click="busMap">确定</a>
+			</header>
+			<div class="mui-content">
+				<div class="mui-content-businfo">
+					<ul class="mui-table-view">
+						 <li class="mui-table-view-cell" v-for="item in items" @click="busNumInfo(item.name)">
+						 	<span class="mui-icon mui-icon-location"></span>
+						 	{{item.name}}
+						 </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#inputResult',
+		data: {
+			inputCon: '',
+			items: [],
+			inputType: ''
+		},
+		mounted() {
+			var self = this;
+			mui.plusReady(function() {
+				var _name = plus.webview.currentWebview().name;
+				var _type = plus.webview.currentWebview().type;
+				self.inputCon = _name;
+				self.inputType = _type;
+				console.log("type = " + self.inputType);
+			});
+			mui.init({
+			    beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var list = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(list, 'refresh', {
+			        	inputVal: self.inputCon,
+			        	type: self.inputType,
+			        });
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+		},
+		methods: {
+			queryPlace: function() {
+				var self = this,
+					keywords = this.inputCon,
+					_url;
+				_url = "v3/assistant/inputtips?key=e00e7ed74876f674fa2f01bf36f429c8&keywords="+keywords+"&city=宁波&datatype=poi|bus&citylimit=true";
+				console.log(keywords);
+				self.items = [];
+				fc.ajax(_url, 'get').done(function(data) {
+					data.tips.forEach(function(v, i, a) {
+						var obj = {};
+						obj.name = v.name;
+						self.items.push(obj);
+					})
+				}).fail(function(error) {
+					mui.toast('error');
+				});
+			},
+			busNumInfo: function(name) {
+				this.inputCon = name;
+			},
+			busMap: function() {
+				mui.back();
+			}
+		}
+	})
+</script>
+<style type="text/css">
+	.searchInput{
+		width: 60%!important;
+		border: none!important;
+		margin-top: 2px!important;
+		background: none!important;
+	}
+</style>
