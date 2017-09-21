@@ -17,7 +17,9 @@
       "js/data.js",
       "dist/js/main.min.js",
       "dist/js/main.js",
-      "js/headTest.js"
+      "js/headTest.js",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf"
     ],
     "refer": [
       "pages/busHtmls/sub1.html",
@@ -181,7 +183,14 @@
       "js/babel.js",
       "js/jquery-1.11.1.js",
       "js/vue2.0.js",
-      "js/mui.min.js"
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/headHtml.js"
     ],
     "refer": []
   },
@@ -344,7 +353,8 @@
       "js/jquery-1.11.1.js",
       "js/vue2.0.js",
       "js/babel.js",
-      "js/common.js"
+      "js/common.js",
+      "images/banner1.jpg"
     ],
     "refer": [
       "pages/busHtmls/busTake.html",
@@ -544,7 +554,18 @@
   },
   "pages/busHtmls/busRouteInfo.html": {
     "resources": [
-      "js/babel.js"
+      "js/babel.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/headHtml.js"
     ],
     "refer": [
       "pages/busHtmls/searchInputPlace.html"

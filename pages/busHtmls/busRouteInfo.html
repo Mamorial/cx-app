@@ -13,61 +13,271 @@
 			    <h1 class="mui-title">线路规划</h1>
 			</header>
 			<div class="mui-content" style="overflow: hidden;">
-				<div class="routeL">
-					<div class="mui-input-row">
-						<input type="text" v-model="inputF" @click="inputPlace(inputF, 'topI')" placeholder="我的位置" />
-					</div>
-					<div class="mui-input-row">
-						<input type="text" v-model="inputC" @click="inputPlace(inputC, 'bottomI')" placeholder="请输入目的地" />
-					</div>
-		
+				<div class="title">
+					路线规划
 				</div>
-				<div class="routeR">
-					<button type="button" @click="exChange">换向</button>
+				<div style="width: 95%;height: auto;overflow: hidden;background: #fff;padding: 0 0 10px 10px;border-radius: 5px;margin: auto;">
+					<div class="routeL">
+						<div class="mui-input-row">
+							<div @click="inputPlace(inputF, 'topI')" style="width: 100%;height: auto;padding: 10px;border-bottom: 1px solid #F4F4F4;">{{inputF}}</div>
+							<!--<input type="text" v-model="inputF" @click="inputPlace(inputF, 'topI')" placeholder="我的位置" style="border-radius: 0;border-top: none;border-left: none;border-right: none;" />-->
+						</div>
+						<div class="mui-input-row">
+							<div @click="inputPlace(inputC, 'bottomI')" style="width: 100%;height: auto;padding: 10px;border-bottom: 1px solid #F4F4F4;">{{inputC}}</div>
+							<!--<input type="text" v-model="inputC" @click="inputPlace(inputC, 'bottomI')" placeholder="请输入目的地" />-->
+						</div>
+					</div>
+					<div class="routeR" style="">
+						<span @click="exChange" class="mui-icon iconfont icon-timerIcon" style="width: 100%;display: block;text-align: center;font-size: 30px;color: #4EC3F8;"></span>
+					</div>
 				</div>
-				<div class="bus_info">
+				<!--历史规划列表-->
+				<div v-show="showHisList">
+					<div class="title">
+						历史规划
+					</div>
+					<ul class="mui-table-view search-result-list">
+						<li class="mui-table-view-cell">
+						 	<span class="mui-icon iconfont icon-lishijilu"></span>
+						 	<label>鄞州万达-->印象城</label>
+						 	<span class="mui-icon mui-icon-clear mui-pull-right serach-li-clear"></span>
+						 </li>
+						 <li class="mui-table-view-cell">
+						 	<span class="mui-icon iconfont icon-lishijilu"></span>
+						 	<label>鄞州万达-->印象城</label>
+						 	<span class="mui-icon mui-icon-clear mui-pull-right serach-li-clear"></span>
+						 </li>
+						 <li class="mui-table-view-cell his-search-clearAll" style="text-align: center;">
+						 	更多历史记录
+						 </li>
+						 <li class="mui-table-view-cell his-search-clearAll" style="text-align: center;">
+						 	清空搜索记录
+						 </li>
+					</ul>
+				</div>
+				<div class="bus_info" v-show="!showHisList">
 					<div class="title">
 						公交线路
 					</div>
-					<ul class="mui-table-view" v-show="busRouteList">
-						<li class="mui-table-view-cell mui-media" v-for="item in busInfo">
+					<ul class="bus-route-list">
+						<li>
+							<div class="bus-li-btn">
+								<span>现在出发</span>
+								<span class="mui-icon iconfont icon-liebiao"></span>
+							</div>
+							<div class="btn-li-btn-border"><span></span></div>
+							<div class="bus-li-btn">
+								<span>时间短</span>
+								<span class="mui-icon iconfont icon-liebiao"></span>
+							</div>
+						</li>
+						<li class="search-bus-listLi" v-for="bus in busInfo">
+							<div class="bus-list-top">
+								<div class="bus-list-top-L">
+									<div class="bus-list-topL-left">
+										<span>{{bus.start_bus}}</span>
+									</div>
+									<div class="bus-list-topL-right">
+										<span>{{bus.start_station}}上车</span>
+										<span>{{bus.all_stations}}站 • {{bus.cost}}元</span>
+										<span>{{bus.all_times}}分钟 • {{bus.all_distance}}</span>
+									</div>
+								</div>
+								<div class="bus-list-top-R">
+									<span>距到站</span>
+									<span><b>15</b>分钟 • 3站</span>
+									<span>末班车时间20:00</span>
+								</div>
+							</div>
+							<div class="bus-list-bottom">
+								<div class="bus-list-bottom-buss" v-for="buss in bus.bus">
+									<div class="bus-list-bottom-bussB">
+										{{buss.name}}
+									</div>
+									<div class="bus-list-bottom-bussI">
+										<span class="mui-icon iconfont icon-changjiantou"></span>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="bus-li-btn bus-li-btnC">
+								<span class="mui-icon iconfont icon-jiucuo"></span>
+								<span>路线纠错</span>
+							</div>
+							<div class="btn-li-btn-border"><span></span></div>
+							<div class="bus-li-btn bus-li-btnC">
+								<span class="mui-icon iconfont icon-wentibuchong"></span>
+								<span>路线补充</span>
+							</div>
+						</li>
+					</ul>
+					<!--<ul class="mui-table-view" v-show="busRouteList" style="width: 95%;margin: auto;border-radius: 5px;">
+						<li style="width"></li>
+						<li class="mui-table-view-cell mui-media" v-for="buss in busInfo" @click="busRouteDetail">
 							<a href="javascript:;">
 								<span class="mui-icon mui-icon-arrowthindown mui-media-object mui-pull-left"></span>
 								<div class="mui-media-body">
 									<div class="listBus">
-										<div class="listBusList" v-for="bus in item">
-											<span>{{bus}}</span>
+										<div class="listBusList" v-for="busList in buss.bus">
+											<span>{{busList.name}}</span>
 											<span>></span>
 										</div>
 									</div>
-									<!--<p class='mui-ellipsis'>乘车站</p>
-									<p class='mui-ellipsis'>下车站</p>-->
 								</div>
 							</a>
 						</li>
-						<!--<li class="mui-table-view-cell mui-media" v-for="item in busInfo" @click="busRouteDetail">
-							<a href="javascript:;">
-								<span class="mui-icon mui-icon-arrowthindown mui-media-object mui-pull-left"></span>
-								<div class="mui-media-body">
-									<div>
-										{{item.name}}
-									</div>
-									<p class='mui-ellipsis'>乘车站：{{item.startStation}}</p>
-									<p class='mui-ellipsis'>下车站：{{item.endStation}}</p>
-								</div>
-							</a>
-						</li>-->
-					</ul>
-				</div>
+					</ul>-->
+				</div>  
 			</div>
 		</div>
 	</body>
 </html>
 <style type="text/css">
+	/*搜索结果展示列表*/
+	ul li{
+		list-style: none;
+	}
+	.bus-route-list{
+		width: 95%;height: auto;border-radius: 5px;background: #fff;border-radius: 5px;
+	}
+	.bus-route-list li{
+		padding: 5px;
+		width: 100%;
+		height: auto;
+		border-bottom: 1px solid #E7E7E7;
+		overflow: hidden;
+	}
+	.bus-route-list li:last-child{
+		border: none;
+	}
+	.bus-route-list li .btn-li-btn-border{
+		width: 2%;
+		height: 35px;
+		float: left;
+		text-align: center;
+	}
+	.bus-route-list li .btn-li-btn-border span{
+		width: 1px;
+		height: 100%;
+		display: block;
+		background: #E7E7E7;
+		margin: auto;
+	}
+	.bus-route-list li .bus-li-btn{
+		width: 49%;
+		height: auto;
+		text-align: center;
+		line-height: 40px;
+		float: left;
+	}
+	.bus-route-list li .bus-li-btnC span{
+		color: #777777;
+	}
+	/*`````````````````````*/
+	.bus-list-top{
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+		padding: 10px;
+		border-bottom: 1px solid #E7E7E7;
+	}
+	.bus-list-top .bus-list-top-L{
+		width: 65%;
+		height: auto;
+		overflow: hidden;
+		float: left;
+		border-right: 1px solid #E7E7E7;
+	}
+	.bus-list-top .bus-list-top-L .bus-list-topL-left{
+		width: 70px;
+		height: 70px;
+		border: 1px solid #249DF1;
+		border-radius: 50%;
+		float: left;
+	}
+	.bus-list-top .bus-list-top-L .bus-list-topL-left span{
+		text-align: center;
+		line-height: 70px;
+		color: #249DF1;
+		font-size: 20px;
+		display: block;
+	}
+	.bus-list-top .bus-list-top-L .bus-list-topL-right{
+		margin-left: 80px;
+		
+	}
+	.bus-list-top .bus-list-top-L .bus-list-topL-right span{
+		width: 100%;
+		margin: 5px 0;
+		display: block;
+		font-size: 14px;
+	}
+	.bus-list-top .bus-list-top-R{
+		margin-left: 65%;
+		height: auto;
+		overflow: hidden;
+		padding-left: 10px;
+	}
+	.bus-list-top .bus-list-top-R span{
+		width: 100%;
+		display: block;
+		font-size: 15px;
+	}
+	.bus-list-top .bus-list-top-R span:nth-of-type(1) {
+		margin: 5px 0;
+		color: #818181;
+		font-size: 18px;
+	}
+	.bus-list-top .bus-list-top-R span:nth-of-type(2) {
+		color: #4EAEF4;
+	}
+	.bus-list-top .bus-list-top-R span:nth-of-type(3) {
+		color: #F56461;
+		font-size: 12px;
+	}
+	.bus-list-top .bus-list-top-R span b{
+		font-size: 20px;
+	}
+	.bus-list-bottom{
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+	}
+	.bus-list-bottom .bus-list-bottom-buss {
+		width: auto;
+		height: auto;
+		padding: 5px 0;
+		float: left;
+		overflow: hidden;
+	}
+	.bus-list-bottom .bus-list-bottom-bussB{
+		float: left;
+		font-size: 15px;
+		padding: 2px 5px;
+	}
+	.bus-list-bottom .bus-list-bottom-bussI{
+		float: left;
+	}
+	.bus-list-bottom .bus-list-bottom-bussI span{
+		font-size: 25px;
+	}
+	.bus-route-list .search-bus-listLi .bus-list-bottom .bus-list-bottom-buss:last-child .bus-list-bottom-bussI{
+		display: none;
+	}
+	/*`````````````````````*/
+	/*选择器*/
+	.search-select{
+		width: 100%;
+		height: auto;
+		border: 1px solid red;
+		position: relative;
+	}
+	/*bus 列表*/
 	.listBus{
 		overflow: hidden;
 		width: 100%;
-		border: 1px solid red;
+		/*border: 1px solid red;*/
 	}
 	.listBus div.listBusList{
 		float: left;
@@ -78,6 +288,7 @@
 	.listBus div.listBusList span{
 		display: block;
 		float: left;
+		padding: 0 2px;
 	}
 </style>
 <script type="text/javascript">
@@ -86,13 +297,66 @@
 	 	data: {
 			inputF: '我的位置',
 			inputC: '',
-			busInfo: [],
+			showHisList: false,
+//			busInfo: '',
+			busInfo: [{
+				all_stations: '3',
+				all_distance: '3',
+				all_times: '3',
+				cost: '3',
+				start_bus: '108路',
+				start_station: 'aaaaaa',
+				walking: {
+					origin: "121.616676,29.973415",
+					destination: "121.613350,29.979340",
+					steps: [],
+					distance: 892
+				},
+				bus: [{
+					name: '389路',
+					departure_stop: '',
+					arrival_stop: ''
+				},{
+					name: '39路',
+					departure_stop: '',
+					arrival_stop: ''
+				}]
+			},{
+				all_stations: '6',
+				all_distance: '6',
+				all_times: '6',
+				cost: '6',
+				start_bus: '118路',
+				start_station: 'bbbbbb',
+				walking: {
+					origin: "121.616676,29.973415",
+					destination: "121.613350,29.979340",
+					steps: [],
+					distance: 892,
+					duration: '',
+					steps: ''
+				},
+				bus: [{
+					name: '389路',
+					departure_stop: '',
+					arrival_stop: '',
+					duration: '',
+					via_num: ''
+				},{
+					name: '39路',
+					departure_stop: '',
+					arrival_stop: '',
+					duration: '',
+					via_num: ''
+				}]
+			}],
 			startPlace: '',
 			endPlace: '',
 			busRouteList: true     //公交线路列表
 	 	},
 	 	mounted: function() {
 	 		var self = this;
+	 		
 //	 		mui.init({
 //	 			preloadPages: [{
 //	 				url: 'searchInputPlace.html',
@@ -134,7 +398,7 @@
 	 	methods: {
 	 		init: function() {  //  初始化
 	 			var self = this;
-	 			plus.nativeUI.showWaiting( "加载中..." );
+	 			plus.nativeUI.showWaiting( "加载中..." ); 
 	 			if(this.inputF == '我的位置') {
 	 				var _obj = localStorage.getItem('nearState');
 	 				_obj = JSON.parse(_obj);
@@ -160,18 +424,44 @@
 		 				fc.ajax(_url, 'get').done(function(data) {
 							var bus = data.route.transits;
 							bus.forEach(function(v, i) {
-								var obj = [];
-								console.log(v.segments[0].bus);
-								
-								v.segments.forEach(function(k, i) {
-//									alert(k.bus.buslines[0].name)
-//									obj.name = [];
-									obj.push(k.bus.buslines[0].name);
-								})
-//								obj.name = v.segments[0].bus.buslines[0].name;
-//								obj.startStation = v.segments[0].bus.buslines[0].departure_stop.name;
-//								obj.endStation = v.segments[0].bus.buslines[0].arrival_stop.name;
-								self.busInfo.push(obj);
+								var obj = {
+									all_stations: '',
+									all_distance: '',
+									all_times: '',
+									cost: '',
+									start_bus: '',
+									start_station: '',
+									walking: {},
+									bus: []
+								};
+								var len = v.segments.length, stations = 0;
+								for(var j = 0; j < len; j++) {
+									var _obj = {},
+										_len = v.segments[j].bus.buslines.length;
+									console.log('j = ' + _len); 
+									if(_len) {
+										var _name = v.segments[j].bus.buslines[0].name;
+										stations = stations + parseInt(v.segments[j].bus.buslines[0].via_num);
+										_name = _name.split('(')[0];
+										_obj.name = _name;
+										obj.bus.push(_obj);
+									}
+								}
+								setTimeout(function() {
+									var _d = '';
+									if(v.distance > 1000) {
+										_d = (Math.round(v.distance/100)/10).toFixed(1) + '公里';
+									} else {
+										_d = v.distance + '米';
+									}
+									obj.all_stations = stations;
+									obj.all_distance = _d;
+									obj.all_times = Math.floor(parseInt(v.duration) / 60);
+									obj.cost = v.cost;
+									obj.start_station = v.segments[0].bus.buslines[0].departure_stop.name;
+									obj.start_bus = v.segments[0].bus.buslines[0].name.split('(')[0];
+									self.busInfo.push(obj);
+								}, 500);
 							})
 							mui.toast(bus.length);
 							self.busRouteList = true;
@@ -239,8 +529,8 @@
 					});
 	 			}, 200)
 	 		},
-	 		//路线详情
-	 		busRouteDetail: function() {
+	 		//路线详情  
+	 		busRouteDetail: function() { 
 	 			mui.openWindow({
 	 				url: 'busRouteDetail.html',
 					id: 'busRouteDetail',
@@ -277,5 +567,8 @@
 		width: 100%;
 		height: auto;
 		overflow: hidden;
+	}
+	.bus_info ul li div.listBusList:last-child span:nth-of-type(2) {
+		display: none;
 	}
 </style>

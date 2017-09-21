@@ -420,7 +420,14 @@
 					"js/babel.js",
 					"js/jquery-1.11.1.js",
 					"js/vue2.0.js",
-					"js/mui.min.js"
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js"
 				],
 				"refer": [],
 				"priority": 0

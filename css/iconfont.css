@@ -19,6 +19,8 @@
 
 .icon-lianhetuoguan:before { content: "\e633"; }
 
+.icon-changjiantou:before { content: "\e60a"; }
+
 .icon-icon1:before { content: "\e600"; }
 
 .icon-qiapian:before { content: "\e621"; }
@@ -31,6 +33,8 @@
 
 .icon-message:before { content: "\e612"; }
 
+.icon-liebiao:before { content: "\e605"; }
+
 .icon-dingzhi:before { content: "\e624"; }
 
 .icon-tousu:before { content: "\e652"; }
@@ -38,6 +42,8 @@
 .icon-tongyong:before { content: "\e808"; }
 
 .icon-lishijilu:before { content: "\e618"; }
+
+.icon-wentibuchong:before { content: "\e6c0"; }
 
 .icon-dingzhiaiche:before { content: "\e6d3"; }
 
@@ -79,6 +85,8 @@
 
 .icon-ft-bus:before { content: "\e734"; }
 
+.icon-changjiantou1:before { content: "\e606"; }
+
 .icon-qidian:before { content: "\e615"; }
 
 .icon-gongjiaozhanpai:before { content: "\e607"; }
@@ -86,5 +94,7 @@
 .icon-timerIcon:before { content: "\e609"; }
 
 .icon-shoucang2:before { content: "\e636"; }
+
+.icon-jiucuo:before { content: "\e6b6"; }
 
 
