@@ -6,12 +6,223 @@
 		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<div class="busRouteDetail">
+		<div id="busRouteDetail">
 			<header class="mui-bar mui-bar-nav">
 			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
 			    <h1 class="mui-title">路线详情</h1>
 			</header>
+			<div class="mui-content">
+				<div class="route-detail-top">
+					<div class="route-detail-top-T">
+						<ul>
+							<li>
+								<span class="mui-icon iconfont icon-gongjiaoche"></span>
+								<span>116路</span>
+								<span class="mui-icon iconfont icon-changjiantou"></span>
+							</li>
+							<li>
+								<span class="mui-icon iconfont icon-gongjiaoche"></span>
+								<span>116路</span>
+								<span class="mui-icon iconfont icon-changjiantou"></span>
+							</li>
+						</ul>
+					</div>
+					<div class="route-detail-top-B">
+						5公里  • 28分钟  • 步行150米  • 4元
+					</div>
+				</div>
+				<div class="route-detail-bottom">
+					<ul>
+						<li class="route-detail-liSE">
+							<span class="mui-icon iconfont icon-qidian"></span>
+							<span>起点</span>
+							<span>我的位置</span>
+						</li>
+						<div>
+							<li class="route-detail-liLT">
+								<span></span>
+								<span></span>
+							</li>
+							<li class="route-detail-liWalk">
+								<span class="mui-icon iconfont icon-buhang"></span>
+								<span>步行50米</span>
+								<span>为我带路</span>
+							</li>
+							<li class="route-detail-liLT">
+								<span></span>
+								<span></span>
+							</li>
+							<li class="route-detail-liBus">
+								<span class="mui-icon iconfont icon-gongjiaoche busIcon"></span>
+								<div class="route-detail-liBusDiv">
+									<div>118路</div>
+									<div>
+										<span>学士路（公交站）上车</span>
+										<span>日丽中路口（公交站）下车</span>
+									</div>
+									<div>
+										<span class="mui-icon iconfont icon-jiantou2-copy"></span>
+									</div>
+								</div>
+							</li>
+						</div>
+						<div>
+							<li class="route-detail-liLT">
+								<span></span>
+								<span></span>
+							</li>
+							<li class="route-detail-liWalk">
+								<span class="mui-icon iconfont icon-buhang"></span>
+								<span>步行50米</span>
+								<span>为我带路</span>
+							</li>
+							<li class="route-detail-liLT">
+								<span></span>
+								<span></span>
+							</li>
+							<li class="route-detail-liBus">
+								<span class="mui-icon iconfont icon-gongjiaoche busIcon"></span>
+								<div class="route-detail-liBusDiv">
+									<div>118路</div>
+									<div>
+										<span>学士路（公交站）上车</span>
+										<span>日丽中路口（公交站）下车</span>
+									</div>
+									<div>
+										<span class="mui-icon iconfont icon-jiantou2-copy"></span>
+									</div>
+								</div>
+							</li>
+						</div>
+						<li class="route-detail-liLT">
+							<span></span>
+							<span></span>
+						</li>
+						<li class="route-detail-liSE">
+							<span class="mui-icon iconfont icon-qidian"></span>
+							<span>到达终点</span>
+							<span>万达广场</span>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
+<style type="text/css">
+	.route-detail-bottom{
+		width: 95%;
+		height: auto;
+		overflow: hidden;
+		padding: 10px;
+		background: #fff;
+		border-radius: 5px;
+		margin: auto;
+	}
+	.route-detail-bottom ul li{
+		width: 100%;
+		height: auto;
+		overflow: hidden;
+	}
+	.route-detail-bottom ul li.route-detail-liSE span{
+		margin-right: 10px;
+		color: #5A97C5;
+	}
+	.route-detail-bottom ul li.route-detail-liSE span:nth-of-type(1) {
+		color: #999999;
+		font-size: 20px;
+		margin: 0;
+		padding: 2px 10px 0 5px;
+	}
+	.route-detail-bottom ul li.route-detail-liWalk span:nth-of-type(1){
+		padding: 5px;
+		color: #9A9A9A;
+		font-size: 20px;
+	}
+	.route-detail-bottom ul li.route-detail-liWalk span:nth-of-type(2) {
+		margin-left: 3px;
+		font-size: 15px;
+	}
+	.route-detail-bottom ul li.route-detail-liWalk span:nth-of-type(3) {
+		float: right;
+		color: #6F9CC5;
+		margin-top: 7px;
+		font-size: 15px;
+	}
+	.route-detail-bottom ul li.route-detail-liBus span{
+		float: left;
+		display: block;
+	}
+	.route-detail-bottom ul li.route-detail-liBus span.busIcon{
+		padding: 5px 3px;
+		color: #9A9A9A;
+		font-size: 25px;
+		margin-top: 15px;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv{
+		float: right;
+		width: calc(100% - 40px);
+		overflow: hidden;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div{
+		float: left;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div:nth-of-type(1) {
+		width: 60px;
+		border: 1px solid #218CD6;
+		color: #218CD6;
+		text-align: center;
+		padding: 2px 0;
+		border-radius: 5px;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div:nth-of-type(2){
+		width: calc(100% - 90px);
+		text-align: right;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div:nth-of-type(2) span{
+		text-align: right;
+		float: right;
+		padding: 5px 0;
+		font-size: 15px;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div:nth-of-type(2) span:nth-of-type(2) {
+		padding-bottom: 0;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div:nth-of-type(3){
+		width: 30px;
+	}
+	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div:nth-of-type(3) span{
+		padding: 23px 6px;
+	}
+	.route-detail-bottom ul li.route-detail-liLT span{
+		float: left;
+		display: block;
+	}
+	.route-detail-bottom ul li.route-detail-liLT span:first-child {
+		width: 16px;
+		height: 30px;
+		border-right: 1px dotted #BDBDBD;
+	}
+	.route-detail-bottom ul li.route-detail-liLT span:last-child{
+		width: calc(100% - 40px);
+		height: 1px;
+		background: #E5E5E5;
+		float: right;
+		margin-top: 15px;
+	}
+</style>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busRouteDetail',
+		data: {
+			
+		},
+		mounted: function() {
+			
+		},
+		methods: {
+			
+		}
+	})
+</script>

@@ -252,13 +252,13 @@
 					"dist/js/main.js",
 					"js/headTest.js",
 					"css/iconfont.css",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"pages/busHtmls/user.html"
 				],
 				"refer": [
 					"pages/busHtmls/sub3.html",
 					"pages/busHtmls/sub2.html",
 					"pages/busHtmls/sub4.html",
-					"pages/busHtmls/user.html",
 					"pages/busHtmls/busTake.html",
 					"pages/busHtmls/search.html",
 					"pages/busHtmls/userCollIndex.html",
@@ -735,7 +735,13 @@
 					"js/vue2.0.js",
 					"js/babel.js",
 					"js/headHtml.js",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js"
 				],
 				"refer": [],
 				"priority": 0

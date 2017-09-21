@@ -67,6 +67,8 @@
 
 .icon-local_play:before { content: "\e69a"; }
 
+.icon-jiantou:before { content: "\e60b"; }
+
 .icon-dingwei:before { content: "\e604"; }
 
 .icon-wode:before { content: "\e60f"; }
@@ -96,5 +98,7 @@
 .icon-shoucang2:before { content: "\e636"; }
 
 .icon-jiucuo:before { content: "\e6b6"; }
+
+.icon-jiantou2-copy:before { content: "\e975"; }
 
 
