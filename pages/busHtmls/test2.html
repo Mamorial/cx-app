@@ -8,7 +8,15 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">标题</h1>
+		    <h1 class="mui-title">test2</h1>
 		</header>
+		<h1 style="margin-top: 50px;">加载中</h1>
 	</body>
 </html>
+<script type="text/javascript">
+	mui.plusReady(function() {
+		var currentView = plus.webview.currentWebview();
+		currentView.show('slide-in-right', 300);
+		plus.nativeUI.closeWaiting();
+	})
+</script>

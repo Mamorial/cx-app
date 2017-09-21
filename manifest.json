@@ -4,8 +4,8 @@
 		"iPhone",
 		"iPad"
 	],
-	"id": "H591C138C",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "Appdemo5",/*应用名称，程序桌面图标名称*/
+	"id": "a",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "a",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
 		"code": "83"
@@ -20,6 +20,7 @@
 		"email": "",/*开发者邮箱地址*/
 		"url": "http://www.dcloud.io"
 	},
+	"fullscreen": false,   //是否全屏
 	"permissions": {
 		"Accelerometer": {
 			"description": "访问加速度感应器"
@@ -246,7 +247,12 @@
 					"js/common.js",
 					"pages/busHtmls/index.html",
 					"js/headHtml.js",
-					"js/data.js"
+					"js/data.js",
+					"dist/js/main.min.js",
+					"dist/js/main.js",
+					"js/headTest.js",
+					"css/iconfont.css",
+					"fonts/iconfont.ttf"
 				],
 				"refer": [
 					"pages/busHtmls/sub3.html",
@@ -357,7 +363,8 @@
 					"pages/busHtmls/busRoute.html",
 					"pages/busHtmls/busMore.html",
 					"pages/busHtmls/stationInfo.html",
-					"pages/busHtmls/busRouteInfo.html"
+					"pages/busHtmls/busRouteInfo.html",
+					"pages/busHtmls/test2.html"
 				],
 				"priority": 0
 			},
@@ -394,7 +401,11 @@
 					"js/mui.min.js",
 					"js/jquery.qrcode.min.js",
 					"js/foot.js",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js"
 				],
 				"refer": [
 					"pages/busHtmls/busMap.html",
@@ -581,7 +592,11 @@
 					"js/mui.min.js",
 					"js/jquery-1.11.1.js",
 					"js/vue2.0.js",
-					"js/babel.js"
+					"js/babel.js",
+					"js/common.js",
+					"images/banner1.jpg",
+					"css/iconfont.css",
+					"fonts/iconfont.ttf"
 				],
 				"refer": [
 					"pages/busHtmls/nowTakeBus.html"
@@ -600,7 +615,8 @@
 					"js/vue2.0.js",
 					"js/jquery.qrcode.min.js",
 					"js/babel.js",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"fonts/iconfont.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -620,7 +636,8 @@
 					"js/vue2.0.js",
 					"js/data.js",
 					"js/jquery.qrcode.min.js",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"fonts/iconfont.ttf"
 				],
 				"refer": [
 					"pages/busHtmls/nearMap.html",
@@ -686,7 +703,18 @@
 			},
 			"pages/busHtmls/userCollList.html": {
 				"resources": [
-					"js/babel.js"
+					"js/babel.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"fonts/iconfont.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -698,14 +726,26 @@
 					"js/jquery-1.11.1.js",
 					"css/mui.min.css",
 					"js/vue2.0.js",
-					"js/babel.js"
+					"js/babel.js",
+					"js/headHtml.js",
+					"fonts/iconfont.ttf"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"pages/busHtmls/busSelfOrder.html": {
 				"resources": [
-					"js/babel.js"
+					"js/babel.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js"
 				],
 				"refer": [
 					"pages/busHtmls/busMakeInfo.html",
@@ -726,7 +766,8 @@
 					"js/babel.js",
 					"js/headHtml.js",
 					"js/mui.pullToRefresh.material.js",
-					"images/logo.png"
+					"images/logo.png",
+					"fonts/iconfont.ttf"
 				],
 				"refer": [
 					"pages/busHtmls/noticeMsgInfo.html"
@@ -745,7 +786,8 @@
 					"js/jquery.qrcode.min.js",
 					"js/babel.js",
 					"js/headHtml.js",
-					"js/mui.pullToRefresh.material.js"
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -769,11 +811,83 @@
 			},
 			"pages/busHtmls/busRouteInfo.html": {
 				"resources": [
-					"js/babel.js"
+					"js/babel.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js"
 				],
 				"refer": [
-					"pages/busHtmls/searchInputPlace.html"
+					"pages/busHtmls/searchInputPlace.html",
+					"pages/busHtmls/busRouteDetail.html"
 				],
+				"priority": 0
+			},
+			"pages/busHtmls/complaint.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/babel.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/test2.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/babel.js",
+					"js/headHtml.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/makeSelfOrder.html": {
+				"resources": [
+					"js/jquery-1.11.1.js",
+					"js/babel.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"js/vue2.0.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/longDistanceSearch.html": {
+				"resources": [
+					"fonts/iconfont.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/makeSelfBus.html": {
+				"resources": [
+					"fonts/iconfont.ttf"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

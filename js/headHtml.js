@@ -3,6 +3,7 @@ var htm = '<meta name="viewport" content="width=device-width,initial-scale=1,min
 '		<meta name="apple-mobile-web-app-status-bar-style" content="black">'+		
 '		<link href="../../css/mui.min.css" rel="stylesheet" />'+
 '		<link href="../../css/main.css" rel="stylesheet" />'+
+'		<link href="../../css/iconfont.css" rel="stylesheet" />'+
 '		<link href="../../css/mui.picker.min.css" rel="stylesheet" />'+
 '		<link href="http://cache.amap.com/lbs/static/main1119.css" />'+
 '		<script src="../../js/jquery-1.11.1.js"></script>'+
@@ -10,7 +11,6 @@ var htm = '<meta name="viewport" content="width=device-width,initial-scale=1,min
 '		<script src="../../js/common.js"></script>'+
 '		<script src="../../js/data.js"></script>'+
 '		<script src="../../js/vue2.0.js"></script>'+
-'		<script src="../../js/babel.js"></script>'+
 '		<script src="../../js/mui.min.js"></script>'+
 '		<script src="../../js/mui.pullToRefresh.js"></script>'+
 '		<script src="../../js/mui.picker.min.js"></script>'+

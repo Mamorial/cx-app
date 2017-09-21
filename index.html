@@ -11,13 +11,14 @@
 		        <span class="mui-tab-label">首页</span>
 		    </a>
 		    <a class="mui-tab-item" data-id="user">
-		        <span class="mui-icon mui-icon-gear"></span>
+		        <span class="mui-icon iconfont icon-wo1"></span>
 		        <span class="mui-tab-label">我</span>
 		    </a>
 		</nav>
 	</body>
 </html>
 <script type="text/javascript">
+	
 	var map = new AMap.Map('', {
         resizeEnable: true
     });
@@ -44,6 +45,7 @@
     }
 
 	mui.plusReady(function() {
+		plus.navigator.setStatusBarBackground('#25A7FF');
 		var _path = "./pages/busHtmls/";
 		var subInfos = [{
 			url: _path + 'index.html',
@@ -94,9 +96,9 @@
         var array = plus.webview.all();
         if(array){
             for(var i=0,len=array.length;i<len;i++){
-                    console.log('所有加载页面的URL' + array[i].getURL());
+//                  console.log('所有加载页面的URL' + array[i].getURL());
                 }
         }
-    },5000)
+    },1000)
 	})
 </script>

@@ -9,18 +9,18 @@
 		<header class="mui-bar mui-bar-nav">
 		    <h1 class="mui-title">慈溪行</h1>
 		</header>
-		<div id="slider" class="mui-slider" style="height: 220px;margin-top: 45px;">
+		<div id="slider" class="mui-slider" style="height: 300px;margin-top: 44px;">
 			<div class="mui-slider-group mui-slider-loop">
 			<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 			<div class="mui-slider-item mui-slider-item-duplicate">
 				<a href="#">
-					<img src="../../images/yuantiao.jpg">
+					<img src="../../images/banner1.jpg">
 				</a>
 			</div>
 			<!-- 第一张 -->
 			<div class="mui-slider-item">
 				<a href="#">
-					<img src="../../images/shuijiao.jpg">
+					<img src="../../images/banner1.jpg">
 				</a>
 			</div>
 			<!-- 第二张 -->
@@ -44,7 +44,7 @@
 			<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 			<div class="mui-slider-item mui-slider-item-duplicate">
 				<a href="#">
-					<img src="../../images/shuijiao.jpg">
+					<img src="../../images/banner1.jpg">
 				</a>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 			<div class="mui-indicator"></div>
 		</div>
 		</div>
-		<div class="mui-content">
+		<div class="mui-content" style="padding: 0;">
 			<ul class="mui-table-view mui-grid-view mui-grid-9 index-tab-showPre" v-if="showTar">
 				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
@@ -69,7 +69,7 @@
 			<ul id="index-tab-show" class="mui-table-view mui-grid-view mui-grid-9 mui-hidden" v-else>
 				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2 index-tar-li" v-for="itemBar in index_tabBar">
 				    <a :id="itemBar.bar_id" @click="indexBarIn(itemBar.bar_href, itemBar.bar_id)">
-				        <span class="mui-icon mui-icon-home"></span>
+				        <span :class="itemBar.bar_icon"></span>
 				        <!--<img src="../../images/logo.png" style="width: 50%;"/>-->
 				        <div class="mui-media-body" v-cloak>{{itemBar.bar_name}}</div>
 				    </a>
@@ -80,6 +80,12 @@
 	</div>
 	</body>
 </html>
+<style type="text/css">
+	html, body{overflow: hidden;}
+	#slider div img{
+		height: 100%;
+	}
+</style>
 <script type="text/javascript">
 	var app = new Vue({
 		el: '#index-vue',
@@ -87,7 +93,7 @@
 			showTar: true,
 			index_tabBar: []
 		},
-		mounted() {
+		mounted: function() {
 			var slider = mui("#slider"),
 				self = this;
 			slider.slider({
@@ -109,7 +115,7 @@
 			},
 			//模块进入
 			indexBarIn: function(url, id) {
-				mui.openWindow({
+				mui.openWindow({	
 					id: id,
 					show: {
 						duration: 300

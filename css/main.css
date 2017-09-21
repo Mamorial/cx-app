@@ -12,12 +12,19 @@ ul li, span, a, p, img{
 ds-none{
 	display: none!important;
 }
+header{
+	background: #25A7FF!important;
+	
+}
+header h1, header a, header button{
+	color: #fff!important;
+}
 
 /*首页css  sub1.html*/
 .index-header{
 	width: 100%;
 	height: 120px;;
-	background: #28B6F6;
+	background: #25A7FF;
 	/*border: 1px solid red;*/
 }
 .index-searchNav{
@@ -39,7 +46,7 @@ ds-none{
 	/*border: 1px solid red;*/
 }
 .index-searchInput{
-	width: 90%;
+	width: 85%;
 	height: auto;
 	float: left;
 	padding: 0 5px;
@@ -88,9 +95,10 @@ ds-none{
 	margin: 0!important;
 	padding: 0!important;
 	font-size: 19px!important;
+	font-weight: bold;
 }
 .index-header-topMsg{
-	width: 10%;
+	width: 14%;
 	height: auto;
 	float: right;
 	text-align: left;
@@ -243,6 +251,9 @@ h5{
 }
 /*范围弹出层 modal input 结束*/
 /*busTake 附近收藏、附近车站、附近车次 tab + pullrefresh 样式*/
+.index-header-bottom div span{
+	margin: 0!important;
+}
 /*下拉刷新样式*/
 .mui-bar~.mui-content .mui-fullscreen {
 	top: 120px;
@@ -332,6 +343,9 @@ h5{
 	margin: 10px 0 0 0;
 	/*border: 1px solid red;*/
 }
+.bus-take-tab ul.busNum-ul li a SPAN.iconfont{
+	font-size: 25px;
+}
 .bus-take-tab ul.busNum-ul li:nth-of-type(1) {
 	border-top: 1px solid #ccc;
 }
@@ -351,7 +365,7 @@ h5{
 	
 }
 .busNumInfo-time{
-	width: 80%;
+	width: 100%;
 	height: auto;
 	float: left;
 	/*border: 1px solid blue;*/
@@ -362,14 +376,22 @@ h5{
 	display: block;
 	text-align: center;
 }
+.busNumInfo-time span:nth-of-type(odd) {
+	text-align: right;
+}
 .busNumInfo-time span:nth-of-type(1){
 	color: #2EB4F7;
 }
 .busNumInfo-coll {
 	/*border: 1px solid #000;*/
 	height: 100%;
-	margin-left: 82%;
-	padding: 10px 0 0 0;
+}
+.busNumInfo-coll span{
+	padding: 10px;
+	font-size: 20px;
+}
+.busNumInfo-coll span.icon-shoucang2 {
+	color: #FFE826!important;
 }
 /*列表样式结束*/
 /*列表最小高度样式*/
@@ -377,3 +399,115 @@ h5{
 	min-height: 100%;
 }
 /*列表最小高度结束*/
+/*serach.html 样式*/
+.route-type{
+	margin-top: 10px;
+	overflow: hidden;
+}
+.route-type span{
+	display: block;
+	width: auto;
+	float: left;
+	padding-top: 5px;
+}
+.route-type .mui-radio{
+	float: right;
+    width: 80px;
+    margin: -25px 0 0 0;
+    padding: 0;
+    display: block;
+    position: relative;
+    height: 35px;
+    overflow: hidden;
+}
+.route-type .mui-radio label{
+	display: inline-block;
+    float: right;
+    width: 50px;
+    padding: 10px 0 0 0;
+}
+.route-type .mui-radio input{
+	right: 50px!important;
+}
+.search-result-list {
+	width: 95%;
+	margin: auto;
+	border-radius: 5px;
+	padding: 0 5px;
+}
+.search-result-list li{
+	font-size: 15px;
+	border-bottom: 1px solid #DCDCDF;
+}
+.search-result-list li:last-child{
+	border: none;
+}
+.search-result-list li span{
+	font-size: 20px;
+	margin: 0 10px 0 0;
+}
+.search-result-list li span.serach-li-clear{
+	margin: 0;
+}
+.search-result-list:before, .search-result-list:after, .search-result-list li:after {
+	background: none!important;
+}
+.his-search-list li label{
+	font-size: 15px;
+}
+.his-search-list li.his-search-clearAll{
+	text-align: center;
+	color: #989898;
+}
+/*search.html--搜索样式*/
+.index-search-content{
+	width: 100%;
+	height: auto;
+	padding: 10px;	
+}
+.index-search-content .index-search-content-div{
+	width: 100%;
+	height: 50px;
+	background: #fff;
+	border-radius: 5px;
+	padding: 5px;
+}
+.index-search-content .index-search-content-div .index-search-content-input{
+	width: 85%;
+	height: 100%;
+	float: left;
+	border-right: 1px solid #EFEFEF;
+}
+.index-search-content .index-search-content-div .index-search-content-input label{
+	margin: 0;
+	padding: 7px 0;
+	width: 30px;
+	color: #C4C4C4;
+	float: left;
+}
+.index-search-content .index-search-content-div .index-search-content-input label span{
+	font-weight: bold;
+}
+.index-search-content .index-search-content-div .index-search-content-input input{
+	float: left;
+	width: calc(100% - 40px);
+}
+.index-search-content .index-search-content-div .index-search-content-bottom {
+	height: 100%;
+	margin-left: 85%;
+	color: #696969;
+	text-align: center;
+	line-height: 40px;
+	font-size: 15px;
+}
+/*search.html 样式结束*/
+/*noticeMsg.html 样式*/
+.index-notice-list li a{
+	padding: 5px;
+}
+.index-notice-list li a span {
+	color: #1B99F1;font-size: 30px;
+}
+.index-notice-list li a div{
+	line-height: 45px;
+}

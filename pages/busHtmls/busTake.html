@@ -10,8 +10,8 @@
 			<header class="mui-bar mui-bar-nav index-searchNav">
 			    <div class="index-header">
 			    	<div class="index-header-left">
-			    		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
-					 	<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left" style="color: #fff;margin-right: 0;">&nbsp;慈溪行</button>
+			    		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					 	<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left" style="margin-right: 0;">&nbsp;慈溪行</button>
 			    	</div>
 			    	<div class="index-header-top">
 			    		<div class="mui-input-row mui-search index-searchInput">
@@ -25,28 +25,28 @@
 			    			</div>
 						</div>
 						<div class="index-header-topMsg">
-							<span class="mui-icon mui-icon-email index-top-email" style="font-size: 35px;margin: 3px 0 0 -5px;padding: 0;" @click="noticeMsg"><!--<span class="index-msg"></span>--></span>
+							<span class="mui-icon iconfont icon-message index-top-email" style="font-size: 30px;margin: 5px 0 0 -3px;padding: 0;" @click="noticeMsg"><!--<span class="index-msg"></span>--></span>
 						</div>
 			    	</div>
 			    	<div class="index-header-bottom">
 			    		<div @click="userColl">
-			    			<span class="mui-icon mui-icon-home"></span>
+			    			<span class="mui-icon iconfont icon-shoucang"></span>
 			        		<span>收藏</span>
 			    		</div>
 			    		<div @click="nearMap">
-			    			<span class="mui-icon mui-icon-home"></span>
+			    			<span class="mui-icon iconfont icon-dingwei"></span>
 			        		<span>地图</span>
 			    		</div>
 			    		<div @click="selectRange">
-			    			<span class="mui-icon mui-icon-home"></span>
+			    			<span class="mui-icon iconfont icon-fanweiguang-"></span>
 			        		<span>范围</span>
 			    		</div>
 			    	</div>
 			    </div>
 			</header>
-			<div id="slider" class="mui-slider mui-fullscreen bus-take-tab" style="top: 120px;">
+			<div id="slider" class="mui-slider mui-fullscreen bus-take-tab" style="top: 130px;">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<div class="mui-scroll index-tabI" style="width: 100%;">
+					<div class="mui-scroll index-tabI" style="width: 100%;background: #fff;">
 						<a class="mui-control-item mui-active" href="#item1mobile">
 							附近收藏
 						</a>
@@ -64,9 +64,10 @@
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-table-view-chevron busNum-ul" v-for="station in nearAllInfo">
-									<li class="mui-table-view-cell mui-media busStation-li">
+									<li :data-name="station.nearStationName" class="mui-table-view-cell mui-media busStation-li">
 										<a class="mui-navigate-right">
-											<img class="mui-media-object mui-pull-left" src="../images/cbd.jpg">
+											<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongjiaozhanpai"></span>
+											<!--<img class="mui-media-object mui-pull-left" src="../images/cbd.jpg">-->
 											<div class="mui-media-body" style="height: 30px;line-height: 45px;padding-right: 20px;">
 												<div style="float: left;">{{station.nearStationName}}</div>
 												<div style="float: right;color: #2EB4F7;">相距</div>
@@ -75,19 +76,24 @@
 										</a>
 									</li>
 									<li class="busNum-li" v-for="bus in station.nearBuss">
-										<div class="busNum">
-											<span>{{bus.busName}}</span>
-											<span></span>
-										</div>
-										<div class="busNumInfo">
-											<div class="busNumInfo-time">
-												<span>距到站</span>
-												<span>{{bus.arriveStation}}/{{bus.arriveStationTime}}</span>
-												<span>下一辆</span>
-												<span>{{bus.nextArriveStation}}/{{bus.nextArriveStationTime}}</span>
-											</div>
+										<div style="width: 40px;height: 40px;float: right;">
 											<div class="busNumInfo-coll">
-												{{bus.userColl}}
+												<span v-show="bus.userColl" :data-id="bus.userColl" class="mui-icon iconfont icon-shoucang2 akkk"></span>
+												<span v-show="!bus.userColl" class="mui-icon iconfont icon-shoucang" :data-id="bus.userColl"></span>
+											</div>
+										</div>
+										<div style="height: 40px;" :data-name="bus.busName" class="busInfo">
+											<div class="busNum">
+												<span>{{bus.busName}}</span>
+												<span></span>
+											</div>
+											<div class="busNumInfo">
+												<div class="busNumInfo-time">
+													<span>距到站</span>
+													<span>{{bus.arriveStation}}/{{bus.arriveStationTime}}</span>
+													<span>下一辆</span>
+													<span>{{bus.nextArriveStation}}/{{bus.nextArriveStationTime}}</span>
+												</div>
 											</div>
 										</div>
 									</li>
@@ -101,7 +107,7 @@
 								<ul class="mui-table-view mui-table-view-chevron busNum-ul">
 									<li :data-name="station.nearStationName" class="mui-table-view-cell mui-media busStation-li" v-for="station in nearStationInfo">
 										<a class="mui-navigate-right" @click="nearStation">
-											<img class="mui-media-object mui-pull-left" src="../images/cbd.jpg">
+											<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongjiaozhanpai"></span>
 											<div class="mui-media-body" style="height: 30px;line-height: 45px;padding-right: 20px;">
 												<div style="float: left;">{{station.nearStationName}}</div>
 												<div style="float: right;color: #2EB4F7;">相距</div>
@@ -118,19 +124,24 @@
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-table-view-chevron busNum-ul">
 									<li :data-name="bus.busName" class="busNum-li" v-for="bus in nearBusInfo">
-										<div class="busNum">
-											<span>{{bus.busName}}</span>
-											<span></span>
-										</div>
-										<div class="busNumInfo">
-											<div class="busNumInfo-time">
-												<span>距到站</span>
-												<span>{{bus.arriveStation}}/{{bus.arriveStationTime}}</span>
-												<span>下一辆</span>
-												<span>{{bus.nextArriveStation}}/{{bus.nextArriveStationTime}}</span>
-											</div>
+										<div style="width: 40px;height: 40px;float: right;">
 											<div class="busNumInfo-coll">
-												{{bus.userColl}}
+												<span v-show="bus.userColl" :data-id="bus.userColl" class="mui-icon iconfont icon-shoucang2"></span>
+												<span v-show="!bus.userColl" class="mui-icon iconfont icon-shoucang" :data-id="bus.userColl"></span>
+											</div>
+										</div>
+										<div style="height: 40px;" class="busInfo" :data-name="bus.busName">
+											<div class="busNum">
+												<span>{{bus.busName}}</span>
+												<span></span>
+											</div>
+											<div class="busNumInfo">
+												<div class="busNumInfo-time">
+													<span>距到站</span>
+													<span>{{bus.arriveStation}}/{{bus.arriveStationTime}}</span>
+													<span>下一辆</span>
+													<span>{{bus.nextArriveStation}}/{{bus.nextArriveStationTime}}</span>
+												</div>
 											</div>
 										</div>
 									</li>
@@ -212,19 +223,29 @@
 						});
 					});
 				});
-				//选项卡 下拉刷新添加点击事件
-				mui('.busNum-ul').on("tap", '.busNum-li', function() {
-					var _name = this.getAttribute('data-name');
-					self.nearBus(_name);
-				});
-				mui('.busNum-ul').on("tap", '.busStation-li', function() {
-					var _name = this.getAttribute('data-name');
-					self.nearStation(_name);
-				})
+				setTimeout(function() {
+					//选项卡 下拉刷新添加点击事件
+					mui('.busNum-ul').on("tap", '.busInfo', function() {
+						var _name = this.getAttribute('data-name');
+						self.nearBus(_name);
+					});
+					mui('.busNum-ul').on("tap", '.busStation-li', function() {
+						var _name = this.getAttribute('data-name');
+						self.nearStation(_name);
+					});
+					mui('.busNumInfo-coll').on("tap", 'span', function() {
+						var _name = this.getAttribute('data-id');
+						self.busUserColl(this, _name);
+					})
+				}, 500)
 			})(mui);
 			
 		},
 		methods: {
+			//公交车收藏、取消收藏
+			busUserColl: function(index, coll) {
+				$(index).attr('style', 'display: none').siblings().attr('style', 'display: block');
+			},
 			//搜索
 			indexSearch: function() {
 				mui.openWindow({
@@ -309,6 +330,15 @@
 			},
 			//附近站牌
 			nearStation: function(name) {
+				
+				
+//				var WebviewOptions = mui.openWindow({
+//					    url:'stationInfo.html',
+//					    extras:{
+//					        name:'mui'  //扩展参数
+//					    }
+//					});
+//				mui.openWindowWithTitle(WebviewOptions,{id: 'stationInfo'})
 				mui.openWindow({
 					url: 'stationInfo.html',
 					id: 'stationInfo',

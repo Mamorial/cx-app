@@ -6,42 +6,80 @@
 		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<div id="busRoute" class="mui-content" style="overflow: hidden;">
-			<div class="routeL">
-				<div class="mui-input-row">
-					<input type="text" v-model="inputF" @click="inputPlace(inputF, 'topI')" placeholder="我的位置" />
+		<div id="busRoute">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			    <h1 class="mui-title">线路规划</h1>
+			</header>
+			<div class="mui-content" style="overflow: hidden;">
+				<div class="routeL">
+					<div class="mui-input-row">
+						<input type="text" v-model="inputF" @click="inputPlace(inputF, 'topI')" placeholder="我的位置" />
+					</div>
+					<div class="mui-input-row">
+						<input type="text" v-model="inputC" @click="inputPlace(inputC, 'bottomI')" placeholder="请输入目的地" />
+					</div>
+		
 				</div>
-				<div class="mui-input-row">
-					<input type="text" v-model="inputC" @click="inputPlace(inputC, 'bottomI')" placeholder="请输入目的地" />
+				<div class="routeR">
+					<button type="button" @click="exChange">换向</button>
 				</div>
-	
-			</div>
-			<div class="routeR">
-				<button type="button" @click="exChange">换向</button>
-			</div>
-			<div class="bus_info">
-				<div class="title">
-					公交线路
-				</div>
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell mui-media" v-for="item in busInfo">
-						<a href="javascript:;">
-							<span class="mui-icon mui-icon-arrowthindown mui-media-object mui-pull-left"></span>
-							<div class="mui-media-body">
-								<div>
-									{{item.name}}
+				<div class="bus_info">
+					<div class="title">
+						公交线路
+					</div>
+					<ul class="mui-table-view" v-show="busRouteList">
+						<li class="mui-table-view-cell mui-media" v-for="item in busInfo">
+							<a href="javascript:;">
+								<span class="mui-icon mui-icon-arrowthindown mui-media-object mui-pull-left"></span>
+								<div class="mui-media-body">
+									<div class="listBus">
+										<div class="listBusList" v-for="bus in item">
+											<span>{{bus}}</span>
+											<span>></span>
+										</div>
+									</div>
+									<!--<p class='mui-ellipsis'>乘车站</p>
+									<p class='mui-ellipsis'>下车站</p>-->
 								</div>
-								<p class='mui-ellipsis'>乘车站：{{item.startStation}}</p>
-								<p class='mui-ellipsis'>下车站：{{item.endStation}}</p>
-							</div>
-						</a>
-					</li>
-	
-				</ul>
+							</a>
+						</li>
+						<!--<li class="mui-table-view-cell mui-media" v-for="item in busInfo" @click="busRouteDetail">
+							<a href="javascript:;">
+								<span class="mui-icon mui-icon-arrowthindown mui-media-object mui-pull-left"></span>
+								<div class="mui-media-body">
+									<div>
+										{{item.name}}
+									</div>
+									<p class='mui-ellipsis'>乘车站：{{item.startStation}}</p>
+									<p class='mui-ellipsis'>下车站：{{item.endStation}}</p>
+								</div>
+							</a>
+						</li>-->
+					</ul>
+				</div>
 			</div>
 		</div>
 	</body>
 </html>
+<style type="text/css">
+	.listBus{
+		overflow: hidden;
+		width: 100%;
+		border: 1px solid red;
+	}
+	.listBus div.listBusList{
+		float: left;
+	}
+	.listBus div.listBusList:last-child{
+		float: none;
+	}
+	.listBus div.listBusList span{
+		display: block;
+		float: left;
+	}
+</style>
 <script type="text/javascript">
 	 var app = new Vue({
 	 	el: '#busRoute',
@@ -50,7 +88,8 @@
 			inputC: '',
 			busInfo: [],
 			startPlace: '',
-			endPlace: ''
+			endPlace: '',
+			busRouteList: true     //公交线路列表
 	 	},
 	 	mounted: function() {
 	 		var self = this;
@@ -68,7 +107,9 @@
 				} else {
 					if(type == 'radioS') {
 						self.inputF = _name;
+						self.inputC = '我的位置';
 					} else {
+						self.inputF = '我的位置';
 						self.inputC = _name;
 					}
 					
@@ -88,14 +129,12 @@
 				console.log(val);
 				self.init();
 			});
-	 		setTimeout(function() {
-	 			self.init();
-	 		}, 1000);
+	 		setTimeout(function() {self.init();}, 1000);
 	 	},
 	 	methods: {
 	 		init: function() {  //  初始化
 	 			var self = this;
-//	 			self.placeToLoc();
+	 			plus.nativeUI.showWaiting( "加载中..." );
 	 			if(this.inputF == '我的位置') {
 	 				var _obj = localStorage.getItem('nearState');
 	 				_obj = JSON.parse(_obj);
@@ -120,20 +159,28 @@
 		 				self.busInfo = [];
 		 				fc.ajax(_url, 'get').done(function(data) {
 							var bus = data.route.transits;
-							bus.forEach(function(v, i, a) {
-								var obj = {};
+							bus.forEach(function(v, i) {
+								var obj = [];
 								console.log(v.segments[0].bus);
-								obj.name = v.segments[0].bus.buslines[0].name;
-								obj.startStation = v.segments[0].bus.buslines[0].departure_stop.name;
-								obj.endStation = v.segments[0].bus.buslines[0].arrival_stop.name;
+								
+								v.segments.forEach(function(k, i) {
+//									alert(k.bus.buslines[0].name)
+//									obj.name = [];
+									obj.push(k.bus.buslines[0].name);
+								})
+//								obj.name = v.segments[0].bus.buslines[0].name;
+//								obj.startStation = v.segments[0].bus.buslines[0].departure_stop.name;
+//								obj.endStation = v.segments[0].bus.buslines[0].arrival_stop.name;
 								self.busInfo.push(obj);
 							})
 							mui.toast(bus.length);
+							self.busRouteList = true;
+							plus.nativeUI.closeWaiting();
 						}).fail(function(error) {
 							mui.toast('error');
 						});
 		 			}
-	 			}, 1000)
+	 			}, 500)
 	 		},
 	 		inputPlace: function(con, type) {   //  输入地名页面
 				mui.openWindow({
@@ -153,11 +200,16 @@
 				})
 	 		},
 	 		exChange: function() {  //起终点互换
-	 			var m;
+	 			var m, self = this;
+	 			this.busRouteList = false;
 	 			m = this.inputF;
 	 			this.inputF = this.inputC;
 	 			this.inputC = m;
-	 			this.init();
+	 			plus.nativeUI.showWaiting( "加载中..." );
+//				setTimeout( function(){
+//					plus.nativeUI.closeWaiting();
+//				}, 2000 );
+	 			setTimeout(function() {self.init();}, 1000)
 	 		},
 	 		placeToLoc: function(type, eara) {  //地理编码
 	 			console.log('执行了');
@@ -170,6 +222,7 @@
 	 				_type = self.inputC;
 //	 				eara = self.endPlace
 	 			}
+	 			console.log(_type);
 	 			setTimeout(function() {
 	 				console.log('eara = ' + _type);
 	 				var _url = "v3/geocode/geo?key=e00e7ed74876f674fa2f01bf36f429c8&address="+_type+"&city=宁波";
@@ -184,7 +237,21 @@
 					}).fail(function(error) {
 						mui.toast('error');
 					});
-	 			}, 500)
+	 			}, 200)
+	 		},
+	 		//路线详情
+	 		busRouteDetail: function() {
+	 			mui.openWindow({
+	 				url: 'busRouteDetail.html',
+					id: 'busRouteDetail',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					}
+				})
 	 		}
 	 	}
 	 })

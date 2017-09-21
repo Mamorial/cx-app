@@ -8,19 +8,34 @@
 		<div id="busNum">
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			    <div class="mui-input-row sub-searchInput">
+		    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+		    <h1 class="mui-title">搜索</h1>
+			    <!--<div class="mui-input-row sub-searchInput">
 			        <input type="text" v-model="search_input" id="keyword" name="keyword" autofocus="autofocus" class="mui-input-clear" placeholder="请输入内容" @input="busInfos" />
-			    </div>
+			    </div>-->
 		</header>
-		<div class="mui-content">
+		<div class="mui-content" style="padding-bottom: 30px;">
+			<div class="index-search-content">
+				<div class="index-search-content-div">
+					<div class="index-search-content-input">
+						<div class="mui-input-row">
+					        <label>
+					        	<span class="mui-icon mui-icon-search"></span>
+					        </label>
+					        <input id="keyword" name="keyword" v-model="search_input" @input="testfn" autofocus="autofocus" type="text" class="mui-input-clear" placeholder="请输入内容">
+					    </div>
+					</div>
+					<div class="index-search-content-bottom" @click="busInfos">搜索</div>
+				</div>
+			</div>
 			<div class="mui-content-businfo" v-if="busInfoshow">
 				<div v-if="busMoreTipDiv">
 					<div class="title">
 						线路
 					</div>
-					<ul class="mui-table-view">
+					<ul class="mui-table-view search-result-list">
 						 <li class="mui-table-view-cell" v-for="item in itemsBus" @click="busNumInfo(item.name)">
-						 	<span class="mui-icon mui-icon-location"></span>
+						 	<span class="mui-icon iconfont icon-gongjiaoche"></span>
 						 	{{item.name}}
 						 </li>
 						 <li class="mui-table-view-cell" @click="bus_placeMore('bus')">{{busMoreTip?'查看更多':'无'}}</li>
@@ -30,16 +45,16 @@
 					<div class="title">
 						站牌
 					</div>
-					<ul class="mui-table-view">
+					<ul class="mui-table-view search-result-list">
 						 <li class="mui-table-view-cell" v-for="item in itemsStations" @click="stationNumInfo(item.name)">
-						 	<span class="mui-icon mui-icon-location"></span>
+						 	<span class="mui-icon iconfont icon-gongjiaozhanpai"></span>
 						 	{{item.name}}
 						 </li>
 						 <li class="mui-table-view-cell" @click="bus_placeMore('station')">{{stationMoreTip?'查看更多':'无'}}</li>
 					</ul>
 				</div>
 				<div v-if="placeMoreTipDiv">
-					<div class="title route-type" style="margin-top: 10px;">
+					<div class="title route-type">
 						<span>线路规划</span>
 						<div class="mui-input-row mui-radio">
 							<input value="radioE" type="radio" v-model="placeType">
@@ -50,9 +65,9 @@
 							<label>始发地</label>
 						</div>
 					</div>
-					<ul class="mui-table-view">
+					<ul class="mui-table-view search-result-list">
 						 <li class="mui-table-view-cell" v-for="item in itemsPlace" @click="placeNumInfo(item.name)">
-						 	<span class="mui-icon mui-icon-location"></span>
+						 	<!--<span class="mui-icon mui-icon-location"></span>-->
 						 	{{item.name}}
 						 </li>
 						 <li class="mui-table-view-cell" @click="bus_placeMore('place')">{{placeMoreTip?'查看更多':'无'}}</li>
@@ -63,25 +78,21 @@
 				<div class="title">
 						历史记录
 				</div>
-				<ul class="mui-table-view">
+				<ul class="mui-table-view his-search-list search-result-list">
 					 <li class="mui-table-view-cell">
-					 	<span class="mui-icon mui-icon-location"></span>
-					 	116路
-					 	<span class="mui-icon mui-icon-clear mui-pull-right"></span>
+					 	<span class="mui-icon iconfont icon-gongjiaoche"></span>
+					 	<label>116路</label>
+					 	<span @click="deleteHis" class="mui-icon mui-icon-clear mui-pull-right serach-li-clear"></span>
 					 </li>
-				</ul>
-				<ul class="mui-table-view">
 					 <li class="mui-table-view-cell">
-					 	<span class="mui-icon mui-icon-location"></span>
-					 	鄞州电信局
-					 	<span class="mui-icon mui-icon-clear mui-pull-right"></span>
+					 	<span class="mui-icon iconfont icon-dingwei"></span>
+					 	<label>鄞州电信局</label>
+					 	<span @click="deleteHis" class="mui-icon mui-icon-clear mui-pull-right serach-li-clear"></span>
 					 </li>
-				</ul>
-				<ul class="mui-table-view">
-					 <li class="mui-table-view-cell" style="text-align: center;">
+					 <li class="mui-table-view-cell his-search-clearAll">
 					 	更多历史记录
 					 </li>
-					 <li class="mui-table-view-cell" style="text-align: center;">
+					 <li class="mui-table-view-cell his-search-clearAll">
 					 	清空搜索记录
 					 </li>
 				</ul>
@@ -90,42 +101,6 @@
 	</div>
 	</body>
 </html>
-<style type="text/css">
-	/*地图输入提示隐藏*/
-.amap-sug-result{
-	height: 0!important;
-	overflow: hidden!important;
-	border: none!important;
-}
-.route-type{
-	overflow: hidden;
-}
-.route-type span{
-	display: block;
-	width: auto;
-	float: left;
-	padding-top: 5px;
-}
-.route-type .mui-radio{
-	float: right;
-    width: 80px;
-    margin: -25px 0 0 0;
-    padding: 0;
-    display: block;
-    position: relative;
-    height: 35px;
-    overflow: hidden;
-}
-.route-type .mui-radio label{
-	display: inline-block;
-    float: right;
-    width: 50px;
-    padding: 10px 0 0 0;
-}
-.route-type .mui-radio input{
-	right: 50px!important;
-}
-</style>
 <script type="text/javascript">
 	var app = new Vue({
 		el: '#busNum',
@@ -158,6 +133,9 @@
 			});
 		},
 		methods: {
+			testfn: function() {
+				console.log('test');
+			},
 			//公交详情
 			busNumInfo: function(bus) {
 				mui.openWindow({
@@ -195,6 +173,11 @@
 			//路线规划详情
 			placeNumInfo: function(name) {
 				var self = this;
+//				var nwaiting = plus.nativeUI.showWaiting();  
+//				webviewShow = plus.webview.create('test2.html','id',{},{preload:'preload webview'});
+//				nwaiting.show();
+//				var w = plus.webview.create('test2.html');
+//				w.show(); // 显示窗口
 				mui.openWindow({
 					url: 'busRouteInfo.html',
 					id: 'busRouteInfo',
@@ -232,7 +215,7 @@
 					});
 				}
 				setTimeout(function() {
-					var inputElem = document.querySelector('input');
+					var inputElem = document.getElementById('keyword');
 					inputElem.focus();
 					inputElem.parentNode.classList.add('mui-active'); //第一个是search，加上激活样式
 				}, 200);
@@ -349,6 +332,10 @@
 						placeType: self.placeType
 					}
 				})
+			},
+			//删除单条记录
+			deleteHis: function() {
+//				alert('aaa');
 			}
 		}
 	})

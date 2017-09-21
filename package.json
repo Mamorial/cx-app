@@ -1,0 +1,25 @@
+{
+  "name": "cx-app",
+  "version": "1.0.0",
+  "description": "慈溪公交",
+  "main": "webpack.config.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xy-cl/cx-app.git"
+  },
+  "keywords": [
+    "cx"
+  ],
+  "author": "xy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xy-cl/cx-app/issues"
+  },
+  "homepage": "https://github.com/xy-cl/cx-app#readme",
+  "dependencies": {
+	    "webpack": "^3.6.0"
+	  }
+}
