@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="walkMap">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <h1 class="mui-title">步行</h1>
+			</header>
+			<div class="mui-content">
+				<div id="container" style="height: 500px;"></div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#walkMap',
+		data: {
+			map: '',
+			route: ''
+		},
+		mounted: function() {
+			var self = this;
+			mui.plusReady(function() {
+				var wRoute = plus.webview.currentWebview().walkRoute;
+				console.log(plus.webview.currentWebview().walkRoute);
+				self.init(wRoute);
+			})
+			this.map = new AMap.Map("container", {
+		        resizeEnable: true,
+		        zoom: 18 //地图显示的缩放级别
+		    });
+		},
+		methods: {
+			//初始化
+			init: function(wRoute) {
+				console.log(this.route);
+				var self = this;
+				var akk = [[121.597862,29.844202],[121.597519,29.844244],[121.596680,29.844345],[121.595642,29.844471]];
+				var polyline = new AMap.Polyline({
+			        map: self.map,
+			        path: akk,
+			        strokeColor: "#00A",  //线颜色
+			        // strokeOpacity: 1,     //线透明度
+			        strokeWeight: 3,      //线宽
+			        // strokeStyle: "solid"  //线样式
+			    });
+			}
+		}
+	})
+</script>

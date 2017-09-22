@@ -1,625 +1,651 @@
 {
-	"index.html": {
-		"resources": [
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/foot.js",
-			"js/head.js",
-			"fonts/mui.ttf",
-			"css/main.css",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/babel.js",
-			"pages/busHtmls/sub1.html",
-			"js/common.js",
-			"pages/busHtmls/index.html",
-			"js/headHtml.js",
-			"js/data.js",
-			"dist/js/main.min.js",
-			"dist/js/main.js",
-			"js/headTest.js",
-			"css/iconfont.css",
-			"fonts/iconfont.ttf",
-			"pages/busHtmls/user.html"
-		],
-		"refer": [
-			"pages/busHtmls/sub1.html",
-			"pages/busHtmls/sub3.html",
-			"pages/busHtmls/sub2.html",
-			"pages/busHtmls/sub4.html",
-			"pages/busHtmls/index.html",
-			"pages/busHtmls/user.html",
-			"pages/busHtmls/busTake.html",
-			"pages/busHtmls/search.html",
-			"pages/busHtmls/userCollIndex.html",
-			"pages/busHtmls/nowTakeBus.html",
-			"pages/busHtmls/busSelfOrder.html",
-			"pages/busHtmls/makeSelfOrder.html",
-			"pages/busHtmls/userCollList.html",
-			"pages/busHtmls/nearMap.html",
-			"pages/busHtmls/stationInfo.html",
-			"pages/busHtmls/noticeMsg.html",
-			"pages/busHtmls/busMakeInfo.html",
-			"pages/busHtmls/busRoute.html",
-			"pages/busHtmls/test2.html",
-			"pages/busHtmls/makeSelfBus.html",
-			"pages/busHtmls/complaint.html",
-			"pages/busHtmls/longDistanceTicket.html",
-			"pages/busHtmls/tourBus.html",
-			"pages/busHtmls/longDistanceSearch.html"
-		]
-	},
-	"pages/busHtmls/sub1.html": {
-		"resources": [
-			"css/main.css",
-			"css/mui.min.css",
-			"js/headHtml.js",
-			"pages/busHtmls/sub1-1.html",
-			"js/qrcode.js",
-			"js/jquery.qrcode.min.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/foot.js",
-			"js/babel.js"
-		],
-		"refer": [
-			"pages/busHtmls/sub1-1.html",
-			"pages/busHtmls/search.html",
-			"pages/busHtmls/nearStation.html",
-			"pages/busHtmls/searchBusRoute.html",
-			"pages/busHtmls/erweima.html",
-			"pages/busHtmls/erweimaS.html"
-		]
-	},
-	"pages/busHtmls/sub1-1.html": {
-		"resources": [
-			"css/mui.min.css",
-			"css/main.css",
-			"js/foot.js",
-			"js/headHtml.js",
-			"fonts/mui.ttf",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js"
-		],
-		"refer": [
-			"pages/busHtmls/nearStation.html",
-			"pages/busHtmls/searchBusRoute.html",
-			"pages/busHtmls/erweimaS.html"
-		]
-	},
-	"pages/busHtmls/sub2.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/babel.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/search.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/headHtml.js",
-			"js/common.js",
-			"css/main.css",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/babel.js",
-			"js/mui.pullToRefresh.js",
-			"js/mui.picker.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/data.js"
-		],
-		"refer": [
-			"pages/busHtmls/busRoute.html",
-			"pages/busHtmls/busMore.html",
-			"pages/busHtmls/stationInfo.html",
-			"pages/busHtmls/busRouteInfo.html",
-			"pages/busHtmls/test2.html"
-		]
-	},
-	"pages/busHtmls/busMore.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/babel.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/headHtml.js",
-			"js/mui.pullToRefresh.js",
-			"js/mui.picker.min.js"
-		],
-		"refer": [
-			"pages/busHtmls/busMap.html",
-			"pages/busHtmls/sub3.html",
-			"pages/busHtmls/busRoute.html",
-			"pages/busHtmls/stationInfo.html",
-			"pages/busHtmls/busRouteInfo.html"
-		]
-	},
-	"pages/busHtmls/busRoute.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/babel.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/headHtml.js",
-			"js/mui.pullToRefresh.js",
-			"js/mui.picker.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/data.js"
-		],
-		"refer": [
-			"pages/busHtmls/busMap.html",
-			"pages/busHtmls/sub3.html",
-			"pages/busHtmls/busMapShow.html"
-		]
-	},
-	"pages/busHtmls/busMap.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/babel.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/nearStation.html": {
-		"resources": [
-			"css/mui.min.css",
-			"fonts/mui.ttf",
-			"js/foot.js",
-			"js/mui.min.js",
-			"js/common.js",
-			"css/main.css",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js"
-		],
-		"refer": [
-			"pages/busHtmls/stationBus.html"
-		]
-	},
-	"pages/busHtmls/stationBus.html": {
-		"resources": [
-			"css/mui.min.css"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/searchBusRoute.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/common.js",
-			"css/main.css",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/babel.js",
-			"js/headHtml.js",
-			"fonts/mui.ttf"
-		],
-		"refer": [
-			"pages/busHtmls/searchInputPlace.html"
-		]
-	},
-	"pages/busHtmls/erweima.html": {
-		"resources": [
-			"css/mui.min.css",
-			"fonts/mui.ttf",
-			"js/mui.min.js",
-			"js/foot.js",
-			"js/common.js",
-			"css/main.css",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/erweimaS.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/common.js",
-			"css/main.css",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/babel.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/searchInputPlace.html": {
-		"resources": [
-			"css/mui.min.css",
-			"css/main.css",
-			"js/common.js",
-			"js/mui.min.js",
-			"fonts/mui.ttf",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/babel.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/sub3.html": {
-		"resources": [
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/babel.js",
-			"js/common.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/sub4.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/babel.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/stationInfo.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/babel.js",
-			"js/headHtml.js",
-			"js/mui.pullToRefresh.js",
-			"js/mui.picker.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/data.js"
-		],
-		"refer": [
-			"pages/busHtmls/busMap.html"
-		]
-	},
-	"pages/busHtmls/index.html": {
-		"resources": [
-			"css/main.css",
-			"css/mui.min.css",
-			"js/jquery.qrcode.min.js",
-			"js/headHtml.js",
-			"images/cbd.jpg",
-			"images/muwu.jpg",
-			"images/yuantiao.jpg",
-			"images/shuijiao.jpg",
-			"pages/busHtmls/busTake.html",
-			"pages/busHtmls/userCollIndex.html",
-			"pages/busHtmls/test.html",
-			"js/mui.pullToRefresh.js",
-			"js/mui.picker.min.js",
-			"css/mui.picker.min.css",
-			"js/mui.pullToRefresh.material.js",
-			"js/data.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/babel.js",
-			"js/common.js",
-			"images/banner1.jpg"
-		],
-		"refer": [
-			"pages/busHtmls/busTake.html",
-			"pages/busHtmls/userCollIndex.html",
-			"pages/busHtmls/test.html",
-			"pages/busHtmls/nowTakeBus.html"
-		]
-	},
-	"pages/busHtmls/user.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/foot.js",
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/busTake.html": {
-		"resources": [
-			"css/mui.min.css",
-			"pages/busHtmls/userCollIndex.html",
-			"css/main.css",
-			"js/jquery-1.11.1.js",
-			"js/babel.js",
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/vue2.0.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js",
-			"js/headHtml.js"
-		],
-		"refer": [
-			"pages/busHtmls/userCollIndex.html",
-			"pages/busHtmls/nearMap.html",
-			"pages/busHtmls/userCollList.html",
-			"pages/busHtmls/test.html",
-			"pages/busHtmls/noticeMsg.html",
-			"pages/busHtmls/stationInfo.html",
-			"pages/busHtmls/busRoute.html",
-			"pages/busHtmls/search.html"
-		]
-	},
-	"pages/busHtmls/userCollIndex.html": {
-		"resources": [
-			"css/mui.min.css",
-			"css/main.css",
-			"js/babel.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/test.html": {
-		"resources": [
-			"css/main.css",
-			"css/mui.min.css"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/busMapShow.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js",
-			"js/mui.pullToRefresh.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/nearMap.html": {
-		"resources": [
-			"css/mui.min.css",
-			"js/babel.js",
-			"js/jquery-1.11.1.js",
-			"js/common.js",
-			"js/mui.min.js",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/foot.js",
-			"js/headHtml.js",
-			"js/mui.pullToRefresh.js",
-			"js/mui.picker.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/data.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/userCollList.html": {
-		"resources": [
-			"js/babel.js",
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/nowTakeBus.html": {
-		"resources": [
-			"images/logo.png",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/babel.js",
-			"js/headHtml.js",
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/busSelfOrder.html": {
-		"refer": [
-			"pages/busHtmls/busMakeInfo.html",
-			"pages/busHtmls/makeSelfOrder.html"
-		],
-		"resources": [
-			"js/babel.js",
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js"
-		]
-	},
-	"pages/busHtmls/noticeMsg.html": {
-		"refer": [
-			"pages/busHtmls/noticeMsgInfo.html"
-		],
-		"resources": [
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js",
-			"js/headHtml.js",
-			"js/mui.pullToRefresh.material.js",
-			"images/logo.png"
-		]
-	},
-	"pages/busHtmls/noticeMsgInfo.html": {
-		"resources": [
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js",
-			"js/headHtml.js",
-			"js/mui.pullToRefresh.material.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/busMakeInfo.html": {
-		"resources": [
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/busRouteInfo.html": {
-		"resources": [
-			"js/babel.js",
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js",
-			"js/headHtml.js"
-		],
-		"refer": [
-			"pages/busHtmls/searchInputPlace.html",
-			"pages/busHtmls/busRouteDetail.html"
-		]
-	},
-	"pages/busHtmls/complaint.html": {
-		"resources": [
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/test2.html": {
-		"resources": [
-			"js/mui.pullToRefresh.js",
-			"js/common.js",
-			"js/mui.picker.min.js",
-			"js/mui.min.js",
-			"js/mui.pullToRefresh.material.js",
-			"js/jquery-1.11.1.js",
-			"css/mui.min.css",
-			"js/vue2.0.js",
-			"js/data.js",
-			"js/jquery.qrcode.min.js",
-			"js/babel.js",
-			"js/headHtml.js"
-		],
-		"refer": []
-	},
-	"pages/busHtmls/makeSelfOrder.html": {
-		"resources": [
-			"js/jquery-1.11.1.js",
-			"js/babel.js",
-			"js/mui.min.js",
-			"css/mui.min.css",
-			"js/vue2.0.js"
-		],
-		"refer": []
-	}
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/foot.js",
+      "js/head.js",
+      "fonts/mui.ttf",
+      "css/main.css",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/babel.js",
+      "pages/busHtmls/sub1.html",
+      "js/common.js",
+      "pages/busHtmls/index.html",
+      "js/headHtml.js",
+      "js/data.js",
+      "dist/js/main.min.js",
+      "dist/js/main.js",
+      "js/headTest.js",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "pages/busHtmls/user.html"
+    ],
+    "refer": [
+      "pages/busHtmls/sub1.html",
+      "pages/busHtmls/sub3.html",
+      "pages/busHtmls/sub2.html",
+      "pages/busHtmls/sub4.html",
+      "pages/busHtmls/index.html",
+      "pages/busHtmls/user.html",
+      "pages/busHtmls/busTake.html",
+      "pages/busHtmls/search.html",
+      "pages/busHtmls/userCollIndex.html",
+      "pages/busHtmls/nowTakeBus.html",
+      "pages/busHtmls/busSelfOrder.html",
+      "pages/busHtmls/makeSelfOrder.html",
+      "pages/busHtmls/userCollList.html",
+      "pages/busHtmls/nearMap.html",
+      "pages/busHtmls/stationInfo.html",
+      "pages/busHtmls/noticeMsg.html",
+      "pages/busHtmls/busMakeInfo.html",
+      "pages/busHtmls/busRoute.html",
+      "pages/busHtmls/test2.html",
+      "pages/busHtmls/makeSelfBus.html",
+      "pages/busHtmls/complaint.html",
+      "pages/busHtmls/longDistanceTicket.html",
+      "pages/busHtmls/tourBus.html",
+      "pages/busHtmls/longDistanceSearch.html"
+    ]
+  },
+  "pages/busHtmls/sub1.html": {
+    "resources": [
+      "css/main.css",
+      "css/mui.min.css",
+      "js/headHtml.js",
+      "pages/busHtmls/sub1-1.html",
+      "js/qrcode.js",
+      "js/jquery.qrcode.min.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/foot.js",
+      "js/babel.js"
+    ],
+    "refer": [
+      "pages/busHtmls/sub1-1.html",
+      "pages/busHtmls/search.html",
+      "pages/busHtmls/nearStation.html",
+      "pages/busHtmls/searchBusRoute.html",
+      "pages/busHtmls/erweima.html",
+      "pages/busHtmls/erweimaS.html"
+    ]
+  },
+  "pages/busHtmls/sub1-1.html": {
+    "resources": [
+      "css/mui.min.css",
+      "css/main.css",
+      "js/foot.js",
+      "js/headHtml.js",
+      "fonts/mui.ttf",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js"
+    ],
+    "refer": [
+      "pages/busHtmls/nearStation.html",
+      "pages/busHtmls/searchBusRoute.html",
+      "pages/busHtmls/erweimaS.html"
+    ]
+  },
+  "pages/busHtmls/sub2.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/babel.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/search.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/headHtml.js",
+      "js/common.js",
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/babel.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.picker.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js"
+    ],
+    "refer": [
+      "pages/busHtmls/busRoute.html",
+      "pages/busHtmls/busMore.html",
+      "pages/busHtmls/stationInfo.html",
+      "pages/busHtmls/busRouteInfo.html",
+      "pages/busHtmls/test2.html"
+    ]
+  },
+  "pages/busHtmls/busMore.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/babel.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/headHtml.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.picker.min.js"
+    ],
+    "refer": [
+      "pages/busHtmls/busMap.html",
+      "pages/busHtmls/sub3.html",
+      "pages/busHtmls/busRoute.html",
+      "pages/busHtmls/stationInfo.html",
+      "pages/busHtmls/busRouteInfo.html"
+    ]
+  },
+  "pages/busHtmls/busRoute.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/babel.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/headHtml.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.picker.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js"
+    ],
+    "refer": [
+      "pages/busHtmls/busMap.html",
+      "pages/busHtmls/sub3.html",
+      "pages/busHtmls/busMapShow.html"
+    ]
+  },
+  "pages/busHtmls/busMap.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/babel.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/nearStation.html": {
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/foot.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "css/main.css",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js"
+    ],
+    "refer": [
+      "pages/busHtmls/stationBus.html"
+    ]
+  },
+  "pages/busHtmls/stationBus.html": {
+    "resources": [
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/searchBusRoute.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/common.js",
+      "css/main.css",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/babel.js",
+      "js/headHtml.js",
+      "fonts/mui.ttf"
+    ],
+    "refer": [
+      "pages/busHtmls/searchInputPlace.html"
+    ]
+  },
+  "pages/busHtmls/erweima.html": {
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "js/foot.js",
+      "js/common.js",
+      "css/main.css",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/erweimaS.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/common.js",
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/babel.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/searchInputPlace.html": {
+    "resources": [
+      "css/mui.min.css",
+      "css/main.css",
+      "js/common.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/babel.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/sub3.html": {
+    "resources": [
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/babel.js",
+      "js/common.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/sub4.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/babel.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/stationInfo.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/babel.js",
+      "js/headHtml.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.picker.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js"
+    ],
+    "refer": [
+      "pages/busHtmls/busMap.html"
+    ]
+  },
+  "pages/busHtmls/index.html": {
+    "resources": [
+      "css/main.css",
+      "css/mui.min.css",
+      "js/jquery.qrcode.min.js",
+      "js/headHtml.js",
+      "images/cbd.jpg",
+      "images/muwu.jpg",
+      "images/yuantiao.jpg",
+      "images/shuijiao.jpg",
+      "pages/busHtmls/busTake.html",
+      "pages/busHtmls/userCollIndex.html",
+      "pages/busHtmls/test.html",
+      "js/mui.pullToRefresh.js",
+      "js/mui.picker.min.js",
+      "css/mui.picker.min.css",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/babel.js",
+      "js/common.js",
+      "images/banner1.jpg"
+    ],
+    "refer": [
+      "pages/busHtmls/busTake.html",
+      "pages/busHtmls/userCollIndex.html",
+      "pages/busHtmls/test.html",
+      "pages/busHtmls/nowTakeBus.html"
+    ]
+  },
+  "pages/busHtmls/user.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/foot.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/busTake.html": {
+    "resources": [
+      "css/mui.min.css",
+      "pages/busHtmls/userCollIndex.html",
+      "css/main.css",
+      "js/jquery-1.11.1.js",
+      "js/babel.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/headHtml.js"
+    ],
+    "refer": [
+      "pages/busHtmls/userCollIndex.html",
+      "pages/busHtmls/nearMap.html",
+      "pages/busHtmls/userCollList.html",
+      "pages/busHtmls/test.html",
+      "pages/busHtmls/noticeMsg.html",
+      "pages/busHtmls/stationInfo.html",
+      "pages/busHtmls/busRoute.html",
+      "pages/busHtmls/search.html"
+    ]
+  },
+  "pages/busHtmls/userCollIndex.html": {
+    "resources": [
+      "css/mui.min.css",
+      "css/main.css",
+      "js/babel.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/test.html": {
+    "resources": [
+      "css/main.css",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/busMapShow.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js",
+      "js/mui.pullToRefresh.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/nearMap.html": {
+    "resources": [
+      "css/mui.min.css",
+      "js/babel.js",
+      "js/jquery-1.11.1.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/foot.js",
+      "js/headHtml.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.picker.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/userCollList.html": {
+    "resources": [
+      "js/babel.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/nowTakeBus.html": {
+    "resources": [
+      "images/logo.png",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/babel.js",
+      "js/headHtml.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/busSelfOrder.html": {
+    "refer": [
+      "pages/busHtmls/busMakeInfo.html",
+      "pages/busHtmls/makeSelfOrder.html"
+    ],
+    "resources": [
+      "js/babel.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js"
+    ]
+  },
+  "pages/busHtmls/noticeMsg.html": {
+    "refer": [
+      "pages/busHtmls/noticeMsgInfo.html"
+    ],
+    "resources": [
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js",
+      "js/headHtml.js",
+      "js/mui.pullToRefresh.material.js",
+      "images/logo.png"
+    ]
+  },
+  "pages/busHtmls/noticeMsgInfo.html": {
+    "resources": [
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js",
+      "js/headHtml.js",
+      "js/mui.pullToRefresh.material.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/busMakeInfo.html": {
+    "resources": [
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/busRouteInfo.html": {
+    "resources": [
+      "js/babel.js",
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/headHtml.js",
+      "images/line.png"
+    ],
+    "refer": [
+      "pages/busHtmls/searchInputPlace.html",
+      "pages/busHtmls/busRouteDetail.html"
+    ]
+  },
+  "pages/busHtmls/complaint.html": {
+    "resources": [
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/test2.html": {
+    "resources": [
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/babel.js",
+      "js/headHtml.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/makeSelfOrder.html": {
+    "resources": [
+      "js/jquery-1.11.1.js",
+      "js/babel.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/vue2.0.js"
+    ],
+    "refer": []
+  },
+  "pages/busHtmls/busRouteDetail.html": {
+    "resources": [
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js"
+    ],
+    "refer": [
+      "pages/busHtmls/busRouteMapRoute.html"
+    ]
+  },
+  "pages/busHtmls/busRouteMapRoute.html": {
+    "resources": [
+      "js/mui.pullToRefresh.js",
+      "js/common.js",
+      "js/mui.picker.min.js",
+      "js/mui.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/jquery-1.11.1.js",
+      "css/mui.min.css",
+      "js/vue2.0.js",
+      "js/data.js",
+      "js/jquery.qrcode.min.js",
+      "js/headHtml.js"
+    ]
+  }
 }

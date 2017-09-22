@@ -835,7 +835,8 @@
 					"js/vue2.0.js",
 					"js/data.js",
 					"js/jquery.qrcode.min.js",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"images/line.png"
 				],
 				"refer": [
 					"pages/busHtmls/searchInputPlace.html",
@@ -899,6 +900,34 @@
 			"pages/busHtmls/makeSelfBus.html": {
 				"resources": [
 					"fonts/iconfont.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/busRouteDetail.html": {
+				"resources": [
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js"
+				],
+				"refer": [
+					"pages/busHtmls/busRouteMapRoute.html"
+				],
+				"priority": 0
+			},
+			"pages/busHtmls/busRouteMapRoute.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js"
 				],
 				"refer": [],
 				"priority": 0

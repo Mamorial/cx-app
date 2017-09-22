@@ -16,20 +16,15 @@
 				<div class="route-detail-top">
 					<div class="route-detail-top-T">
 						<ul>
-							<li>
+							<li v-for="bus in busRouteName" v-if="bus==''?false:true">
 								<span class="mui-icon iconfont icon-gongjiaoche"></span>
-								<span>116路</span>
-								<span class="mui-icon iconfont icon-changjiantou"></span>
-							</li>
-							<li>
-								<span class="mui-icon iconfont icon-gongjiaoche"></span>
-								<span>116路</span>
+								<span>{{bus}}</span>
 								<span class="mui-icon iconfont icon-changjiantou"></span>
 							</li>
 						</ul>
 					</div>
 					<div class="route-detail-top-B">
-						5公里  • 28分钟  • 步行150米  • 4元
+						{{busRouteInfo.all_distance}}  • {{busRouteInfo.all_times}}分钟 • {{busRouteInfo.all_walking}}  • {{busRouteInfo.all_cost}}元
 					</div>
 				</div>
 				<div class="route-detail-bottom">
@@ -37,60 +32,47 @@
 						<li class="route-detail-liSE">
 							<span class="mui-icon iconfont icon-qidian"></span>
 							<span>起点</span>
-							<span>我的位置</span>
+							<span>{{startP}}</span>
 						</li>
-						<div>
+						<div v-for="(route, i) in busWalkingInfo">
 							<li class="route-detail-liLT">
 								<span></span>
 								<span></span>
 							</li>
 							<li class="route-detail-liWalk">
 								<span class="mui-icon iconfont icon-buhang"></span>
-								<span>步行50米</span>
-								<span>为我带路</span>
+								<span>步行{{route.walking.distance}}到 {{route.bus.startStation?route.bus.startStation:endP}}</span>
+								<span @click="routeMapWalk(route.walking.route)">为我带路</span>
 							</li>
-							<li class="route-detail-liLT">
+							<li class="route-detail-liLT" v-if="route.bus.name==''?false:true">
 								<span></span>
 								<span></span>
 							</li>
-							<li class="route-detail-liBus">
-								<span class="mui-icon iconfont icon-gongjiaoche busIcon"></span>
-								<div class="route-detail-liBusDiv">
-									<div>118路</div>
-									<div>
-										<span>学士路（公交站）上车</span>
-										<span>日丽中路口（公交站）下车</span>
-									</div>
-									<div>
-										<span class="mui-icon iconfont icon-jiantou2-copy"></span>
-									</div>
+							<li class="route-detail-liBus" v-if="route.bus.name==''?false:true">
+								<div v-if="route.bus.isShow" class="show-station-list">
+									<span></span>
+									<span class="mui-icon iconfont icon-gongjiaoche busIcon"></span>
 								</div>
-							</li>
-						</div>
-						<div>
-							<li class="route-detail-liLT">
-								<span></span>
-								<span></span>
-							</li>
-							<li class="route-detail-liWalk">
-								<span class="mui-icon iconfont icon-buhang"></span>
-								<span>步行50米</span>
-								<span>为我带路</span>
-							</li>
-							<li class="route-detail-liLT">
-								<span></span>
-								<span></span>
-							</li>
-							<li class="route-detail-liBus">
-								<span class="mui-icon iconfont icon-gongjiaoche busIcon"></span>
+								<div v-else>
+									<span class="mui-icon iconfont icon-gongjiaoche busIcon"></span>
+								</div>
 								<div class="route-detail-liBusDiv">
-									<div>118路</div>
-									<div>
-										<span>学士路（公交站）上车</span>
-										<span>日丽中路口（公交站）下车</span>
+									<div>{{route.bus.name}}</div>
+									<div v-if="route.bus.isShow">
+										<span>{{route.bus.startStation}} 上车</span>
+										<span v-for="station in route.bus.stations">{{station}}</span>
+										<span>{{route.bus.endStation}} 下车</span>
+										<!--<span>{{route.bus.startStation}} 上车</span>
+										<span>{{route.bus.endStation}} 下车</span>-->
 									</div>
-									<div>
-										<span class="mui-icon iconfont icon-jiantou2-copy"></span>
+									<div v-else>
+										<!--<span v-for="station in route.bus.stations">{{station}}</span>-->
+										<span>{{route.bus.startStation}} 上车</span>
+										<span>{{route.bus.endStation}} 下车</span>
+									</div>
+									<div @click="showRouteInfo(i)">
+										<span v-if="route.bus.isShow" class="mui-icon iconfont icon-jiantou"></span>
+										<span v-else class="mui-icon iconfont icon-jiantou2-copy"></span>
 									</div>
 								</div>
 							</li>
@@ -102,7 +84,7 @@
 						<li class="route-detail-liSE">
 							<span class="mui-icon iconfont icon-qidian"></span>
 							<span>到达终点</span>
-							<span>万达广场</span>
+							<span>{{endP}}</span>
 						</li>
 					</ul>
 				</div>
@@ -150,6 +132,15 @@
 		margin-top: 7px;
 		font-size: 15px;
 	}
+	.route-detail-bottom ul li.route-detail-liBus{
+		position: relative;
+	}
+	.route-detail-bottom ul li.route-detail-liBus div.show-station-list span:nth-of-type(1) {
+		width: 16px;height: 100%;border-right: 1px dotted #BDBDBD;display: block;position: absolute;left: 0;top: 0;
+	}
+	.route-detail-bottom ul li.route-detail-liBus div.show-station-list span:nth-of-type(2) {
+		position: absolute;top: 45%;background: #fff;
+	}
 	.route-detail-bottom ul li.route-detail-liBus span{
 		float: left;
 		display: block;
@@ -185,6 +176,7 @@
 		float: right;
 		padding: 5px 0;
 		font-size: 15px;
+		width: 100%;
 	}
 	.route-detail-bottom ul li.route-detail-liBus .route-detail-liBusDiv div:nth-of-type(2) span:nth-of-type(2) {
 		padding-bottom: 0;
@@ -216,13 +208,141 @@
 	var app = new Vue({
 		el: '#busRouteDetail',
 		data: {
-			
+			busRouteInfo: {        //总路线规划信息
+				all_distance: '',
+				all_times: '',
+				all_walking: '',
+				all_cost: ''
+			},
+			busRouteName: [],    //所有公交线路名称
+			busWalkingInfo: [],    //每趟线路的公交和步行详情
+			startP: '',         //起始点
+			endP: ''            //终点
 		},
 		mounted: function() {
-			
+			var self = this;
+			mui.plusReady(function() {
+				var info = plus.webview.currentWebview().routeInfo;
+				self.startP = plus.webview.currentWebview().startPlace;
+				self.endP = plus.webview.currentWebview().endPlace;
+				self.init(info);
+			})
 		},
 		methods: {
-			
+			//初始化
+			init: function(info) {
+				var self = this,ad = 0;
+				console.log(info.bus.length);
+				info.bus.forEach(function(v, i) {
+					var objBus = {
+						walking: {
+							origin: '',
+							destination: '',
+							distance: '',
+							route: ''
+						},
+						bus: {
+							name: '',
+							stations: [],
+							startStation: '',
+							endStation: ''
+						}
+					},
+					lenW = v.walking.steps.length;
+					if(v.walking.distance.indexOf('米') > 0) {
+						console.log('name = ' + typeof v.walking.distance);
+						ad = ad + parseInt(v.walking.distance.split('米')[0])
+					} else if(v.walking.distance.indexOf('公里') > 0) {
+						ad = ad + parseInt(v.walking.distance.split('公里')[0])
+					}
+//					if(v.via_stops) {
+						var r;
+						self.busRouteName.push(v.name);
+						//每趟线路数据详情
+						if(lenW) {
+							for(var j = 0; j < lenW; j++) {
+								objBus.walking.route = objBus.walking.route + ',' + v.walking.steps[j].polyline;
+							}
+							console.log('ggggg = ' + v.walking.distance);
+							if(v.walking.distance.indexOf('米') > 0) {
+								r = v.walking.distance.split('米')[0];
+							} else if(v.walking.distance.indexOf('公里') > 0) {
+								r = v.walking.distance.split('公里')[0];
+							}
+							console.log("r = " + r);
+							if(r > 1000) { 
+								objBus.walking.distance = (Math.round(r/100)/10).toFixed(1) + '公里';
+							} else {
+								objBus.walking.distance = r + '米';
+							}
+							objBus.walking.origin = v.walking.origin;
+							objBus.walking.destination = v.walking.destination;
+						}
+						for(var k = 0; k < v.via_stops.length; k++) {
+							if(k == 0) {
+//								v.via_stops[k].name = v.via_stops[k].name + '上车'
+								objBus.bus.startStation = v.via_stops[k].name;
+							} else if(k == v.via_stops.length - 1) {
+//								v.via_stops[k].name = v.via_stops[k].name + '下车'
+								objBus.bus.endStation = v.via_stops[k].name;
+							} else {
+								objBus.bus.stations.push(v.via_stops[k].name);
+							}
+						}
+						//步行路线
+						console.log(v.walking.steps.length);
+						for(var r = 0; r < v.walking.steps.length; r++) {
+							var ar = v.walking.steps[r].polyline.split(';'), warr = [];
+							
+							warr.push(ar);
+							console.log(warr);
+							objBus.walking.route = objBus.walking.route + ',' + warr;
+						}
+						objBus.walking.route = objBus.walking.route.substr(1);
+						objBus.bus.name = v.name;
+						self.busWalkingInfo.push(objBus);
+						for(var m = 0; m < self.busWalkingInfo.length; m++) {
+							self.$set(self.busWalkingInfo[m].bus, 'isShow', false);
+							console.log(self.busWalkingInfo[m].bus.isShow)
+						}
+//					}
+					
+					
+					
+				});
+				if(ad > 1000) {
+					this.busRouteInfo.all_walking = (Math.round(ad/100)/10).toFixed(1) + '公里';
+				} else {
+					this.busRouteInfo.all_walking = ad + '米';
+				}
+				this.busRouteInfo.all_distance = info.all_distance;
+				this.busRouteInfo.all_times = info.all_times;
+				this.busRouteInfo.all_cost = info.cost;
+			},
+			//展开所有站点列表
+			showRouteInfo: function(num) {
+				this.busWalkingInfo[num].bus.isShow =! this.busWalkingInfo[num].bus.isShow;
+			},
+			/*为我带路*/
+			routeMapWalk: function(walk) {
+				var walkRoute;
+				walkRoute = walk.replace(/;/g, ',');
+				console.log(walkRoute);
+				mui.openWindow({
+					url: 'busRouteMapRoute.html',
+					id: 'busRouteMapRoute',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						walkRoute: walkRoute
+					}
+				})
+			}
 		}
 	})
 </script>

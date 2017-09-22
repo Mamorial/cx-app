@@ -9,10 +9,24 @@
 		<div id="inputResult">
 			<header class="mui-bar mui-bar-nav">
 			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			    <input v-model="inputCon" type="text" class="mui-input-clear searchInput" autofocus="autofocus" @input="queryPlace" />
-			    <a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" @click="busMap">确定</a>
+			    <h1 class="mui-title">输入{{inputType=='topI'?'起点':'终点'}}</h1>
+			    <!--<input v-model="inputCon" type="text" class="mui-input-clear searchInput" autofocus="autofocus" />-->
+			    <!--<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">确定</a>-->
 			</header>
 			<div class="mui-content">
+				<div class="index-search-content">
+					<div class="index-search-content-div">
+						<div class="index-search-content-input">
+							<div class="mui-input-row">
+						        <label>
+						        	<span class="mui-icon mui-icon-search"></span>
+						        </label>
+						        <input id="keyword" name="keyword" v-model="inputCon" v-model="search_input" @input="queryPlace" autofocus="autofocus" type="text" class="mui-input-clear" placeholder="请输入内容">
+						    </div>
+						</div>
+						<div class="index-search-content-bottom" @click="busMap">确定</div>
+					</div>
+				</div>
 				<div class="mui-content-businfo">
 					<ul class="mui-table-view">
 						 <li class="mui-table-view-cell" v-for="item in items" @click="busNumInfo(item.name)">
@@ -31,7 +45,7 @@
 		data: {
 			inputCon: '',
 			items: [],
-			inputType: ''
+			inputType: ''   //起点：topI,  终点：bottomI
 		},
 		mounted() {
 			var self = this;

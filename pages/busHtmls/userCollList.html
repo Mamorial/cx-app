@@ -21,7 +21,7 @@
 			display: block;
 			float: left;
 		}
-		ul.coll-info-ul li span:nth-of-type(1) {
+		ul.coll-info-ul li div.coll-list-all span:nth-of-type(1) {
 			width: auto;
 			padding: 2px 10px;
 			border: 1px solid #3AA6F2;
@@ -30,12 +30,24 @@
 			color: #3AA6F2;
 			margin: 0 10px 0 0;
 		}
-		ul.coll-info-ul li span:nth-of-type(2) {
+		ul.coll-info-ul li div.coll-list-all  span:nth-of-type(2) {
 			padding: 5px 0;
 		}
-		ul.coll-info-ul li span:nth-of-type(3) {
+		ul.coll-info-ul li div.coll-list-icon {
+			width: 30px;
+			height: auto;
+			float: right;
+		}
+		ul.coll-info-ul li div.coll-list-all{
+			width: calc(100% - 40px);
+			overflow: hidden;
+		}
+		ul.coll-info-ul li div.coll-list-icon span {
 			float: right;
 			padding: 5px 0;
+		}
+		ul.coll-info-ul li div.coll-list-icon span.icon-shoucang2{
+			color: #FCE22E;
 		}
 	</style>
 	<body>
@@ -46,98 +58,48 @@
 			<h1 class="mui-title">收藏</h1>
 		</header>
 		<div class="mui-content" style="height: 100%;">
-			<div id="slider" class="mui-slider" style="height: 100%;">
-				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a class="mui-control-item" href="#item1mobile">
-				全部
-			</a>
-					<a class="mui-control-item" href="#item2mobile">
-				站点
-			</a>
-					<a class="mui-control-item" href="#item3mobile">
-				车次
-			</a>
-				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
-				<div class="mui-slider-group" style="height: 100%;padding-bottom: 40px;">
-					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
-						<div id="scroll1" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view coll-info-ul">
-									<li class="mui-table-view-cell">
-										<span>车次</span>
-										<span>118路</span>
-										<span>收藏</span>
-									</li>
-									<li class="mui-table-view-cell">
-										<span>车次</span>
-										<span>118路</span>
-										<span>收藏</span>
-									</li>
-									<li class="mui-table-view-cell">
-										<span>车次</span>
-										<span>118路</span>
-										<span>收藏</span>
-									</li>
-									<li class="mui-table-view-cell">
-										<span>站点</span>
-										<span>鄞州电信局</span>
-										<span>收藏</span>
-									</li>
-									<li class="mui-table-view-cell">
-										<span>站点</span>
-										<span>鄞州电信局</span>
-										<span>收藏</span>
-									</li>
-								</ul>
-							</div>
-						</div>
+			<ul class="mui-table-view coll-info-ul">
+				<li class="mui-table-view-cell">
+					<div class="coll-list-icon" @click="cancelColl">
+						<span v-if="userColl" class="mui-icon iconfont icon-shoucang2"></span>
+						<span v-else class="mui-icon iconfont icon-shoucang"></span>
 					</div>
-					<div id="item2mobile" class="mui-slider-item mui-control-content">
-						<div id="scroll2" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view coll-info-ul">
-									<li class="mui-table-view-cell">
-										<span>站点</span>
-										<span>鄞州电信局</span>
-										<span>收藏</span>
-									</li>
-									<li class="mui-table-view-cell">
-										<span>站点</span>
-										<span>鄞州电信局</span>
-										<span>收藏</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-
+					<div class="coll-list-all">
+						<span>车次</span>
+						<span>118路</span>
 					</div>
-					<div id="item3mobile" class="mui-slider-item mui-control-content">
-						<div id="scroll3" class="mui-scroll-wrapper">
-							<div class="mui-scroll">
-								<ul class="mui-table-view coll-info-ul">
-									<li class="mui-table-view-cell">
-										<span>车次</span>
-										<span>118路</span>
-										<span>收藏</span>
-									</li>
-									<li class="mui-table-view-cell">
-										<span>车次</span>
-										<span>118路</span>
-										<span>收藏</span>
-									</li>
-									<li class="mui-table-view-cell">
-										<span>车次</span>
-										<span>118路</span>
-										<span>收藏</span>
-									</li>
-								</ul>
-							</div>
-						</div>
-
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="coll-list-icon" @click="cancelColl">
+						<span v-if="userColl" class="mui-icon iconfont icon-shoucang2"></span>
+						<span v-else class="mui-icon iconfont icon-shoucang"></span>
 					</div>
-				</div>
-			</div>
+					<div class="coll-list-all">
+						<span>车次</span>
+						<span>118路</span>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="coll-list-icon" @click="cancelColl">
+						<span v-if="userColl" class="mui-icon iconfont icon-shoucang2"></span>
+						<span v-else class="mui-icon iconfont icon-shoucang"></span>
+					</div>
+					<div class="coll-list-all">
+						<span>车次</span>
+						<span>118路</span>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="coll-list-icon" @click="cancelColl">
+						<span v-if="userColl" class="mui-icon iconfont icon-shoucang2"></span>
+						<span v-else class="mui-icon iconfont icon-shoucang"></span>
+					</div>
+					<div class="coll-list-all">
+						<span>车次</span>
+						<span>118路</span>
+					</div>
+				</li>
+			</ul>
 		</div>
 
 	</div>
@@ -146,12 +108,17 @@
 		var app = new Vue({
 			el: '#collList',
 			data: {
-				
+				userColl: true
 			},
-			mounted() {
+			mounted: function() {
 				mui.init({
 					swipeBack: false
 				});
+			},
+			methods: {
+				cancelColl: function() {
+					this.userColl =! this.userColl;
+				}
 			}
 		})
 	</script>

@@ -71,7 +71,7 @@
 								<span class="mui-icon iconfont icon-liebiao"></span>
 							</div>
 						</li>
-						<li class="search-bus-listLi" @click="busRouteDetail" v-for="bus in busInfo">
+						<li class="search-bus-listLi" @click="busRouteDetail(bus)" v-for="bus in busInfo">
 							<div class="bus-list-top">
 								<div class="bus-list-top-L">
 									<div class="bus-list-topL-left">
@@ -89,8 +89,11 @@
 									<span>末班车时间20:00</span>
 								</div>
 							</div>
+							<div style="width: 80px;height: 40px;position: absolute;left: 50px;top: 85px;">
+								<img src="../../images/line.png" width="100%" />
+							</div>
 							<div class="bus-list-bottom">
-								<div class="bus-list-bottom-buss" v-for="buss in bus.bus">
+								<div class="bus-list-bottom-buss" v-for="buss in bus.bus" v-if="buss.name==''?false:true">
 									<div class="bus-list-bottom-bussB">
 										{{buss.name}}
 									</div>
@@ -112,22 +115,6 @@
 							</div>
 						</li>
 					</ul>
-					<!--<ul class="mui-table-view" v-show="busRouteList" style="width: 95%;margin: auto;border-radius: 5px;">
-						<li style="width"></li>
-						<li class="mui-table-view-cell mui-media" v-for="buss in busInfo" @click="busRouteDetail">
-							<a href="javascript:;">
-								<span class="mui-icon mui-icon-arrowthindown mui-media-object mui-pull-left"></span>
-								<div class="mui-media-body">
-									<div class="listBus">
-										<div class="listBusList" v-for="busList in buss.bus">
-											<span>{{busList.name}}</span>
-											<span>></span>
-										</div>
-									</div>
-								</div>
-							</a>
-						</li>
-					</ul>-->
 				</div>  
 			</div>
 		</div>
@@ -139,7 +126,7 @@
 		list-style: none;
 	}
 	.bus-route-list{
-		width: 95%;height: auto;border-radius: 5px;background: #fff;border-radius: 5px;
+		width: 95%;height: auto;border-radius: 5px;background: #fff;border-radius: 5px;margin: auto;
 	}
 	.bus-route-list li{
 		padding: 5px;
@@ -147,6 +134,7 @@
 		height: auto;
 		border-bottom: 1px solid #E7E7E7;
 		overflow: hidden;
+		position: relative;
 	}
 	.bus-route-list li:last-child{
 		border: none;
@@ -179,8 +167,7 @@
 		width: 100%;
 		height: auto;
 		overflow: hidden;
-		padding: 10px;
-		border-bottom: 1px solid #E7E7E7;
+		padding: 10px 10px 0 10px;
 	}
 	.bus-list-top .bus-list-top-L{
 		width: 65%;
@@ -240,27 +227,30 @@
 		font-size: 20px;
 	}
 	.bus-list-bottom{
-		width: 100%;
+		width: calc(100% - 125px);
+		float: right;
 		height: auto;
 		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.bus-list-bottom .bus-list-bottom-buss {
 		width: auto;
 		height: auto;
-		padding: 5px 0;
+		padding: 4px 0;
 		float: left;
 		overflow: hidden;
 	}
 	.bus-list-bottom .bus-list-bottom-bussB{
 		float: left;
 		font-size: 15px;
-		padding: 2px 5px;
+		color: #1A99F1;
 	}
 	.bus-list-bottom .bus-list-bottom-bussI{
 		float: left;
 	}
 	.bus-list-bottom .bus-list-bottom-bussI span{
 		font-size: 25px;
+		color: #1A99F1; 
 	}
 	.bus-route-list .search-bus-listLi .bus-list-bottom .bus-list-bottom-buss:last-child .bus-list-bottom-bussI{
 		display: none;
@@ -300,26 +290,45 @@
 			showHisList: false,
 //			busInfo: '',
 			busInfo: [{
-				all_stations: '3',
-				all_distance: '3',
-				all_times: '3',
-				cost: '3',
-				start_bus: '108路',
-				start_station: 'aaaaaa',
-				walking: {
-					origin: "121.616676,29.973415",
-					destination: "121.613350,29.979340",
-					steps: [],
-					distance: 892
-				},
+				all_stations: '3',   //总站点
+				all_distance: '3',   //总路程
+				all_times: '3',     //总时长
+				cost: '3',          //总费用
+				start_bus: '108路',  //开始乘坐的公交
+				start_station: 'aaaaaa',   //开始乘坐公交的站台
 				bus: [{
 					name: '389路',
-					departure_stop: '',
-					arrival_stop: ''
+					departure_stop: '',   //此段起乘站
+					arrival_stop: '',   //此段下车站
+					via_stops: [],     //此段途经公交站点列表
+					walking: {
+						origin: "121.616676,29.973415",  //起点坐标
+						destination: "121.613350,29.979340",  //终点坐标
+						steps: [],   //步行路段列表
+						distance: 892   //每段规划线路的步行距离
+					}
 				},{
 					name: '39路',
 					departure_stop: '',
-					arrival_stop: ''
+					arrival_stop: '',
+					via_stops: [],
+					walking: {
+						origin: "121.616676,29.973415",
+						destination: "121.613350,29.979340",
+						steps: [],
+						distance: 892
+					}
+				},{ 
+					name: '',
+					departure_stop: '',
+					arrival_stop: '',
+					via_stops: [],
+					walking: {
+						origin: "121.616676,29.973415",
+						destination: "121.613350,29.979340",
+						steps: [],
+						distance: 892
+					}
 				}]
 			},{
 				all_stations: '6',
@@ -328,26 +337,32 @@
 				cost: '6',
 				start_bus: '118路',
 				start_station: 'bbbbbb',
-				walking: {
-					origin: "121.616676,29.973415",
-					destination: "121.613350,29.979340",
-					steps: [],
-					distance: 892,
-					duration: '',
-					steps: ''
-				},
 				bus: [{
 					name: '389路',
 					departure_stop: '',
 					arrival_stop: '',
 					duration: '',
-					via_num: ''
+					via_num: '',
+					via_stops: [],
+					walking: {
+						origin: "121.616676,29.973415",
+						destination: "121.613350,29.979340",
+						steps: [],
+						distance: 892
+					}
 				},{
 					name: '39路',
 					departure_stop: '',
 					arrival_stop: '',
 					duration: '',
-					via_num: ''
+					via_num: '',
+					via_stops: [],
+					walking: {
+						origin: "121.616676,29.973415",
+						destination: "121.613350,29.979340",
+						steps: [],
+						distance: 892
+					}
 				}]
 			}],
 			startPlace: '',
@@ -420,7 +435,7 @@
 	 				console.log('位置： ' + self.startPlace + '......' + self.endPlace);
 		 			if(self.startPlace && self.endPlace) {
 		 				var _url = "v3/direction/transit/integrated?key=e00e7ed74876f674fa2f01bf36f429c8&origin="+self.startPlace+"&destination="+self.endPlace+"&city=宁波&cityd=宁波&strategy=0&nightflag=0";
-		 				self.busInfo = [];
+		 				self.busInfo = [];  //线路封装
 		 				fc.ajax(_url, 'get').done(function(data) {
 							var bus = data.route.transits;
 							bus.forEach(function(v, i) {
@@ -431,34 +446,70 @@
 									cost: '',
 									start_bus: '',
 									start_station: '',
-									walking: {},
+									end_station: '',
 									bus: []
 								};
 								var len = v.segments.length, stations = 0;
-								for(var j = 0; j < len; j++) {
-									var _obj = {},
-										_len = v.segments[j].bus.buslines.length;
-									console.log('j = ' + _len); 
-									if(_len) {
+								for(var j = 0; j < len; j++) {   
+									var _obj = {
+										name: '',
+										via_stops: '',
+										walking: {
+											origin: '',
+											destination: '',
+											distance: '',
+											duration: '',
+											steps: []
+										}
+									},_lenB,_lenW;
+										_lenB = v.segments[j].bus.buslines.length;
+										if(v.segments[j].walking.steps) {
+											_lenW = v.segments[j].walking.steps.length;
+										} else {
+											_lenW = v.segments[j].walking;
+										}
+										 
+										console.log('jjj = ' + v.segments[j].walking.length);
+//									console.log('j = ' + _lenB); 
+									if(_lenB) {  //公交线路
 										var _name = v.segments[j].bus.buslines[0].name;
 										stations = stations + parseInt(v.segments[j].bus.buslines[0].via_num);
 										_name = _name.split('(')[0];
 										_obj.name = _name;
-										obj.bus.push(_obj);
+										_obj.via_stops = v.segments[j].bus.buslines[0].via_stops;
+										_obj.via_stops.unshift(v.segments[j].bus.buslines[0].departure_stop)
+										_obj.via_stops.push(v.segments[j].bus.buslines[0].arrival_stop)
 									}
+									if(_lenW) {   //步行线路
+										console.log('test = ' + v.segments[j].walking.origin);
+										_obj.walking.origin = v.segments[j].walking.origin;
+										_obj.walking.destination = v.segments[j].walking.destination;
+										var _dw = '';
+										if(v.segments[j].walking.distance > 1000) {
+											_dw = (Math.round(v.segments[j].walking.distance/100)/10).toFixed(1) + '公里';
+										} else {
+											_dw = v.segments[j].walking.distance + '米';
+										}
+										_obj.walking.distance = _dw;
+										_obj.walking.duration = Math.floor(parseInt(v.segments[j].walking.duration) / 60);
+										_obj.walking.steps = v.segments[j].walking.steps;
+									}
+									obj.bus.push(_obj);
 								}
-								setTimeout(function() {
+								
+								setTimeout(function() {    //总线路
 									var _d = '';
 									if(v.distance > 1000) {
 										_d = (Math.round(v.distance/100)/10).toFixed(1) + '公里';
 									} else {
 										_d = v.distance + '米';
 									}
-									obj.all_stations = stations;
+									obj.all_stations = stations + 2;
 									obj.all_distance = _d;
 									obj.all_times = Math.floor(parseInt(v.duration) / 60);
 									obj.cost = v.cost;
 									obj.start_station = v.segments[0].bus.buslines[0].departure_stop.name;
+									obj.end_station = v.segments[0].bus.buslines[0].arrival_stop.name;
 									obj.start_bus = v.segments[0].bus.buslines[0].name.split('(')[0];
 									self.busInfo.push(obj);
 								}, 500);
@@ -470,7 +521,7 @@
 							mui.toast('error');
 						});
 		 			}
-	 			}, 500)
+	 			}, 1000)
 	 		},
 	 		inputPlace: function(con, type) {   //  输入地名页面
 				mui.openWindow({
@@ -517,11 +568,16 @@
 	 				console.log('eara = ' + _type);
 	 				var _url = "v3/geocode/geo?key=e00e7ed74876f674fa2f01bf36f429c8&address="+_type+"&city=宁波";
 	 				fc.ajax(_url, 'get').done(function(data) {
-	 					console.log(data.geocodes[0].location);
-	 					if(type == 'inputF') {
-	 						self.startPlace = data.geocodes[0].location;
-	 					} else if(type == 'inputC') {
-	 						self.endPlace = data.geocodes[0].location;
+	 					console.log(data.geocodes.length);
+	 					if(data.geocodes.length) { 
+	 						if(type == 'inputF') {
+		 						self.startPlace = data.geocodes[0].location;
+		 					} else if(type == 'inputC') {
+		 						self.endPlace = data.geocodes[0].location;
+		 					}
+	 					} else {
+	 						plus.nativeUI.closeWaiting();
+	 						mui.toast(_type + '搜索失败');
 	 					}
 //						console.log(eara);
 					}).fail(function(error) {
@@ -530,7 +586,8 @@
 	 			}, 200)
 	 		},
 	 		//路线详情  
-	 		busRouteDetail: function() { 
+	 		busRouteDetail: function(info) {
+	 			var self = this;
 	 			mui.openWindow({
 	 				url: 'busRouteDetail.html',
 					id: 'busRouteDetail',
@@ -540,6 +597,11 @@
 					waiting: {
 						autoshow: false,
 						title: '正在加载...'
+					},
+					extras:{
+						routeInfo: info,
+						startPlace: self.inputF,
+						endPlace: self.inputC
 					}
 				})
 	 		}
