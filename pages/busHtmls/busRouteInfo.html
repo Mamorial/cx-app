@@ -89,11 +89,11 @@
 									<span>末班车时间20:00</span>
 								</div>
 							</div>
-							<div style="width: 80px;height: 40px;position: absolute;left: 50px;top: 85px;">
+							<div style="width: 80px;height: 40px;position: absolute;left: 50px;top: 85px;" v-if="bus.bus[1].name==''?false:true">
 								<img src="../../images/line.png" width="100%" />
 							</div>
 							<div class="bus-list-bottom">
-								<div class="bus-list-bottom-buss" v-for="buss in bus.bus" v-if="buss.name==''?false:true">
+								<div class="bus-list-bottom-buss" v-for="(buss,j) in bus.bus" v-if="buss.name==''||j==0?false:true">
 									<div class="bus-list-bottom-bussB">
 										{{buss.name}}
 									</div>

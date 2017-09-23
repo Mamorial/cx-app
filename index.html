@@ -18,7 +18,6 @@
 	</body>
 </html>
 <script type="text/javascript">
-	
 	var map = new AMap.Map('', {
         resizeEnable: true
     });
@@ -72,7 +71,7 @@
 	var mainWv = plus.webview.currentWebview();
 	var activeTab = '';
 	var homeWv = plus.webview.create(subInfos[0].url, subInfos[0].id, subStyles);
-	fc.preLoadPagesTab();
+//	fc.preLoadPagesTab();
 	mainWv.append(homeWv);
 	activeTab = subInfos[0].id;
 
@@ -92,13 +91,5 @@
 		plus.webview.getWebviewById(activeTab).hide('none');
 		activeTab = targetTab;
 	})
-	setTimeout(function(){
-        var array = plus.webview.all();
-        if(array){
-            for(var i=0,len=array.length;i<len;i++){
-//                  console.log('所有加载页面的URL' + array[i].getURL());
-                }
-        }
-    },1000)
 	})
 </script>

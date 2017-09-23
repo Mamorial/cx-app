@@ -197,9 +197,6 @@
 				var htm = $(".mui-tooltip").html();
 				self.selectDistance();
 			});
-			mui.plusReady(function() {
-				fc.preLoadPagesSearch();
-			})
 			self.deceleration = mui.os.ios?0.003:0.0009;
 			(function($) {
 				//阻尼系数
@@ -249,6 +246,7 @@
 			//搜索
 			indexSearch: function() {
 				mui.openWindow({
+					url: 'search.html',
 					id: 'search',
 					show: {
 						duration: 300
@@ -265,6 +263,7 @@
 			//收藏
 			userColl: function() {
 				mui.openWindow({
+					url: 'userCollList.html',
 					id: 'userCollList',
 					show: {
 						duration: 300
@@ -330,15 +329,6 @@
 			},
 			//附近站牌
 			nearStation: function(name) {
-				
-				
-//				var WebviewOptions = mui.openWindow({
-//					    url:'stationInfo.html',
-//					    extras:{
-//					        name:'mui'  //扩展参数
-//					    }
-//					});
-//				mui.openWindowWithTitle(WebviewOptions,{id: 'stationInfo'})
 				mui.openWindow({
 					url: 'stationInfo.html',
 					id: 'stationInfo',

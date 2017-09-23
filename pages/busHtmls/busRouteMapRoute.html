@@ -3,16 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		 <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
 		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<div id="walkMap">
+		<div id="walkMap" style="height: 100%;">
 			<header class="mui-bar mui-bar-nav">
 			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			    <h1 class="mui-title">步行</h1>
 			</header>
-			<div class="mui-content">
-				<div id="container" style="height: 500px;"></div>
+			<div class="mui-content" style="height: 100%;">
+				<div id="container" style="height: 100%;"></div>
 			</div>
 		</div>
 	</body>
@@ -22,35 +23,99 @@
 		el: '#walkMap',
 		data: {
 			map: '',
-			route: ''
+			routeArr: [],
 		},
 		mounted: function() {
 			var self = this;
 			mui.plusReady(function() {
 				var wRoute = plus.webview.currentWebview().walkRoute;
-				console.log(plus.webview.currentWebview().walkRoute);
+				console.log('self.routeOrigin = ' + self.routeOrigin);
 				self.init(wRoute);
 			})
 			this.map = new AMap.Map("container", {
 		        resizeEnable: true,
 		        zoom: 18 //地图显示的缩放级别
 		    });
+		    
 		},
 		methods: {
 			//初始化
 			init: function(wRoute) {
-				console.log(this.route);
+				console.log(wRoute);
 				var self = this;
-				var akk = [[121.597862,29.844202],[121.597519,29.844244],[121.596680,29.844345],[121.595642,29.844471]];
-				var polyline = new AMap.Polyline({
-			        map: self.map,
-			        path: akk,
-			        strokeColor: "#00A",  //线颜色
-			        // strokeOpacity: 1,     //线透明度
-			        strokeWeight: 3,      //线宽
-			        // strokeStyle: "solid"  //线样式
-			    });
+				var akk = [[121.545044,29.803654],[121.544373,29.803741],[121.544319,29.803745],[121.544319,29.803745],[121.544342,29.803823],[121.544502,29.804409],[121.544540,29.804531],[121.544571,29.804640],[121.544800,29.805365],[121.544800,29.805365],[121.544312,29.805443],[121.543793,29.805450],[121.543732,29.805429],[121.545044,29.803654],[121.544373,29.803741],[121.544319,29.803745],[121.544319,29.803745],[121.544342,29.803823],[121.544502,29.804409],[121.544540,29.804531],[121.544571,29.804640],[121.544800,29.805365],[121.544800,29.805365],[121.544312,29.805443],[121.543793,29.805450],[121.543732,29.805429]];
+				console.log(typeof akk[0]);
+				wRoute = wRoute.split(",");
+				var route = this.strToArr(wRoute);
+				console.log('route = ' + self.routeOrigin);
+				setTimeout(function() {
+					var marker = new AMap.Marker({ //添加自定义点标记
+				        map: self.map,
+				        position: route[0], //基点位置
+				        offset: new AMap.Pixel(-17, -42), //相对于基点的偏移位置
+				        content: '<div class="marker-route marker-marker-route-start"></div>'
+				    });
+//					marker = new AMap.Marker({
+//				        map: self.map,
+//				        position: route[0],
+//				        icon: "http://webapi.amap.com/theme/v1.3/images/newpc/poi-1.png",
+//				        offset: new AMap.Pixel(-26, -13),
+//				        autoRotation: true
+//				    });
+				    marker = new AMap.Marker({
+				        map: self.map,
+				        position: route[route.length - 1],
+				        offset: new AMap.Pixel(-17, -42),
+				        content: '<div class="marker-route marker-marker-route-end"></div>'
+				    });
+					var polyline = new AMap.Polyline({
+				        map: self.map,
+				        path: route, 
+				        strokeColor: "#00A",  //线颜色
+				        // strokeOpacity: 1,     //线透明度
+				        strokeWeight: 3,      //线宽
+				        // strokeStyle: "solid"  //线样式
+				    });
+				    self.map.setFitView();
+				    
+				}, 1000)
+			},
+			//string 转为arr
+			strToArr: function(str) {
+				var lax = [], lay = [], arr = [];
+				for(var i = 0; i < str.length; i++)  {
+					if(i % 2 == 0) {
+						lax.push(str[i]);
+					} else {
+						lay.push(str[i]);
+					}
+				}
+				for(var j = 0; j < str.length / 2; j++) {
+					if(lax[j] != '' && lay[j] != '') {
+						console.log(j);
+						console.log(lax[j]);
+						console.log(lay[j]);
+						arr.push([lax[j], lay[j]]);
+					}
+				}
+				return arr;
 			}
 		}
 	})
 </script>
+ <style type="text/css">
+    .amap-marker .marker-route {
+        position: absolute;
+        width: 40px;
+        height: 44px;
+        color: #e90000;
+        background: url(http://webapi.amap.com/theme/v1.3/images/newpc/poi-1.png) no-repeat;
+        cursor: pointer;
+    }
+    .amap-marker .marker-marker-route-start {
+        background-position: -334px -180px;
+    }
+    .amap-marker .marker-marker-route-end {
+        background-position: -334px -135px;
+    }
+</style>

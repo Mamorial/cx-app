@@ -42,7 +42,7 @@
 							<li class="route-detail-liWalk">
 								<span class="mui-icon iconfont icon-buhang"></span>
 								<span>步行{{route.walking.distance}}到 {{route.bus.startStation?route.bus.startStation:endP}}</span>
-								<span @click="routeMapWalk(route.walking.route)">为我带路</span>
+								<span @click="routeMapWalk(route.walking)">为我带路</span>
 							</li>
 							<li class="route-detail-liLT" v-if="route.bus.name==''?false:true">
 								<span></span>
@@ -291,14 +291,16 @@
 						}
 						//步行路线
 						console.log(v.walking.steps.length);
+						var routeStr = '';
 						for(var r = 0; r < v.walking.steps.length; r++) {
-							var ar = v.walking.steps[r].polyline.split(';'), warr = [];
-							
-							warr.push(ar);
-							console.log(warr);
-							objBus.walking.route = objBus.walking.route + ',' + warr;
+							console.log(v.walking.steps[r].road);
+							routeStr = routeStr + ',' + v.walking.steps[r].polyline;
+							console.log(v.walking.steps[r].polyline)
+							console.log(routeStr)
 						}
-						objBus.walking.route = objBus.walking.route.substr(1);
+						
+						objBus.walking.route = routeStr.substr(1);
+						console.log('objBus.walking.route = ' + objBus.walking.route);
 						objBus.bus.name = v.name;
 						self.busWalkingInfo.push(objBus);
 						for(var m = 0; m < self.busWalkingInfo.length; m++) {
@@ -325,9 +327,9 @@
 			},
 			/*为我带路*/
 			routeMapWalk: function(walk) {
-				var walkRoute;
-				walkRoute = walk.replace(/;/g, ',');
-				console.log(walkRoute);
+				var _walkRoute;
+				_walkRoute = walk.route.replace(/;/g, ',');
+				console.log(_walkRoute);
 				mui.openWindow({
 					url: 'busRouteMapRoute.html',
 					id: 'busRouteMapRoute',
@@ -338,8 +340,10 @@
 						autoshow: false,
 						title: '正在加载...'
 					},
-					extras: {
-						walkRoute: walkRoute
+					extras: { 
+						walkRoute: _walkRoute,
+						origin: walk.origin,
+						destination: walk.destination
 					}
 				})
 			}

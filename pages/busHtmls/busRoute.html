@@ -16,7 +16,8 @@
 				<ul class="mui-table-view">
 					<li class="mui-table-view-cell mui-media">
 						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-right" src="../images/yuantiao.jpg">
+							<span v-if="showColl" @click="cancelColl" class="mui-media-object mui-pull-right mui-icon iconfont icon-shoucang2"></span>
+							<span v-else @click="cancelColl" class="mui-media-object mui-pull-right mui-icon iconfont icon-shoucang1"></span>
 							<div class="mui-media-body">
 								<div style="font-weight: bold;font-size: 16px;">
 									{{bus_station.start}}--{{bus_station.end}}
@@ -32,12 +33,16 @@
 			<div class="bus-route">
 				<div class="bus-route-top"><span></span></div>
 				<div class="bus-route-bottom"><span></span></div>
-				<div class="bus-car1" style="width: 30px;height: 30px;border: 1px solid blue;position: absolute;top: 224px;left: 128px;"></div>
-				<div class="bus-car2" style="width: 30px;height: 30px;border: 1px solid green;position: absolute;top: 224px;left: 206px;"></div>
+				<div class="bus-car1" style="width: 30px;height: 30px;position: absolute;top: 224px;left: 123px;">
+					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;"></span>
+				</div>
+				<div class="bus-car2" style="width: 30px;height: 30px;position: absolute;top: 224px;left: 206px;">
+					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;"></span>
+				</div>
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tbody>
 						<tr>
-							<td colspan="3">日丽中路口</td>
+							<td colspan="3"><a class="mui-icon iconfont icon-icon stationsStart_a" style="display: block;color: #000;position: absolute;top: 0;left: 45%;font-size: 30px;"></a>日丽中路口</td>
 						</tr>
 						<tr>
 							<td>南苑社区<span></span></td>
@@ -50,7 +55,7 @@
 							<td>南苑社区<span></span></td>
 						</tr>
 						<tr>
-							<td>南苑社区<span id="s1" style="background: red;"></span></td>
+							<td>南苑社区<span id="s1" style="background: red;"></span></td>	
 							<td></td>
 							<td>南苑社区<span id="s2" style="background: blue;"></span></td>
 						</tr>
@@ -76,13 +81,10 @@
 						</tr>
 
 						<tr>
-							<td colspan="3">宁波火车站</td>
+							<td colspan="3"><a class="mui-icon iconfont icon-icon2 stationsEnd_a" style="display: block;color: #000;position: absolute;top: 45px;left: 45%;font-size: 30px;"></a>宁波火车站</td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div class="mui-button-row">
-				<button class="mui-btn-primary" @click="runCar">开始模拟</button>
 			</div>
 		</div>
 	</div>
@@ -94,6 +96,7 @@
 		data: {
 			items: [],
 			busName: '',
+			showColl: true,    //是否收藏
 			route1: [240, 250, 270, 280, 350],
 			route2: [260, 270, 280, 298, 340, 370],
 			bus_station:{
@@ -120,6 +123,13 @@
 		methods: {
 			//获取站点位置
 			init: function() {
+				fc.commonAjax('traffic/routes/name/17路/', 'get').done(function(data) {
+					console.log(data);
+				}).fail(function() {
+					mui.toast('error')
+				})
+				
+				
 				var y = $("#s2").position().top;
 				var x = $("#s2").position().left;
 				console.log("x = " + x + "," + "y = " + y);
@@ -154,6 +164,10 @@
 						name: self.busName
 					}
 				})
+			},
+			//取消收藏
+			cancelColl: function() {
+				this.showColl =! this.showColl;
 			}
 		}
 	})
@@ -180,12 +194,6 @@
 		max-width: 110px;
 		word-wrap:break-word
 	}
-	/*.bus-route table tbody tr:nth-of-type(2) td:nth-of-type(2){
-		border-top: 2px solid #ccc;
-	}
-	.bus-route table tbody tr:nth-last-child(2) td:nth-of-type(2){
-		border-bottom: 2px solid #ccc;
-	}*/
 	.bus-route table tbody tr td:nth-of-type(1) {
 		text-align: right;
 		line-height: 50px;

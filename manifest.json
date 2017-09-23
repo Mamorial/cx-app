@@ -606,7 +606,10 @@
 					"fonts/iconfont.ttf"
 				],
 				"refer": [
-					"pages/busHtmls/nowTakeBus.html"
+					"pages/busHtmls/nowTakeBus.html",
+					"pages/busHtmls/busSelfOrder.html",
+					"pages/busHtmls/complaint.html",
+					"pages/busHtmls/longDistanceSearch.html"
 				],
 				"priority": 0
 			},
@@ -908,7 +911,20 @@
 				"resources": [
 					"js/jquery-1.11.1.js",
 					"css/mui.min.css",
-					"js/vue2.0.js"
+					"js/vue2.0.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js",
+					"css/main.css",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"fonts/iconfont.ttf",
+					"css/mui.picker.min.css"
 				],
 				"refer": [
 					"pages/busHtmls/busRouteMapRoute.html"

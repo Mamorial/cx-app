@@ -12,12 +12,14 @@ ul li{
 ul li, span, a, p, img{
 	direction: block;
 }
-ds-none{
+.ds-none{
 	display: none!important;
 }
 header{
 	background: #25A7FF!important;
-	
+}
+span.icon-shoucang2{
+	color: #FFE826!important;
 }
 header h1, header a, header button{
 	color: #fff!important;
@@ -94,6 +96,10 @@ header h1, header a, header button{
 	text-align: center;
 	color: #fff;
 }
+.index-header-bottom  div span:nth-of-type(1) {
+	font-size: 30px;
+	padding: 0
+}
 .index-searchIcon{
 	margin: 0!important;
 	padding: 0!important;
@@ -118,6 +124,48 @@ header h1, header a, header button{
 	position: relative;
 	margin: -22px 0 0 17px;
 }
+/*慈溪行 首页 index.html样式*/
+.index-tab-showPre li{
+	height: 80px;
+	background: #ccc!important;
+	margin: 5px!important;
+	width: calc(100% / 4 - 10px)!important;
+	border-radius: 5px;
+}
+.index-tar-li{
+	margin: 5px!important;
+	width: calc(100% / 4 - 10px)!important;
+	padding: 0!important;
+	border-radius: 5px;
+}
+.index-tar-li:nth-of-type(1) {
+	background: #1B99F0!important;
+}
+.index-tar-li:nth-of-type(2) {
+	background: #3CBFA0!important;
+}
+.index-tar-li:nth-of-type(3) {
+	background: #F67D48!important;
+}
+.index-tar-li:nth-of-type(4) {
+	background: #AA72D3!important;
+}
+.index-tar-li:nth-of-type(5) {
+	background: #AA72D3!important;
+}
+.index-tar-li:nth-of-type(6) {
+	background: #F67D48!important;
+}
+.index-tar-li:nth-of-type(7) {
+	background: #3CBFA0!important;
+}
+.index-tar-li:nth-of-type(8) {
+	background: #1B99F0!important;
+}
+.index-tar-li a span, .index-tar-li a div{
+	color: #fff!important;
+}
+/*慈溪行 index.html样式结束*/
 /*刷新样式的位置*/
 .mui-bar-nav ~ .mui-content .mui-pull-top-pocket{
     top: 210px !important;

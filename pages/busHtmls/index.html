@@ -56,21 +56,18 @@
 		</div>
 		</div>
 		<div class="mui-content" style="padding: 0;">
-			<ul class="mui-table-view mui-grid-view mui-grid-9 index-tab-showPre" v-if="showTar">
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2"><a></a></li>
-			</ul>
-			<ul id="index-tab-show" class="mui-table-view mui-grid-view mui-grid-9 mui-hidden" v-else>
+			<ul class="mui-table-view mui-grid-view mui-grid-9 index-tab-showPre" v-if="showUl">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"></li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"></li>
+		    </ul>
+			<ul id="index-tab-show" class="mui-table-view mui-grid-view mui-grid-9" v-else v-show="!showUl">
 				<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-2 index-tar-li" v-for="itemBar in index_tabBar">
 				    <a :id="itemBar.bar_id" @click="indexBarIn(itemBar.bar_href, itemBar.bar_id)">
 				        <span :class="itemBar.bar_icon"></span>
-				        <!--<img src="../../images/logo.png" style="width: 50%;"/>-->
 				        <div class="mui-media-body" v-cloak>{{itemBar.bar_name}}</div>
 				    </a>
 				</li>
@@ -90,7 +87,7 @@
 	var app = new Vue({
 		el: '#index-vue',
 		data: {
-			showTar: true,
+			showUl: true,
 			index_tabBar: []
 		},
 		mounted: function() {
@@ -105,17 +102,17 @@
 			//初始化
 			init: function() {
 				var self = this;
+				this.index_tabBar = [];
 				this.index_tabBar = indexTabData;
-				setTimeout(function() {
-					self.showTar = false;
-					setTimeout(function() {
-						$("#index-tab-show").removeClass('mui-hidden');
-					}, 500)
-				}, 500)
+				this.$nextTick(function() {
+					mui.toast('渲染完成');
+					setTimeout(function() {self.showUl = false;}, 200);
+				})
 			},
 			//模块进入
 			indexBarIn: function(url, id) {
-				mui.openWindow({	
+				mui.openWindow({
+					url: url,
 					id: id,
 					show: {
 						duration: 300
@@ -129,48 +126,3 @@
 		}
 	})
 </script>
-<style type="text/css">
-	[v-cloak] {
-        display: none!important;
-    }
-    .index-tab-showPre li{
-    	height: 80px;
-    	background: #ccc!important;
-    	margin: 5px!important;
-		width: calc(100% / 4 - 10px)!important;
-		border-radius: 5px;
-    }
-	.index-tar-li{
-		margin: 5px!important;
-		width: calc(100% / 4 - 10px)!important;
-		padding: 0!important;
-		border-radius: 5px;
-	}
-	.index-tar-li:nth-of-type(1) {
-		background: #1B99F0!important;
-	}
-	.index-tar-li:nth-of-type(2) {
-		background: #3CBFA0!important;
-	}
-	.index-tar-li:nth-of-type(3) {
-		background: #F67D48!important;
-	}
-	.index-tar-li:nth-of-type(4) {
-		background: #AA72D3!important;
-	}
-	.index-tar-li:nth-of-type(5) {
-		background: #AA72D3!important;
-	}
-	.index-tar-li:nth-of-type(6) {
-		background: #F67D48!important;
-	}
-	.index-tar-li:nth-of-type(7) {
-		background: #3CBFA0!important;
-	}
-	.index-tar-li:nth-of-type(8) {
-		background: #1B99F0!important;
-	}
-	.index-tar-li a span, .index-tar-li a div{
-		color: #fff!important;
-	}
-</style>
