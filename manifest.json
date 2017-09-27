@@ -5,7 +5,7 @@
 		"iPad"
 	],
 	"id": "a",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "a",/*应用名称，程序桌面图标名称*/
+	"name": "慈溪行",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
 		"code": "83"
@@ -104,7 +104,7 @@
 		},
 		"NativeObj": {
 			"description": "原生对象"
-		}
+		},"OAuth":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -136,6 +136,7 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"hardwareAccelerated": true,
 				"permissions": [
 					"<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
 					"<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
@@ -253,7 +254,8 @@
 					"js/headTest.js",
 					"css/iconfont.css",
 					"fonts/iconfont.ttf",
-					"pages/busHtmls/user.html"
+					"pages/busHtmls/user.html",
+					"js/mapPlugin.min.js"
 				],
 				"refer": [
 					"pages/busHtmls/sub3.html",
@@ -276,7 +278,11 @@
 					"pages/busHtmls/complaint.html",
 					"pages/busHtmls/longDistanceTicket.html",
 					"pages/busHtmls/tourBus.html",
-					"pages/busHtmls/longDistanceSearch.html"
+					"pages/busHtmls/longDistanceSearch.html",
+					"pages/userHtmls/user.html",
+					"pages/busHtmls/busMapShow.html",
+					"index.html",
+					"pages/busHtmls/index.html"
 				],
 				"priority": 0
 			},
@@ -357,7 +363,9 @@
 					"js/mui.pullToRefresh.js",
 					"js/mui.picker.min.js",
 					"js/mui.pullToRefresh.material.js",
-					"js/data.js"
+					"js/data.js",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [
 					"pages/busHtmls/busRoute.html",
@@ -380,7 +388,9 @@
 					"js/foot.js",
 					"js/headHtml.js",
 					"js/mui.pullToRefresh.js",
-					"js/mui.picker.min.js"
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js"
 				],
 				"refer": [
 					"pages/busHtmls/busMap.html",
@@ -405,7 +415,11 @@
 					"js/mui.pullToRefresh.js",
 					"js/mui.picker.min.js",
 					"js/mui.pullToRefresh.material.js",
-					"js/data.js"
+					"js/data.js",
+					"images/loading.gif",
+					"css/mui.picker.min.css",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [
 					"pages/busHtmls/busMap.html",
@@ -571,7 +585,8 @@
 					"js/mui.pullToRefresh.js",
 					"js/mui.picker.min.js",
 					"js/mui.pullToRefresh.material.js",
-					"js/data.js"
+					"js/data.js",
+					"css/mui.picker.min.css"
 				],
 				"refer": [
 					"pages/busHtmls/busMap.html"
@@ -603,13 +618,21 @@
 					"js/common.js",
 					"images/banner1.jpg",
 					"css/iconfont.css",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/mapMain.min.js",
+					"css/map.min.css",
+					"js/mapEs5.min.js",
+					"js/mapPlugin.min.js",
+					"js/app.js",
+					"js/mui.enterfocus.js",
+					"pages/busHtmls/nowTakeBus.html"
 				],
 				"refer": [
-					"pages/busHtmls/nowTakeBus.html",
 					"pages/busHtmls/busSelfOrder.html",
 					"pages/busHtmls/complaint.html",
-					"pages/busHtmls/longDistanceSearch.html"
+					"pages/busHtmls/longDistanceSearch.html",
+					"pages/busHtmls/makeSelfBus.html",
+					"pages/busHtmls/longDistanceTicket.html"
 				],
 				"priority": 0
 			},
@@ -626,7 +649,9 @@
 					"js/jquery.qrcode.min.js",
 					"js/babel.js",
 					"js/headHtml.js",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -647,7 +672,9 @@
 					"js/data.js",
 					"js/jquery.qrcode.min.js",
 					"js/headHtml.js",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [
 					"pages/busHtmls/nearMap.html",
@@ -687,9 +714,37 @@
 					"js/jquery.qrcode.min.js",
 					"js/babel.js",
 					"js/mui.pullToRefresh.js",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js",
+					"images/car.png",
+					"images/end.png",
+					"images/start.png",
+					"images/station.png",
+					"css/mui.picker.min.css",
+					"js/app.js",
+					"js/mui.enterfocus.js",
+					"css/iconfont.css",
+					"fonts/iconfont.ttf",
+					"fonts/mui.ttf",
+					"css/main.css"
 				],
-				"refer": [],
+				"refer": [
+					"pages/busHtmls/busSelfOrder.html",
+					"pages/busHtmls/tourBus.html",
+					"pages/busHtmls/nowTakeBus.html",
+					"pages/busHtmls/longDistanceTicket.html",
+					"pages/busHtmls/busTake.html",
+					"pages/busHtmls/complaint.html",
+					"pages/busHtmls/makeSelfBus.html",
+					"pages/busHtmls/longDistanceSearch.html",
+					"pages/busHtmls/userCollList.html",
+					"pages/busHtmls/makeSelfOrder.html",
+					"pages/busHtmls/busMakeInfo.html",
+					"pages/busHtmls/search.html",
+					"pages/busHtmls/noticeMsg.html"
+				],
 				"priority": 0
 			},
 			"pages/busHtmls/nearMap.html": {
@@ -724,7 +779,8 @@
 					"js/vue2.0.js",
 					"js/data.js",
 					"js/jquery.qrcode.min.js",
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/headHtml.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -744,7 +800,9 @@
 					"js/mui.picker.min.js",
 					"js/mui.pullToRefresh.material.js",
 					"js/data.js",
-					"js/jquery.qrcode.min.js"
+					"js/jquery.qrcode.min.js",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -761,7 +819,8 @@
 					"css/mui.min.css",
 					"js/vue2.0.js",
 					"js/data.js",
-					"js/jquery.qrcode.min.js"
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js"
 				],
 				"refer": [
 					"pages/busHtmls/busMakeInfo.html",
@@ -820,7 +879,8 @@
 					"js/vue2.0.js",
 					"js/jquery.qrcode.min.js",
 					"js/babel.js",
-					"js/headHtml.js"
+					"js/headHtml.js",
+					"images/logo.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -839,7 +899,10 @@
 					"js/data.js",
 					"js/jquery.qrcode.min.js",
 					"js/headHtml.js",
-					"images/line.png"
+					"images/line.png",
+					"images/loading.gif",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [
 					"pages/busHtmls/searchInputPlace.html",
@@ -859,7 +922,10 @@
 					"js/vue2.0.js",
 					"js/data.js",
 					"js/jquery.qrcode.min.js",
-					"js/babel.js"
+					"js/babel.js",
+					"js/headHtml.js",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -888,21 +954,36 @@
 					"js/babel.js",
 					"js/mui.min.js",
 					"css/mui.min.css",
-					"js/vue2.0.js"
+					"js/vue2.0.js",
+					"js/headHtml.js"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"pages/busHtmls/longDistanceSearch.html": {
 				"resources": [
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/headHtml.js"
 				],
 				"refer": [],
 				"priority": 0
 			},
 			"pages/busHtmls/makeSelfBus.html": {
 				"resources": [
-					"fonts/iconfont.ttf"
+					"fonts/iconfont.ttf",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -924,10 +1005,13 @@
 					"fonts/mui.ttf",
 					"css/iconfont.css",
 					"fonts/iconfont.ttf",
-					"css/mui.picker.min.css"
+					"css/mui.picker.min.css",
+					"js/app.js",
+					"js/mui.enterfocus.js"
 				],
 				"refer": [
-					"pages/busHtmls/busRouteMapRoute.html"
+					"pages/busHtmls/busRouteMapRoute.html",
+					"pages/busHtmls/busRouteMap.html"
 				],
 				"priority": 0
 			},
@@ -947,17 +1031,162 @@
 				],
 				"refer": [],
 				"priority": 0
+			},
+			"pages/userHtmls/user.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js",
+					"css/mui.picker.min.css",
+					"images/user-photo.png",
+					"js/app.js",
+					"js/mui.enterfocus.js"
+				],
+				"refer": [
+					"pages/userHtmls/login.html"
+				],
+				"priority": 0
+			},
+			"pages/busHtmls/busRouteMap.html": {
+				"resources": [
+					"js/mui.min.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/userHtmls/login.html": {
+				"resources": [
+					"pages/userHtmls/js/app.js",
+					"pages/userHtmls/css/style.css",
+					"pages/userHtmls/css/mui.min.css",
+					"pages/userHtmls/js/mui.enterfocus.js",
+					"pages/userHtmls/js/mui.min.js",
+					"js/app.js",
+					"js/mui.enterfocus.js",
+					"images/sinaweibo.png",
+					"images/weixin.png",
+					"images/qq.png",
+					"js/mui.min.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/mui.pullToRefresh.js",
+					"js/mui.picker.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/common.js",
+					"js/jquery.qrcode.min.js",
+					"js/data.js",
+					"js/headHtml.js"
+				],
+				"refer": [
+					"pages/userHtmls/main.html",
+					"pages/userHtmls/unlock.html"
+				],
+				"priority": 0
+			},
+			"pages/userHtmls/unlock.html": {
+				"resources": [
+					"pages/userHtmls/js/mui.locker.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/userHtmls/main.html": {
+				"resources": [],
+				"refer": [
+					"pages/userHtmls/setting.html"
+				],
+				"priority": 0
+			},
+			"pages/userHtmls/setting.html": {
+				"resources": [
+					"pages/userHtmls/libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+					"pages/userHtmls/js/feedback-page.js",
+					"pages/userHtmls/css/feedback-page.css",
+					"pages/userHtmls/fonts/mui.ttf",
+					"pages/userHtmls/js/feedback.js",
+					"pages/userHtmls/js/mui.view.js",
+					"pages/userHtmls/libs/easymob-webim-sdk/json2.js",
+					"pages/userHtmls/libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+					"pages/userHtmls/libs/easymob-webim-sdk/jquery-1.11.1.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/longDistanceTicket.html": {
+				"resources": [
+					"js/mui.pullToRefresh.js",
+					"js/common.js",
+					"js/mui.picker.min.js",
+					"js/mui.min.js",
+					"js/mui.pullToRefresh.material.js",
+					"js/jquery-1.11.1.js",
+					"css/mui.min.css",
+					"js/vue2.0.js",
+					"js/data.js",
+					"js/jquery.qrcode.min.js",
+					"js/headHtml.js",
+					"js/app.js",
+					"js/mui.enterfocus.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/busHtmls/tourBus.html": {
+				"href": "pages/busHtmls/tourBus.html",
+				"resources": [
+					"js/headHtml.js"
+				],
+				"priority": 1
 			}
 		},
 		"idle": {
 			"resources": [
-				"common/test.shtml",
-				"common/foot.html",
-				"common/head.html",
-				"js/mui.js",
-				"css/mui.css",
-				"index2.html"
+				"pages/busHtmls/nearArea.html",
+				"images/qrcode.png",
+				"js/mui.picker.js",
+				"remember.txt",
+				"css/map.css",
+				"package.json",
+				"images/60x60.gif",
+				"images/qihoo.png",
+				"images/login-1.png",
+				"webpack.config.js",
+				"pages/userHtmls/mapTest.html",
+				"images/iconfont-tianjia.png"
 			]
 		}
-	}
+	},
+	"unpackage":[
+	  "css/map.css",
+	  "images/60x60.gif",
+	  "images/iconfont-tianjia.png",
+	  "images/login-1.png",
+	  "images/qihoo.png",
+	  "images/qrcode.png",
+	  "js/mui.picker.js",
+	  "pages/busHtmls/nearArea.html",
+	  "pages/userHtmls/mapTest.html",
+	  "package.json",
+	  "remember.txt",
+	  "webpack.config.js"
+	]
 }

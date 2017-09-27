@@ -8,12 +8,13 @@
 		<div id="station_info">
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
 		    <h1 class="mui-title">{{stationName}}</h1>
 		</header>
 		<div class="mui-content">
 			<table border="0" cellspacing="0" cellpadding="0">
 				<tbody>
-					<tr v-for="item in stationBus">
+					<tr v-for="(item,i) in stationBus">
 						<td>{{item.name}}</td>
 						<td>
 							<span class="nextS">距到站</span>
@@ -23,7 +24,12 @@
 							<span>{{item.time1}}</span>
 							<span>{{item.time2}}</span>
 						</td>
-						<td>2</td>
+						<td>
+							<div @click="cancelColl(i)">
+								<span v-if="item.isColl" class="mui-icon iconfont icon-shoucang2"></span>
+								<span v-else class="mui-icon iconfont icon-shoucang"></span>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -52,14 +58,17 @@
 				name: '118路',
 				time1: '1站/10分钟',
 				time2: '2站/20分钟',
+				isColl: true
 			},{
 				name: '128路',
 				time1: '1站/10分钟',
 				time2: '2站/20分钟',
+				isColl: true
 			},{
 				name: '138路',
 				time1: '1站/10分钟',
 				time2: '2站/20分钟',
+				isColl: true
 			}]
 		},
 		methods: {
@@ -82,41 +91,12 @@
 						name: self.stationName
 					}
 				})
+			},
+			//取消收藏
+			cancelColl: function(i) {
+				this.stationBus[i].isColl =! this.stationBus[i].isColl;
 			}
 		}
 
 	})
 </script>
-<style type="text/css">
-	#station_info table{
-		width: 100%;
-		height: auto;
-	}
-	#station_info table tr{
-		background: #fff;
-		border-bottom: 1px solid #ccc;
-	}
-	#station_info table tr td{
-		text-align: center;
-		padding: 10px 0;
-	}
-	#station_info table tr td:nth-of-type(1) {
-		width: 40%;
-		text-align: left;
-		padding: 10px;
-	}
-	#station_info table tr td span{
-		display: block;
-		width: 100%;
-		text-align: center;
-	}
-	#station_info table tr td span.nextS{
-		color: #007AFF;
-	}
-	#station_info .goStation {
-		position: absolute;
-		bottom: 20px;
-		width: 100%;
-		text-align: center;
-	}
-</style>

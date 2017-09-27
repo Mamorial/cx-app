@@ -12,7 +12,7 @@
 			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
 			    <h1 class="mui-title">线路规划</h1>
 			</header>
-			<div class="mui-content" style="overflow: hidden;">
+			<div class="mui-content" style="overflow: hidden;padding-bottom: 20px;">
 				<div class="title">
 					路线规划
 				</div>
@@ -55,12 +55,12 @@
 						 </li>
 					</ul>
 				</div>
-				<div class="bus_info" v-show="!showHisList">
+				<div class="bus_info" v-show="!showHisList" v-if="showRouteList">
 					<div class="title">
 						公交线路
 					</div>
 					<ul class="bus-route-list">
-						<li>
+						<!--<li>
 							<div class="bus-li-btn">
 								<span>现在出发</span>
 								<span class="mui-icon iconfont icon-liebiao"></span>
@@ -70,12 +70,15 @@
 								<span>时间短</span>
 								<span class="mui-icon iconfont icon-liebiao"></span>
 							</div>
-						</li>
+						</li>-->
 						<li class="search-bus-listLi" @click="busRouteDetail(bus)" v-for="bus in busInfo">
 							<div class="bus-list-top">
 								<div class="bus-list-top-L">
 									<div class="bus-list-topL-left">
-										<span>{{bus.start_bus}}</span>
+										<marquee scrollamount="3" v-if="bus.name_marquee">
+											<span>{{bus.start_bus}}</span>
+										</marquee>
+										<span v-else>{{bus.start_bus}}</span>
 									</div>
 									<div class="bus-list-topL-right">
 										<span>{{bus.start_station}}上车</span>
@@ -103,7 +106,7 @@
 								</div>
 							</div>
 						</li>
-						<li>
+						<!--<li>
 							<div class="bus-li-btn bus-li-btnC">
 								<span class="mui-icon iconfont icon-jiucuo"></span>
 								<span>路线纠错</span>
@@ -113,9 +116,12 @@
 								<span class="mui-icon iconfont icon-wentibuchong"></span>
 								<span>路线补充</span>
 							</div>
-						</li>
+						</li>-->
 					</ul>
-				</div>  
+				</div>
+				<div v-else class="loading">
+					<img src="../../images/loading.gif"/>
+				</div>
 			</div>
 		</div>
 	</body>
@@ -182,6 +188,7 @@
 		border: 1px solid #249DF1;
 		border-radius: 50%;
 		float: left;
+		white-space: nowrap;
 	}
 	.bus-list-top .bus-list-top-L .bus-list-topL-left span{
 		text-align: center;
@@ -287,13 +294,14 @@
 	 	data: {
 			inputF: '我的位置',
 			inputC: '',
-			showHisList: false,
-//			busInfo: '',
+			showHisList: false,   //展示历史记录
+			showRouteList: false,  //展示loading
 			busInfo: [{
 				all_stations: '3',   //总站点
 				all_distance: '3',   //总路程
 				all_times: '3',     //总时长
 				cost: '3',          //总费用
+				name_marquee: '',    //名字长 滚动
 				start_bus: '108路',  //开始乘坐的公交
 				start_station: 'aaaaaa',   //开始乘坐公交的站台
 				bus: [{
@@ -413,7 +421,7 @@
 	 	methods: {
 	 		init: function() {  //  初始化
 	 			var self = this;
-	 			plus.nativeUI.showWaiting( "加载中..." ); 
+//	 			plus.nativeUI.showWaiting( "加载中..." ); 
 	 			if(this.inputF == '我的位置') {
 	 				var _obj = localStorage.getItem('nearState');
 	 				_obj = JSON.parse(_obj);
@@ -447,7 +455,9 @@
 									start_bus: '',
 									start_station: '',
 									end_station: '',
-									bus: []
+									name_marquee: '',
+									bus: [],
+									id: ''
 								};
 								var len = v.segments.length, stations = 0;
 								for(var j = 0; j < len; j++) {   
@@ -511,12 +521,27 @@
 									obj.start_station = v.segments[0].bus.buslines[0].departure_stop.name;
 									obj.end_station = v.segments[0].bus.buslines[0].arrival_stop.name;
 									obj.start_bus = v.segments[0].bus.buslines[0].name.split('(')[0];
+									console.log('obj.start_bus.length() = ' + obj.start_bus.length);
+									var _len = obj.start_bus.length;
+									if(_len > 5) {
+										obj.name_marquee = true;
+									} else {
+										obj.name_marquee = false
+									}
+									obj.id = i;
+//									alert(obj.id);
 									self.busInfo.push(obj);
 								}, 500);
 							})
 							mui.toast(bus.length);
-							self.busRouteList = true;
-							plus.nativeUI.closeWaiting();
+							self.$nextTick(function() {
+								mui.toast('渲染完成');
+								setTimeout(function() {
+									self.showRouteList = true;
+									self.busRouteList = true;
+								}, 200)
+							})
+//							plus.nativeUI.closeWaiting();
 						}).fail(function(error) {
 							mui.toast('error');
 						});
@@ -546,7 +571,8 @@
 	 			m = this.inputF;
 	 			this.inputF = this.inputC;
 	 			this.inputC = m;
-	 			plus.nativeUI.showWaiting( "加载中..." );
+	 			this.showRouteList = false;
+//	 			plus.nativeUI.showWaiting( "加载中..." );
 //				setTimeout( function(){
 //					plus.nativeUI.closeWaiting();
 //				}, 2000 );
@@ -576,7 +602,7 @@
 		 						self.endPlace = data.geocodes[0].location;
 		 					}
 	 					} else {
-	 						plus.nativeUI.closeWaiting();
+//	 						plus.nativeUI.closeWaiting();
 	 						mui.toast(_type + '搜索失败');
 	 					}
 //						console.log(eara);
@@ -588,6 +614,7 @@
 	 		//路线详情  
 	 		busRouteDetail: function(info) {
 	 			var self = this;
+//	 			alert(info.id);
 	 			mui.openWindow({
 	 				url: 'busRouteDetail.html',
 					id: 'busRouteDetail',
@@ -601,7 +628,9 @@
 					extras:{
 						routeInfo: info,
 						startPlace: self.inputF,
-						endPlace: self.inputC
+						endPlace: self.inputC,
+						start_place_position: self.startPlace,
+						end_place_position: self.endPlace
 					}
 				})
 	 		}

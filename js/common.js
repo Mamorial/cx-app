@@ -20,10 +20,9 @@ fc.ajax = function(url, param, type) {
 }
 fc.commonAjax = function(url, param, type) {
 	var url = fc.urlPost + url;
-	return $.ajax(url,param, type).then(function(data) {
-		console.log(data.infocode);
+	return $.ajax(url, param, type).then(function(data) {
 		if(data.results) {
-			return data;
+			return data.results;
 		} else {
 			mui.toast('服务错误');
 		}
@@ -104,4 +103,34 @@ fc.preLoadPagesMake = function() {
 			id: 'busMakeInfo'
 		}]
 	})
+}
+//打开页面  （截图）
+fc.openWebView = function() {
+	ws=plus.webview.currentWebview();
+	// 截图
+	bitmap1 = new plus.nativeObj.Bitmap();
+	// 将webview内容绘制到Bitmap对象中
+	ws.draw(bitmap1,function(){
+		console.log('bitmap1绘制图片成功');
+	},function(e){
+		console.log('bitmap1绘制图片失败：'+JSON.stringify(e));
+	});
+	// 预创建新Webview窗口
+	wn=plus.webview.create('nowTakeBus.html');
+	wn.addEventListener('loaded', function(){
+//		bitmap2 = new plus.nativeObj.Bitmap();
+		bitmap2 = new plus.nativeObj.Bitmap();
+		wn.draw(bitmap2, function(){
+			console.log('bitmap2截图成功');
+		}, function(e){
+			console.log('bitmap2截图失败：'+JSON.stringify(e));
+		});
+	},false);
+	setTimeout(function() {
+		wn.show('pop-in', 300, function(){
+					// 动画完成，销毁截图
+					bitmap1.clear();
+					bitmap2.clear();
+				}, {capture:bitmap2,otherCapture:bitmap1});
+	}, 500)
 }

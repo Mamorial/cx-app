@@ -1,0 +1,65 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="userIndex">
+			<div @click="loginIn" style="width: 100%;height: 120px;background: #25A7FF;padding: 10px;">
+				<div style="width: 60%;height: 100%;border: 1px solid #25A7FF;">
+					<div style="width: 80px;height: auto;float: left;">
+						<img src="../../images/user-photo.png" style="width: 60px;height: 60px;display: block;margin: 25px auto;" />
+					</div>
+					<div v-if="user_account==''?true:false" style="height: 100%;margin: 20px 0 0 85px;">
+						<div style="width: 100%;height: 30px;color: #fff;line-height: 30px;font-size: 17px;">点击登录</div>
+						<div style="width: 100%;height: 30px;color: #fff;line-height: 30px;font-size: 15px;">登录赚积分</div>
+					</div>
+					<div style="margin: 20px  0 0 85px;font-size: 17px;line-height: 60px;color: #fff;" v-else>{{user_account}}</div>
+				</div>
+			</div>
+			<div class="mui-content">
+				<div style="width: 100%;height: auto;overflow: hidden;margin-top: 20px;">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell mui-media">
+							<span class="mui-icon mui-media-object mui-pull-left mui-icon-settings"></span>
+							<div class="mui-media-body" style="line-height: 40px;">
+								设置
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#userIndex',
+		data: {
+			user_account: 'aaa'
+		},
+		mounted: function() {
+			var self = this;
+			window.addEventListener('refresh', function(e) {
+				self.user_account = e.detail.userName;
+			}, false);
+		},
+		methods: {
+			//登录页面
+			loginIn: function() {
+				mui.openWindow({
+					url: 'login.html',
+					id: 'login',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					}
+				})
+			}
+		}
+	})
+</script>

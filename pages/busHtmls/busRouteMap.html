@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busRouteMap" style="height: 100%;">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			    <h1 class="mui-title">地图详情</h1>
+			</header>
+			<div class="mui-content" style="height: 100%;">
+				<div id="container" style="height: 100%;"></div>
+				<div id="panel"></div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busRouteMap',
+		data: {
+			map: '',
+			transOptions: '',
+			transfer: '',
+			startM: '',
+			endM: ''
+		},
+		mounted: function() {
+			var self = this;
+			mui.plusReady(function() {
+				var _id = plus.webview.currentWebview().routeId;
+				self.startM = plus.webview.currentWebview().startM;
+				self.endM = plus.webview.currentWebview().endM;
+				var map = new AMap.Map("container", {
+			        resizeEnable: true,
+			        zoom: 13 //地图显示的缩放级别
+			    });
+			    var transOptions = {
+			        map: map,
+			        city: '宁波市',
+			        panel: 'panel',                            
+			        policy: AMap.TransferPolicy.LEAST_TIME
+			    };
+			    //构造公交换乘类
+			    var transfer = new AMap.Transfer(transOptions);
+			    self.startM = self.startM.split(',');
+		    	self.endM = self.endM.split(',');
+		    	transfer.search(new AMap.LngLat(self.startM[0], self.startM[1]), new AMap.LngLat(self.endM[0], self.endM[1]), function(status, result) {
+		    		if(status == 'complete') {
+		    			self.$nextTick(function() {
+							mui.toast('渲染完成');
+							setTimeout(function() {self.init(_id);}, 200);
+						})
+		    			
+		    		}
+		    	});
+			})
+		},
+		methods: {
+			init: function(id) {
+				var self = this;
+//				alert(id)
+				setTimeout(function() {
+					$(".plan").eq(id).trigger('tap');
+				}, 500);
+//				alert(id)
+//				$(".plan").eq(id).attr('style', 'display: block;').siblings().removeAttr('style');
+			}
+		}
+	})
+</script>
+ <style type="text/css">
+    #panel {
+        position: absolute;
+        background-color: white;
+        max-height: 80%;
+        overflow-y: auto;
+        bottom: 0;
+        right: 10px;
+        width: auto;
+        height: auto;
+        border: solid 1px red;
+        overflow-x: auto;
+        display: none;
+    }
+    #panel .amap-call{display: none;}
+    #panel .amap-lib-transfer{width: 100%;height: auto;}
+    #panel .amap-lib-transfer .planTitle{
+    	border: 1px solid red;
+    	width: 100%;
+    	float: left;
+    }
+    #panel .amap-lib-transfer .plan{
+    	height: 0px;
+    	overflow: hidden;
+    }
+    /*.amap-logo{
+    	display: none!important;
+    }
+    .amap-copyright{
+    	position: relative!important;
+    }*/
+</style>

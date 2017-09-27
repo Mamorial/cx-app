@@ -598,5 +598,163 @@ h5{
 	color: #8C8C8C;
 }
 /*页面头部样式结束*/
-/*页面底部样式开始*/
+/*收藏页面样式*/
+.mui-control-content {
+	background-color: white;
+	height: 100%;
+}
+ul.coll-info-ul li span{
+	display: block;
+	float: left;
+}
+ul.coll-info-ul li div.coll-list-all span:nth-of-type(1) {
+	width: auto;
+	padding: 2px 10px;
+	border: 1px solid #3AA6F2;
+	border-radius: 5px;
+	text-align: center;
+	color: #3AA6F2;
+	margin: 0 10px 0 0;
+}
+ul.coll-info-ul li div.coll-list-all  span:nth-of-type(2) {
+	padding: 5px 0;
+}
+ul.coll-info-ul li div.coll-list-icon {
+	width: 30px;
+	height: auto;
+	float: right;
+}
+ul.coll-info-ul li div.coll-list-all{
+	width: calc(100% - 40px);
+	overflow: hidden;
+}
+ul.coll-info-ul li div.coll-list-icon span {
+	float: right;
+	padding: 5px 0;
+}
+ul.coll-info-ul li div.coll-list-icon span.icon-shoucang2{
+	color: #FCE22E;
+}
+/*收藏页面样式结束*/
+/*站牌信息样式开始*/
+#station_info table{
+	width: 100%;
+	height: auto;
+}
+#station_info table tr{
+	background: #fff;
+	border-bottom: 1px solid #ccc;
+}
+#station_info table tr td{
+	text-align: center;
+	padding: 10px 0;
+}
+#station_info table tr td:nth-of-type(1) {
+	width: 40%;
+	text-align: left;
+	padding: 10px;
+}
+#station_info table tr td span{
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+#station_info table tr td span.nextS{
+	color: #007AFF;
+}
+#station_info .goStation {
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	text-align: center;
+}
+/*站牌信息样式结束*/
+/*loading 样式*/
+.loading{
+	width: auto;
+	height: auto;
+	overflow: hidden;
+}
+.loading img{
+	display: block;
+	width: 50%;
+	margin: 30px auto;
+}
+/*loaing  样式结束*/
+/*登录样式*/
+.area {
+	margin: 20px auto 0px auto;
+}
 
+.mui-input-group {
+	margin-top: 10px;
+}
+
+.mui-input-group:first-child {
+	margin-top: 20px;
+}
+
+.mui-input-group label {
+	width: 22%;
+}
+
+.mui-input-row label~input,
+.mui-input-row label~select,
+.mui-input-row label~textarea {
+	width: 78%;
+}
+
+.mui-checkbox input[type=checkbox],
+.mui-radio input[type=radio] {
+	top: 6px;
+}
+
+.mui-content-padded {
+	margin-top: 25px;
+}
+
+.mui-btn {
+	padding: 10px;
+}
+
+.link-area {
+	display: block;
+	margin-top: 25px;
+	text-align: center;
+}
+
+.spliter {
+	color: #bbb;
+	padding: 0px 8px;
+}
+
+.oauth-area {
+	position: absolute;
+	bottom: 20px;
+	left: 0px;
+	text-align: center;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+.oauth-area .oauth-btn {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	background-size: 30px 30px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin: 0px 20px;
+	/*-webkit-filter: grayscale(100%); */
+	border: solid 1px #ddd;
+	border-radius: 25px;
+}
+
+.oauth-area .oauth-btn:active {
+	border: solid 1px #aaa;
+}
+
+.oauth-area .oauth-btn.disabled {
+	background-color: #ddd;
+}

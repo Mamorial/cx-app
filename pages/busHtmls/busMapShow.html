@@ -5,29 +5,28 @@
 		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<div id="busMapInfo">
-		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">{{busName}}</h1>
-		</header>
-		<div id="container"></div>
-		<div class="bottom">
-			<div class="mui-button-row">
-				<button class="mui-btn-primary">反向</button>
-				<button class="mui-btn-primary" @click="newRun">重新模拟</button>
-				<button class="mui-btn-primary" @click="stopRun">停止模拟</button>
+		<div id="busMapInfo" style="height: 100%;">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			    <h1 class="mui-title">{{busName}}</h1>
+			</header>
+			<div id="container"></div>
+			<div class="bottom">
+				<!--<div class="mui-button-row">
+					<button class="mui-btn-primary">反向</button>
+					<button class="mui-btn-primary" @click="newRun">重新模拟</button>
+					<button class="mui-btn-primary" @click="stopRun">停止模拟</button>
+				</div>-->
 			</div>
 		</div>
-	</div>
 	</body>
 </html>
-<script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=dc6703c9c958fa056f0b0e077e920051&plugin=AMap.LineSearch,AMap.ToolBar"></script>
 <script type="text/javascript">
 	var app = new Vue({
 		el: '#busMapInfo',
 		data: {
-			busName: '403路',
+			busName: '200路',
 			busStations: [],  //所有车站信息
 			busCars: [],    //所有车的信息
 			map: '',     //地图
@@ -38,56 +37,127 @@
 			allLocation: []   //路线所有的经纬度
 		},
 		mounted() {
+			this.map = new AMap.Map("container", {
+		        resizeEnable: true,
+		        zoom: 15 //地图显示的缩放级别
+		    });
 			var toolBar = new AMap.ToolBar({   //地图的控件
 			        visible: true
-			   });
+			   }),
+			   self = this;
+			   //显示地图
+			
+			   mui.plusReady(function() {
+//			   	fc.commonAjax('traffic/stations/route/name/200路/', 'get').done(function(data) {
+////			   		alert(data.up_list.length);
+//					var len = data.up_list.length;
+//					for(var i = 0; i < len; i++) {
+//						var obj = {
+//							name: '',
+//							icon: '../../images/station.png',
+//							position: ''
+//						},p;
+//						obj.name = data.up_list[i].name;
+//						p = data.up_list[i].longitude + ',' + data.up_list[i].latitude;
+//						obj.position = p.split(',');
+//						self.busStations.push(obj);
+//					}
+//					self.startPot = data.up_list[0].longitude + ',' + data.up_list[0].latitude;
+//					self.startPot = self.startPot.split(',');
+//					self.endPot = data.up_list[len - 1].longitude + ',' + data.up_list[len - 1].latitude;
+//					self.endPot = self.endPot.split(',');
+//					self.lineSearch();   //绘制整条公交车路线
+//					self.init();         //绘制公交路线上的所有站点
+//			   	})
+			   })
+			   
 			  //该路线的起始站和终点站
-			  self.startPot = [116.507614,39.988102];
-			  self.endPot = [116.433533,39.905582];
+//			  self.startPot = [116.507614,39.988102];
+//			  self.endPot = [116.433533,39.905582];
 			   //该时段路上所有在行驶的公交车
 			this.busCars = [{
 				id: 1,
-				icon: 'http://webapi.amap.com/images/car.png',
-				position: [116.507614,39.988102],
-				runRoute: [116.433533,39.905582]
+				icon: '../../images/car.png',
+				position: [121.534859,30.102621],
+				runRoute: [121.313545,30.202782]
 			},{
-				id: 2,
-				icon: 'http://webapi.amap.com/images/car.png',
-				position: [116.476288,39.978600],
-				runRoute: [116.457916,39.955193]
-			}]
-			//公交所经过的站点
-			this.busStations = [{
-				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b1.png',
-				name: '京顺路丽都饭店',
-				position: [116.476288,39.978600]
-			},{
-				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b2.png',
-				name: '四元桥东',
-				position: [116.473480,39.976070]
-			},{
-				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b3.png',
-				name: '四元桥西',
-				position: [116.463608,39.967155]
-			},{
-				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b4.png',
-				name: '三元桥东站',
-				position: [116.460396,39.964237]
-			},{
-				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
-				name: '三元桥',
-				position: [116.457916,39.955193]
-			}]
-			//显示地图
-			this.map = new AMap.Map("container", {
-		        resizeEnable: true,
-		        zoom: 18 //地图显示的缩放级别
-		    });
-		    this.map.addControl(toolBar);  //添加控件
+				id: 2, 
+				icon: '../../images/car.png', 
+				position: [121.478523,30.105581],
+				runRoute: [121.325127,30.157717]
+			}];
 			this.lineSearch();   //绘制整条公交车路线
-			this.init();         //绘制公交路线上的所有站点
+			
+					
+			//公交所经过的站点
+//			this.busStations = [{
+//				icon: '../../images/station.png',
+//				name: '京顺路丽都饭店',
+//				position: [116.476288,39.978600]
+//			},{
+//				icon: '../../images/station.png',
+//				name: '四元桥东',
+//				position: [116.473480,39.976070]
+//			},{
+//				icon: '../../images/station.png',
+//				name: '四元桥西',
+//				position: [116.463608,39.967155]
+//			},{
+//				icon: '../../images/station.png',
+//				name: '三元桥东站',
+//				position: [116.460396,39.964237]
+//			},{
+//				icon: '../../images/station.png',
+//				name: '三元桥',
+//				position: [116.457916,39.955193]
+//			}]
+			
+		    this.map.addControl(toolBar);  //添加控件
+			
 		},
 		methods: {
+			
+			//公交路线的绘制
+			lineSearch: function() {
+				var self = this;
+				//实例化公交线路查询类，只取回一条路线
+		        var linesearch = new AMap.LineSearch({
+		            pageIndex: 1,
+		            city: '宁波',
+		            pageSize: 1,
+		            extensions: 'all'
+		        });
+		        //搜索“536”相关公交线路
+		        linesearch.search(self.busName, function(status, result) {
+		        	self.busStations = [];
+		            if (status === 'complete' && result.info === 'OK') {
+		            	var station = result.lineInfo[0].via_stops;
+		            	var len = station.length;
+		            	console.log('len = ' + len);
+						for(var i = 0; i < len; i++) {
+							var obj = {
+								name: '',
+								icon: '../../images/station.png',
+								position: ''
+							},p;
+							obj.name = station[i].name;
+							p = station[i].location.lng + ',' + station[i].location.lat;
+							obj.position = p.split(',');
+							console.log('obj = ' + obj.position);
+							console.log('name = ' + obj.name);
+							self.busStations.push(obj);
+						}
+						self.startPot = station[0].location.lng + ',' + station[0].location.lat;
+						self.startPot = self.startPot.split(',');
+						self.endPot = station[len - 1].location.lng + ',' + station[len - 1].location.lat;
+						self.endPot = self.endPot.split(',');
+						self.init();          //绘制公交路线上的所有站点
+		                self.lineSearch_Callback(result);
+		            } else {
+		                alert(result);
+		            }
+		        });
+			},
 			//公交路线下的所有站点
 			init: function() {
 				var self = this;
@@ -112,36 +182,18 @@
 			        new AMap.Marker({   //站点
 			            map: self.map,
 			            icon: marker.icon,
-			            position: [marker.position[0], marker.position[1]]
+			            position: [marker.position[0], marker.position[1]],
+			            offset: new AMap.Pixel(-5, -15)
 			        });
 		        var baodao = new AMap.Marker({    //站点信息
 		            content: content,
 		            position: [marker.position[0], marker.position[1]],
 		            title: marker.name,
-		            offset: new AMap.Pixel(0,0),
+		            offset: new AMap.Pixel(7,-7),
 		            map: self.map
 		          });
 		          self.map.setCenter(baodao.getPosition());
 			    });
-			},
-			//公交路线的绘制
-			lineSearch: function() {
-				var self = this;
-				//实例化公交线路查询类，只取回一条路线
-		        var linesearch = new AMap.LineSearch({
-		            pageIndex: 1,
-		            city: '北京',
-		            pageSize: 1,
-		            extensions: 'all'
-		        });
-		        //搜索“536”相关公交线路
-		        linesearch.search(self.busName, function(status, result) {
-		            if (status === 'complete' && result.info === 'OK') {
-		                self.lineSearch_Callback(result);
-		            } else {
-		                alert(result);
-		            }
-		        });
 			},
 			//查询公交后的回调
 			lineSearch_Callback: function(data) {
@@ -184,13 +236,13 @@
 		        busPolyline = new AMap.Polyline({
 		            map: self.map,
 		            path: BusArr,
-		            strokeColor: "#09f",//线颜色
-		            strokeOpacity: 0.8,//线透明度
+		            strokeColor: "#7DE736",//线颜色
+		            //strokeOpacity: 0.8,//线透明度
 		            strokeWeight: 6//线宽
 		        });
 		        self.map.setFitView();
-		        setTimeout(function() {
-		        	self.map.setZoomAndCenter(15, [116.476288,39.978600]);
+		        setTimeout(function() {  
+		        	self.map.setZoomAndCenter(13, [121.534859,30.102621]);
 		        	self.runcar();
 //		        	self.markerCar.moveAlong(BusArr, 500);
 		        }, 1000)
@@ -223,7 +275,7 @@
 					r[i] = new AMap.Polyline({
 				        map: self.map,
 				        path: routeBus,
-				        strokeColor: "#00A",  //线颜色
+				        strokeColor: "#7DE736",  //线颜色
 				        strokeWeight: 3,      //线宽
 				    });
 				    v.markerCar.moveAlong(routeBus, 500);
@@ -245,18 +297,20 @@
 </script>
 <style type="text/css">
 	#container{
-		height: 500px;
+		height: 100%;
 	}
 	.bottom{
 		margin-top: 10px;
 	}
 	.taiwan{
-      	border: solid 1px red;
-      	color: red;
+      	border: solid 1px #DEDEDE;
+      	border-radius: 5px;
+      	background: #fff;
+      	color: #828282;
       	display: block;
       	width: auto;
       	white-space:nowrap;
-      	background-color: rgba(255,0,0,0.1);
-      	margin: -10px 0 0 10px
+      	margin: -15px 0 0 10px;
+      	padding: 5px 15px;
       }
 </style>

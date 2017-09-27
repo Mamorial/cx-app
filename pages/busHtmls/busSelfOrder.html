@@ -11,7 +11,7 @@
 			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">返回</button>
 			    <h1 class="mui-title">公交定制</h1>
-			    <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" @click="makeSelfOrder" style="border: 1px solid #F7F7F7;">发起</button>
+			    <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" @click="makeSelfOrder" style="border: none;">发起</button>
 			</header>
 			<div class="mui-content">
 				<div class="title">
@@ -64,6 +64,7 @@
 			//公交定制详情
 			makeRouteInfo: function() {
 				mui.openWindow({
+					url: 'busMakeInfo.html',
 					id: 'busMakeInfo',
 					show: {
 						duration: 300
@@ -77,6 +78,7 @@
 			//发起定制
 			makeSelfOrder: function() {
 				mui.openWindow({
+					url: 'makeSelfOrder.html',
 					id: 'makeSelfOrder',
 					show: {
 						duration: 300

@@ -2,6 +2,9 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
@@ -111,6 +114,10 @@
 			},
 			//模块进入
 			indexBarIn: function(url, id) {
+//				var aniShow = "pop-in";
+//				var webview = plus.webview.create(url, id);
+//				webview.show(aniShow,300);
+
 				mui.openWindow({
 					url: url,
 					id: id,

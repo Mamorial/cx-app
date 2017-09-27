@@ -2,6 +2,9 @@
 	<head>
 		<title></title>
 		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<script src="js/head.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
@@ -18,39 +21,16 @@
 	</body>
 </html>
 <script type="text/javascript">
-	var map = new AMap.Map('', {
-        resizeEnable: true
-    });
-    map.plugin('AMap.Geolocation', function() {
-        geolocation = new AMap.Geolocation({
-            enableHighAccuracy: true,//是否使用高精度定位，默认:true
-            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
-            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-            buttonPosition:'RB'
-        });
-        map.addControl(geolocation);
-        geolocation.getCurrentPosition();
-        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
-    });
-    function onComplete(data) {
-    	console.log('经度：' + data.position.getLng() + '纬度：' + data.position.getLat());
-    	var obj = {
-    		lng: data.position.getLng(),
-    		lat: data.position.getLat()
-    	};
-    	obj = JSON.stringify(obj);
-    	localStorage.setItem('nearState', obj);
-    }
-
 	mui.plusReady(function() {
+		plus.webview.create( 'pages/busHtmls/busMapShow.html', 'busMapShow', {hardwareAccelerated:true});
 		plus.navigator.setStatusBarBackground('#25A7FF');
-		var _path = "./pages/busHtmls/";
+		var _pathBus = "./pages/busHtmls/";
+		var _pathUser = "./pages/userHtmls/";
 		var subInfos = [{
-			url: _path + 'index.html',
+			url: _pathBus + 'index.html',
 			id: 'index'
 		},{
-			url: _path + 'user.html',
+			url: _pathUser + 'user.html',
 			id: 'user'
 		}];
 	var subStyles = {
@@ -91,5 +71,29 @@
 		plus.webview.getWebviewById(activeTab).hide('none');
 		activeTab = targetTab;
 	})
-	})
+	});
+	var map = new AMap.Map('', {
+        resizeEnable: true
+    });
+    map.plugin('AMap.Geolocation', function() {
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+    });
+    function onComplete(data) {
+    	console.log('经度：' + data.position.getLng() + '纬度：' + data.position.getLat());
+    	var obj = {
+    		lng: data.position.getLng(),
+    		lat: data.position.getLat()
+    	};
+    	obj = JSON.stringify(obj);
+    	localStorage.setItem('nearState', obj);
+    }
 </script>

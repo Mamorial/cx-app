@@ -8,6 +8,7 @@
 		<div id="busNum">
 		<header class="mui-bar mui-bar-nav">
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
 			<h1 class="mui-title">{{busName}}</h1>
 			<a class="mui-icon mui-icon-map mui-pull-right" @click="busMap"></a>
 		</header>
@@ -20,7 +21,7 @@
 							<span v-else @click="cancelColl" class="mui-media-object mui-pull-right mui-icon iconfont icon-shoucang1"></span>
 							<div class="mui-media-body">
 								<div style="font-weight: bold;font-size: 16px;">
-									{{bus_station.start}}--{{bus_station.end}}
+									{{bus_station.start.name}}--{{bus_station.end.name}}
 								</div>
 								<p class='mui-ellipsis' style="margin-top: 5px;">
 									首 {{bus_station.firstBus}}&nbsp;&nbsp;&nbsp;&nbsp;末 {{bus_station.lastBus}}&nbsp;&nbsp;&nbsp;&nbsp;票价 {{bus_station.total}}元
@@ -30,61 +31,45 @@
 					</li>
 				</ul>
 			</div>
-			<div class="bus-route">
-				<div class="bus-route-top"><span></span></div>
-				<div class="bus-route-bottom"><span></span></div>
-				<div class="bus-car1" style="width: 30px;height: 30px;position: absolute;top: 224px;left: 123px;">
-					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;"></span>
+			<div class="bus-route" v-if="stationsShow">
+				<!--<div style="width: 50px;height: 50px;position: absolute;left: 46%;top: 75px;">
+					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;color: #f00;"></span>
 				</div>
-				<div class="bus-car2" style="width: 30px;height: 30px;position: absolute;top: 224px;left: 206px;">
-					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;"></span>
+				<div style="width: 50px;height: 50px;position: absolute;left: 46%;bottom: 53px;">
+					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;color: #f00;"></span>
+				</div>-->
+				<div class="bus-route-top"><span id="station_table_top"></span></div>
+				<div class="bus-route-bottom"><span id="station_table_bottom"></span></div> 
+				<div class="bus-car1" v-for="bus in bussUp" :style="{top: bus.Top,left: bus.Left}">
+					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;color: #f00;"></span>
 				</div>
-				<table border="0" cellspacing="0" cellpadding="0">
+				<div class="bus-car2" v-for="bus in bussDown" :style="{top: bus.Top,left: bus.Left}">
+					<span class="mui-icon iconfont icon-gongjiaoche" style="font-size: 30px;color: #1B99F0;"></span>
+				</div>
+				<table id="acTable" border="0" cellspacing="0" cellpadding="0" class="station_table">
 					<tbody>
 						<tr>
-							<td colspan="3"><a class="mui-icon iconfont icon-icon stationsStart_a" style="display: block;color: #000;position: absolute;top: 0;left: 45%;font-size: 30px;"></a>日丽中路口</td>
-						</tr>
-						<tr>
-							<td>南苑社区<span></span></td>
+							<td id="startS" class="acTd" colspan="3">
+								<a class="mui-icon iconfont icon-icon stationsStart_a" style="display: block;color: #000;position: absolute;top: 0;left: 45%;font-size: 30px;"></a>
+								{{bus_station.start.name}}
+							</td>
+						</tr>  
+						<tr v-for="item in stations" class="stationsTr">
+							<td class="acTd">{{item.up_route.name}}<span :data-id="item.up_route.id" class="bus_station upStation" v-if="item.up_route.name==''?false:true"></span></td>
 							<td></td>
-							<td>南苑社区<span></span></td>
+							<td class="acTd">{{item.down_route.name}}<span :data-id="item.down_route.id" class="bus_station downStation" v-if="item.down_route.name==''?false:true"></span></td>
 						</tr>
 						<tr>
-							<td>南苑社区<span></span></td>
-							<td></td>
-							<td>南苑社区<span></span></td>
-						</tr>
-						<tr>
-							<td>南苑社区<span id="s1" style="background: red;"></span></td>	
-							<td></td>
-							<td>南苑社区<span id="s2" style="background: blue;"></span></td>
-						</tr>
-						<tr>
-							<td>南苑社区<span></span></td>
-							<td></td>
-							<td>南苑社区<span></span></td>
-						</tr>
-						<tr>
-							<td>南苑社区<span></span></td>
-							<td></td>
-							<td>南苑社区<span></span></td>
-						</tr>
-						<tr>
-							<td>南苑社区<span></span></td>
-							<td></td>
-							<td>南苑社区<span></span></td>
-						</tr>
-						<tr>
-							<td>南苑社区<span></span></td>
-							<td></td>
-							<td>南苑社区<span></span></td>
-						</tr>
-
-						<tr>
-							<td colspan="3"><a class="mui-icon iconfont icon-icon2 stationsEnd_a" style="display: block;color: #000;position: absolute;top: 45px;left: 45%;font-size: 30px;"></a>宁波火车站</td>
+							<td id="endS" class="acTd" colspan="3">
+								<a class="mui-icon iconfont icon-icon2 stationsEnd_a" style="display: block;color: #000;position: absolute;top: 45px;left: 45%;font-size: 30px;"></a>
+								{{bus_station.end.name}}
+							</td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div v-else class="loading">
+				<img src="../../images/loading.gif" />
 			</div>
 		</div>
 	</div>
@@ -99,16 +84,150 @@
 			showColl: true,    //是否收藏
 			route1: [240, 250, 270, 280, 350],
 			route2: [260, 270, 280, 298, 340, 370],
+			stationsShow: false,
 			bus_station:{
-				start: '鄞州电信局',
-				end: '宁波火车站',
+				start: {
+					name: '鄞州电信局',
+					id: ''
+				},
+				end: {
+					name: '宁波火车站',
+					id: ''
+				},
 				firstBus: '05:40',
 				lastBus: '21:30',
 				total: 2
-			}
+			},
+			stations: [{
+				up_route: {
+					name: '南苑社区',
+					id: 1
+				},
+				down_route: {
+					name: '钱湖南路文化路口',
+					id: 2
+				}
+			},{
+				up_route: {
+					name: '南苑社区',
+					id: 3
+				},
+				down_route: {
+					name: '钱湖南路文化路口',
+					id: 4
+				}
+			},{
+				up_route: {
+					name: '南苑社区',
+					id: 5
+				},
+				down_route: {
+					name: '钱湖南路文化路口',
+					id: 6
+				}
+			},{
+				up_route: {
+					name: '南苑社区',
+					id: 7
+				},
+				down_route: {
+					name: '钱湖南路文化路口',
+					id: 8
+				}
+			},{
+				up_route: {
+					name: '南苑社区',
+					id: 9
+				},
+				down_route: {
+					name: '',
+					id: ''
+				}
+			}],
+			bussUp: [{
+				name: 'bus1',
+				id: 7,
+				Top: '',
+				Left: '',
+				type: 'up',
+				arrive: true
+			},{
+				name: 'bus2',
+				id: 1,
+				Top: '',
+				Left: '',
+				type: 'up',
+				arrive: true
+			},{
+				name: 'bus4',
+				id: 3,
+				next: 3,
+				Top: '',
+				Left: '',
+				type: 'up',
+				arrive: false
+			},{
+				name: 'bus4',
+				id: 9,
+				next: 9,
+				Top: '',
+				Left: '',
+				type: 'up',
+				arrive: false
+			},{
+				name: 'bus4',
+				id: 9,
+				next: 3,
+				Top: '',
+				Left: '',
+				type: 'up',
+				arrive: true
+			},{
+				name: 'bus4',
+				id: 10,
+				next: null,
+				Top: '',
+				Left: '',
+				type: 'up',
+				arrive: true
+			}],
+			bussDown: [{
+				name: 'bus3',
+				id: 4,
+				Top: '',
+				Left: '',
+				type: 'down',
+				arrive: true
+			},{
+				name: 'bus5',
+				id: 4,
+				Top: '',
+				Left: '',
+				type: 'down',
+				arrive: false
+			},{
+				name: 'bus5',
+				id: 8,
+				Top: '',
+				Left: '',
+				type: 'down',
+				arrive: true
+			}],
+			tableTop: {
+				top: '',
+				left: ''
+			},
+			tableBottom: {
+				top: '',
+				left: ''
+			},
+			activeStationId: '',   //最近站点的id
+			down_start_id: '',    //下行开始站点id
+			down_end_id: ''      //下行结束站点id
 		},
 		mounted: function() {
 			var self = this;
+//			$("html,body").animate({"scrollTop": "500px"}, 1000);  
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
@@ -117,22 +236,269 @@
 				console.log(_name)
 				self.busName = _name;
 			});
-			this.init();
+			var _obj = localStorage.getItem('nearState');
+			_obj = JSON.parse(_obj);
+//			alert(_obj.lng + ',' + _obj.lat);
+			this.init(_obj);
 
 		},
 		methods: {
 			//获取站点位置
-			init: function() {
-				fc.commonAjax('traffic/routes/name/17路/', 'get').done(function(data) {
-					console.log(data);
+			init: function(area) {      
+				var self = this;
+				//站牌信息
+				fc.commonAjax('traffic/stations/route/name/200路/'+area.lng+'/'+area.lat+'/', 'get').done(function(data) {
+					console.log(data.route.name);
+					var len1 = data.up_list.length,len2 = data.down_list.length,len,min1 = data.up_list[0].distance,min2 = data.down_list[0].distance,minId;
+					self.stations = [];
+					self.bus_station.start.name = data.route.begin_station.name;
+					self.bus_station.start.id = data.route.begin_station.pk;
+					self.bus_station.end.name = data.route.end_station.name;
+					self.bus_station.end.id = data.route.end_station.pk;
+					data.down_list = data.down_list.reverse();
+					self.down_start_id = data.down_list[len2 - 1].id;  //下行开始站点
+					self.down_end_id = data.down_list[0].id;  //下行结束站点
+					//取出站点  画圈
+					if(len1 >= len2) {
+						len = len1;
+					} else {
+						len = len2;
+					}
+					console.log(len);
+//					var ak = data.up_list.pop();
+//					setTimeout(function() {console.log(ak.length);}, 1000);
+					for(var s = 0; s < len; s++) {
+						var _sobj = {  
+							up_route: {
+								name: '',
+								id: ''
+							},
+							down_route: {
+								name: '',
+								id: ''
+							}
+						};
+						console.log('distance1 = ' + data.up_list[s].distance);
+						if(data.up_list[s].distance) {
+							if(min1 >= data.up_list[s].distance) {
+								min1 = data.up_list[s].distance;
+							}
+						}
+						if(data.down_list[s].distance) {
+							if(min2 >= data.down_list[s].distance) {
+								min2 = data.down_list[s].distance;
+							}
+						}
+						if(min1 >= min2) {
+							minId = data.up_list[s].id;
+						} else {
+							minId = data.down_list[s].id;
+						}
+						console.log('testId = ' + data.down_list[s].id);
+						console.log('testIIIIIIId = ' + data.up_list[s].id);
+						if(data.up_list[s].name == 'undefined') data.up_list[s].name = '';
+						if(data.down_list[s].name == 'undefined') data.down_list[s].name = '';
+						_sobj.up_route.name = data.up_list[s].name;
+						_sobj.up_route.id = data.up_list[s].id;
+						_sobj.down_route.name = data.down_list[s].name;
+						_sobj.down_route.id = data.down_list[s].id;
+						
+						self.stations.push(_sobj); 
+						
+					} 
+					//最近的站点id
+//					alert(minId);
+					self.activeStationId = minId;
+					//获取公交车的信息
+					self.getBusInfo();
+					//判断页面是否渲染完成
+					self.$nextTick(function() {
+						mui.toast('渲染完成');
+						setTimeout(function() {
+							self.stationsShow = true;
+							setTimeout(function() {
+								var _td = document.getElementsByClassName('acTd');
+								for(var i = 0; i < _td.length; i++) {
+									_td[i].addEventListener('click', function() {
+										self.activeTd(this);
+									})
+								}
+//								document.getElementById('#acTable').on('tap', '.acTd', function() {
+//									self.activeTd();
+//								})
+							}, 200);
+						}, 200);
+						
+					})
+					
 				}).fail(function() {
 					mui.toast('error')
-				})
+				});
+				 
+			},
+			//公交车信息
+			getBusInfo: function() {
+				var self = this;
+				fc.commonAjax('traffic/buses/route/name/200路/', 'get').done(function(data) {
+					console.log(data.length);
+					self.bussUp = [];
+					self.bussDown = [];
+					data.forEach(function(value, index) {
+						var b_len = value.bus.length;
+						for(var b = 0; b < b_len; b++) {
+							var _upObj = {
+							name: '',
+							id: '',
+							next: '',
+							Top: '',
+							Left: '',
+							type: 'up',
+							arrive: ''
+						},_downObj = {
+							name: '',
+							id: '',
+							Top: '',
+							Left: '',
+							type: 'down',
+							arrive: ''
+						};
+							if(value.route.direction) {
+								if(value.bus[b].arrival_station) {
+									if(value.bus[b].speed != 0) {
+										for(var k = 0; k < self.stations.length; k++) {
+											if(value.bus[b].arrival_station.pk == self.stations[k].up_route.id) {
+												//todo 判断是否是最后一战
+												_upObj.id = self.stations[k + 1].up_route.id; 
+											}
+										}
+										_upObj.arrive = false
+									} else {
+										_upObj.id = value.bus[b].arrival_station.pk;
+										_upObj.arrive = true;
+									}
+									self.bussUp.push(_upObj);
+								}
+								
+							} else {
+								if(value.bus[b].arrival_station) {
+									if(value.bus[b].speed != 0) { 
+										console.log("value.bus[b].speed11 = " + value.bus[b].speed);
+										console.log("value.bus[b].speed11 = " + value.bus[b].arrival_station.pk);
+										
+										for(var k = 0; k < self.stations.length; k++) {
+											console.log("value.bus[b].speed1111 = " + self.stations[k].down_route.id);
+											if(value.bus[b].arrival_station.pk == self.stations[k].down_route.id) {
+												//todo 判断是否是最后一战
+												_downObj.id = self.stations[k + 1].down_route.id;
+											} 
+										}
+										_downObj.arrive = false;
+										console.log("aaaa = " + _downObj.id + " ....." + _downObj.arrive);
+										self.bussDown.push(_downObj);
+									} else {
+										console.log("value.bus[b].speed22 = " + value.bus[b].speed);
+										_downObj.id = value.bus[b].arrival_station.pk;
+										_downObj.arrive = true;
+										console.log("aaaa = " + _downObj.id + " ....." + _downObj.arrive);
+										self.bussDown.push(_downObj);
+									}
+								}
+								
+								
+							}
+						};
+					})
+					//获取站点的坐标和公交车的坐标
+					
+					setTimeout(function() {self.stationsCoo();}, 500) 
+					
+				}).fail(function() {
+					mui.toast('error')
+				});
+			},
+			//获取每个站点的2d坐标
+			stationsCoo: function() {
+				var _span = $(".station_table tbody tr").find('td span.bus_station'),
+					_startTd = document.getElementById('startS'),
+					_endTd = document.getElementById('endS');
+				var len = _span.length;
+				var self = this; 
+//				alert(self.bus_station.start.id + ',' + self.bus_station.end.id)
+				if(self.activeStationId == self.bus_station.start.id || self.activeStationId == self.down_end_id) {
+					_startTd.setAttribute('style', 'color: red');
+					$("html,body").animate({"scrollTop": 0}, 500);
+				}
+				if(self.activeStationId == self.bus_station.end.id || self.activeStationId == self.down_start_id) {
+					var _t = parseInt($('body').height()) / 2;
+					_endTd.setAttribute('style', 'color: red');
+					$("html,body").animate({"scrollTop": _t}, 500);  
+				}
+				for(var i = 0; i < len; i++) {
+					var _top = self.getTop(_span[i]);
+					var _left = self.getLeft(_span[i]);
+					console.log(_span[i].getAttribute('data-id') + '...' + _top + "..." + _left);
+					_span[i].setAttribute('Top', _top);
+					_span[i].setAttribute('Left', _left);
+					if(self.activeStationId == _span[i].getAttribute('data-id')) {
+						_span[i].parentNode.setAttribute('style', 'color: red');
+						$("html,body").animate({"scrollTop": parseInt(_top) / 2}, 500);  
+					}
+					//公交车 坐标
+					for(var j = 0; j < self.bussUp.length; j++) {
+						if(_span[i].getAttribute('data-id') == self.bussUp[j].id) {
+							if(self.bussUp[j].arrive) {
+								if(self.bussUp[j].id == self.bus_station.start.id) {
+									self.bussUp[j].Top = '75px';
+									self.bussUp[j].Left = '46%';
+								} else if(self.bussUp[j].id == self.bus_station.end.id) {
+									self.bussUp[j].Top = _top - 135 + 'px';
+									self.bussUp[j].Left = '46%';
+								} else {
+									self.bussUp[j].Top = _top - 130 + 'px';
+									self.bussUp[j].Left = _left + 20 + 'px';
+								}
+								 
+							} else {
+								self.bussUp[j].Top = _top - 95 + 'px';
+								self.bussUp[j].Left = _left + 20 + 'px';
+							}
+						}
+					}
+					for(var j = 0; j < self.bussDown.length; j++) {
+						console.log("test j = " + self.bussDown[j].id);
+						if(_span[i].getAttribute('data-id') == self.bussDown[j].id) {
+							
+							if(self.bussDown[j].arrive) {
+								if(self.bussDown[j].id == self.bus_station.start.id) {
+									self.bussDown[j].Top = '75px';
+									self.bussDown[j].Left = '46%';
+								} else if(self.bussDown[j].id == self.bus_station.end.id) {
+									self.bussDown[j].Top = _top - 135 + 'px';
+									self.bussDown[j].Left = '46%';
+								}else {
+									self.bussDown[j].Top = _top - 130 + 'px';
+									self.bussDown[j].Left = _left - 35 + 'px'; 
+								}
+								
+							} else {
+								self.bussDown[j].Top = _top - 160 + 'px';
+								self.bussDown[j].Left = _left - 35 + 'px';
+							} 
+						}
+					}
+				}
 				
 				
-				var y = $("#s2").position().top;
-				var x = $("#s2").position().left;
-				console.log("x = " + x + "," + "y = " + y);
+			},
+			getTop: function(e) {
+				var offset = e.offsetTop;
+				if(e.offsetParent!=null) offset+=this.getTop(e.offsetParent);
+  				return offset;
+			},
+			getLeft: function(e) {
+				var offset=e.offsetLeft;
+			    if(e.offsetParent!=null) offset+=this.getLeft(e.offsetParent);
+			    return offset;
 			},
 			//模拟车动画
 			runCar: function() {
@@ -148,7 +514,8 @@
 				}
 
 			},
-			busMap: function() {     //查看地图
+			//查看地图
+			busMap: function() {     
 				var self = this;
 				mui.openWindow({
 					url: 'busMapShow.html',
@@ -168,6 +535,12 @@
 			//取消收藏
 			cancelColl: function() {
 				this.showColl =! this.showColl;
+			},
+			//激活站台
+			activeTd: function(_this) {
+				console.log($(_this).parent().html());
+				$(_this).attr('style', 'color: red').parent().siblings().find('td').removeAttr('style');
+				$(_this).attr('style', 'color: red').siblings().removeAttr('style');
 			}
 		}
 	})
@@ -187,6 +560,22 @@
 		height: auto;
 		/*border: 1px solid blue;*/
 	}
+	.bus-route table tr:nth-of-type(2) td{
+		height: 1px!important;
+		padding: 0!important;
+		margin: 0!important;
+		/*display: none;*/
+		opacity: 0;
+		/*border: 1px solid red;*/
+	}
+	.bus-route table tr:nth-last-child(2) td{
+		height: 1px!important;
+		padding: 0!important;
+		margin: 0!important;
+		/*display: none;*/
+		opacity: 0;
+		/*border: 1px solid red!important;*/
+	}
 	.bus-route table tr td{
 		text-align: center;
 		padding: 15px 10px 0 10px;
@@ -199,6 +588,10 @@
 		line-height: 50px;
 		width: 110px;
 		/*height: 50px;*/
+	}
+	.bus-route table tbody tr.stationsTr td:nth-of-type(1) {
+		line-height: 20px;
+		height: 60px;
 	}
 	.bus-route table tbody tr td:nth-of-type(2){
 		/*width: 150px!important;*/
@@ -267,5 +660,10 @@
 	.bus-route-bottom span{
 		top: 21px;
 		bottom: -10px;
+	}
+	.bus-car1, .bus-car2{
+		width: 30px;
+		height: 30px;
+		position: absolute;
 	}
 </style>

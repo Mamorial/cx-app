@@ -11,8 +11,9 @@
 			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
 			    <h1 class="mui-title">路线详情</h1>
+			    <!--<a class="mui-icon mui-icon-map mui-pull-right" @click="busRouteMap"></a>-->
 			</header>
-			<div class="mui-content">
+			<div class="mui-content" style="padding-bottom: 20px;">
 				<div class="route-detail-top">
 					<div class="route-detail-top-T">
 						<ul>
@@ -110,6 +111,8 @@
 	.route-detail-bottom ul li.route-detail-liSE span{
 		margin-right: 10px;
 		color: #5A97C5;
+		display: block;
+		float: left;
 	}
 	.route-detail-bottom ul li.route-detail-liSE span:nth-of-type(1) {
 		color: #999999;
@@ -117,14 +120,22 @@
 		margin: 0;
 		padding: 2px 10px 0 5px;
 	}
+	.route-detail-bottom ul li.route-detail-liSE span:nth-of-type(3) {
+		width: 60%;
+	}
 	.route-detail-bottom ul li.route-detail-liWalk span:nth-of-type(1){
 		padding: 5px;
 		color: #9A9A9A;
 		font-size: 20px;
+		display: block;
+		float: left;
 	}
 	.route-detail-bottom ul li.route-detail-liWalk span:nth-of-type(2) {
 		margin-left: 3px;
 		font-size: 15px;
+		display: block;
+		float: left;
+		width: 60%;
 	}
 	.route-detail-bottom ul li.route-detail-liWalk span:nth-of-type(3) {
 		float: right;
@@ -214,10 +225,13 @@
 				all_walking: '',
 				all_cost: ''
 			},
+			route_id: '',              //这条线路的id
 			busRouteName: [],    //所有公交线路名称
 			busWalkingInfo: [],    //每趟线路的公交和步行详情
 			startP: '',         //起始点
-			endP: ''            //终点
+			endP: '',            //终点
+			start_place_position: '',   //始发地的经纬度
+			end_place_position: '',   //到达地的经纬度
 		},
 		mounted: function() {
 			var self = this;
@@ -225,6 +239,10 @@
 				var info = plus.webview.currentWebview().routeInfo;
 				self.startP = plus.webview.currentWebview().startPlace;
 				self.endP = plus.webview.currentWebview().endPlace;
+				self.start_place_position = plus.webview.currentWebview().start_place_position;
+				self.end_place_position = plus.webview.currentWebview().end_place_position;
+				self.route_id = info.id;
+//				alert(self.end_place_position);
 				self.init(info);
 			})
 		},
@@ -233,6 +251,7 @@
 			init: function(info) {
 				var self = this,ad = 0;
 				console.log(info.bus.length);
+//				alert(info.id);
 				info.bus.forEach(function(v, i) {
 					var objBus = {
 						walking: {
@@ -344,6 +363,26 @@
 						walkRoute: _walkRoute,
 						origin: walk.origin,
 						destination: walk.destination
+					}
+				})
+			},
+			//打开地图
+			busRouteMap: function() {
+				var self = this;
+				mui.openWindow({
+					url: 'busRouteMap.html',
+					id: 'busRouteMap',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: { 
+						routeId: self.route_id,
+						startM: self.start_place_position,
+						endM: self.end_place_position
 					}
 				})
 			}

@@ -1,0 +1,239 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="busMapInfo">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">{{busName}}路</h1>
+		</header>
+		<div id="container"></div>
+	</div>
+	</body>
+</html>
+<script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=dc6703c9c958fa056f0b0e077e920051&plugin=AMap.LineSearch,AMap.ToolBar"></script>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#busMapInfo',
+		data: {
+			busName: '200',
+			busStations: [],  //所有车站信息
+			busCars: [],    //所有车的信息
+			map: '',     //地图
+			markerCars: [],  //路线上所有的车
+			carsLines: '',   //公交车行驶路线
+			startPot: '',   //起点
+			endPot: '',     //终点
+			allLocation: []   //路线所有的经纬度
+		},
+		mounted() {
+			var toolBar = new AMap.ToolBar({   //地图的控件
+			        visible: true
+			   });
+			  //该路线的起始站和终点站
+			  self.startPot = [121.165221,30.103297];
+			  self.endPot = [121.356560,30.029281];
+			//公交所经过的站点
+//			this.busStations = [{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b1.png',
+//				name: '慈溪东站',
+//				position: [121.594786,30.048286]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b1.png',
+//				name: '匡堰',
+//				position: [121.551673,30.075545]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b2.png',
+//				name: '樟树',
+//				position: [121.504523,30.094946]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b3.png',
+//				name: '桥头',
+//				position: [121.479386,30.106243]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b4.png',
+//				name: '五里',
+//				position: [121.452468,30.120908]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '观海卫公交中心站',
+//				position: [121.240968,30.100526]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '师桥',
+//				position: [121.250281,30.091951]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '裘市',
+//				position: [121.260370,30.081360]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '掌起',
+//				position: [121.272651,30.071728]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '范市车站',
+//				position: [121.288401,30.063453]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '达蓬山旅游区',
+//				position: [121.303572,30.056599]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '西门外',
+//				position: [121.331613,30.044733]
+//			},{
+//				icon: 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png',
+//				name: '龙山公交中心站',
+//				position: [121.356560,30.029281]
+//			}]
+			//显示地图
+			this.map = new AMap.Map("container", {
+		        resizeEnable: true,
+		        zoom: 18 //地图显示的缩放级别
+		    });
+		    this.map.addControl(toolBar);  //添加控件
+			this.lineSearch();   //绘制整条公交车路线
+			this.init();         //绘制公交路线上的所有站点
+		},
+		methods: {
+			//公交路线下的所有站点
+			init: function() {
+				var self = this;
+				//获取线路的所有站点
+				var _url = "v3/direction/transit/integrated?key=e00e7ed74876f674fa2f01bf36f429c8&origin=121.31432,30.203496&destination=121.533951,30.103195&city=宁波&cityd=宁波&strategy=0&nightflag=0&date=2017-9-20&time=19:00";
+				fc.ajax(_url, 'get').done(function(data) {
+					var bus = data.route.transits;
+					bus.forEach(function(v, i) {
+						console.log(i)
+						var name = v.segments[0].bus.buslines[0].name.replace(/[^0-9]/ig,""),
+							len = v.segments[0].bus.buslines[0].via_stops.length;
+						alert(name);
+						if(name == self.busName) {
+							for(var i = 0; i < len; i++) {
+								var obj = {};
+								obj.icon = 'http://webapi.amap.com/theme/v1.3/markers/n/mark_b5.png';
+								obj.name = v.segments[0].bus.buslines[0].via_stops[i].name;
+								obj.position = v.segments[0].bus.buslines[0].via_stops[i].location.split(',');
+								self.busStations.push(obj);
+							}
+						}
+						
+					});
+					self.markRoute();
+				})
+				
+			},
+			markRoute: function() {
+				var self = this;
+				//实例化所有站点
+				setTimeout(function() {
+					self.busStations.forEach(function(marker) {
+					var content= "<div class = 'taiwan'>"+marker.name+"</div>";
+				        new AMap.Marker({   //站点
+				            map: self.map,
+				            icon: marker.icon,
+				            position: [marker.position[0], marker.position[1]]
+				        });
+			        var baodao = new AMap.Marker({    //站点信息
+			            content: content,
+			            position: [marker.position[0], marker.position[1]],
+			            title: marker.name,
+			            offset: new AMap.Pixel(0,0),
+			            map: self.map
+			          });
+			          self.map.setCenter(baodao.getPosition());
+			    });
+				}, 2000)
+			},
+			//公交路线的绘制
+			lineSearch: function() {
+				var self = this;
+				//实例化公交线路查询类，只取回一条路线
+		        var linesearch = new AMap.LineSearch({
+		            pageIndex: 1,
+		            city: '宁波',
+		            pageSize: 1,
+		            extensions: 'all'
+		        });
+		        //搜索“536”相关公交线路
+		        linesearch.search(self.busName, function(status, result) {
+		            if (status === 'complete' && result.info === 'OK') {
+		                self.lineSearch_Callback(result);
+		            } else {
+		                alert(result);
+		            }
+		        });
+			},
+			//查询公交后的回调
+			lineSearch_Callback: function(data) {
+				var lineArr = data.lineInfo;
+		        var lineNum = data.lineInfo.length;
+		        var self = this;
+		        if (lineNum == 0) {
+		        } else {
+		            for (var i = 0; i < lineNum; i++) {
+		                var pathArr = lineArr[i].path;
+		                var stops = lineArr[i].via_stops;
+		                var startPot = stops[0].location;
+		                var endPot = stops[stops.length - 1].location;
+
+		                if (i == 0) self.drawbusLine(startPot, endPot, pathArr);
+		            }
+		        }
+			},
+			//绘制公交路线地图
+			drawbusLine: function(startPot, endPot, BusArr) {
+				console.log('起点 = ' + startPot.lng + ',' + startPot.lat);
+				console.log('终点 = ' + endPot.lng + ',' + endPot.lat);
+				console.log(BusArr);
+				//绘制起点，终点
+				var self = this;
+				this.allLocation = BusArr;
+		        new AMap.Marker({
+		            map: self.map,
+		            position: [startPot.lng, startPot.lat], //基点位置
+		            icon: "http://webapi.amap.com/theme/v1.3/markers/n/start.png",
+		            zIndex: 10
+		        });
+		        new AMap.Marker({
+		            map: self.map,
+		            position: [endPot.lng, endPot.lat], //基点位置
+		            icon: "http://webapi.amap.com/theme/v1.3/markers/n/end.png",
+		            zIndex: 10
+		        });
+		        //绘制乘车的路线
+		        busPolyline = new AMap.Polyline({
+		            map: self.map,
+		            path: BusArr,
+		            strokeColor: "#09f",//线颜色
+		            strokeOpacity: 0.8,//线透明度
+		            strokeWeight: 6//线宽
+		        });
+		        self.map.setFitView();
+			}
+		}
+	})
+
+</script>
+<style type="text/css">
+	#container{
+		height: 500px;
+	}
+	.bottom{
+		margin-top: 10px;
+	}
+	.taiwan{
+      	border: solid 1px red;
+      	color: red;
+      	display: block;
+      	width: auto;
+      	white-space:nowrap;
+      	background-color: rgba(255,0,0,0.1);
+      	margin: -10px 0 0 10px
+      }
+</style>

@@ -1,1 +1,71 @@
-null
+{
+  "pages/busHtmls/makeSelfOrder.html": {
+    "href": "pages/busHtmls/makeSelfOrder.html",
+    "resources": [
+      "js/headHtml.js"
+    ],
+    "priority": 1
+  },
+  "pages/busHtmls/busSelfOrder.html": {
+    "href": "pages/busHtmls/busSelfOrder.html",
+    "resources": [
+      "js/headHtml.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "pages/busHtmls/tourBus.html": {
+    "href": "pages/busHtmls/tourBus.html",
+    "resources": [
+      "js/headHtml.js"
+    ],
+    "priority": 1
+  },
+  "pages/busHtmls/userCollList.html": {
+    "href": "pages/busHtmls/userCollList.html",
+    "resources": [
+      "js/headHtml.js"
+    ],
+    "priority": 6
+  },
+  "pages/busHtmls/longDistanceSearch.html": {
+    "href": "pages/busHtmls/longDistanceSearch.html",
+    "resources": [
+      "js/headHtml.js"
+    ],
+    "priority": 7
+  },
+  "pages/busHtmls/busMapShow.html": {
+    "href": "pages/busHtmls/busMapShow.html",
+    "resources": [
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "fonts/mui.ttf",
+      "css/main.css"
+    ],
+    "refer": [
+      "pages/busHtmls/busSelfOrder.html",
+      "pages/busHtmls/tourBus.html",
+      "pages/busHtmls/nowTakeBus.html",
+      "pages/busHtmls/longDistanceTicket.html",
+      "pages/busHtmls/busTake.html",
+      "pages/busHtmls/complaint.html",
+      "pages/busHtmls/makeSelfBus.html",
+      "pages/busHtmls/longDistanceSearch.html",
+      "pages/busHtmls/userCollList.html",
+      "pages/busHtmls/makeSelfOrder.html",
+      "pages/busHtmls/busMakeInfo.html",
+      "pages/busHtmls/search.html",
+      "pages/busHtmls/noticeMsg.html"
+    ],
+    "priority": 0
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [],
+    "refer": [
+      "index.html"
+    ],
+    "priority": 0
+  }
+}

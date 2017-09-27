@@ -161,7 +161,7 @@
 				                200m
 				            </div>
 				            <div class="area-modal-content-bodyMiddle-input">
-				                <input type="range" id='field-range' value="600" min="200" max="2000" />
+				                <input type="range" id='field-range' value="600" min="200" max="2000" step="100" />
 				            </div>
 				            <div class="area-modal-content-bodyMiddle-end">
 				                2000m
@@ -317,6 +317,7 @@
 			//公告
 			noticeMsg: function() {
 				mui.openWindow({
+					url: 'noticeMsg.html',
 					id: 'noticeMsg',
 					show: {
 						duration: 300

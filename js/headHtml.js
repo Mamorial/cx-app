@@ -15,7 +15,10 @@ var htm = '<meta name="viewport" content="width=device-width,initial-scale=1,min
 '		<script src="../../js/mui.pullToRefresh.js"></script>'+
 '		<script src="../../js/mui.picker.min.js"></script>'+
 '		<script src="../../js/mui.pullToRefresh.material.js"></script>'+
-'		<script src="http://webapi.amap.com/maps?v=1.3&key=dc6703c9c958fa056f0b0e077e920051"></script>'+
+'		<script src="../../js/app.js"></script>'+
+'		<script src="../../js/mui.enterfocus.js"></script>'+
+'		<script src="http://cache.amap.com/lbs/static/es5.min.js"></script>'+		
+'		<script src="http://webapi.amap.com/maps?v=1.3&key=dc6703c9c958fa056f0b0e077e920051&plugin=AMap.LineSearch,AMap.ToolBar,AMap.Transfer,AMap.Walking"></script>'+
 '		<script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.10"></script>'+
 '		<script type="text/javascript">'+
 '			mui.init()'+

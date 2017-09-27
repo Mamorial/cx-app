@@ -8,15 +8,29 @@
 		<div id="busNum">
 		<header class="mui-bar mui-bar-nav">
 	    	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <div class="mui-input-row sub-searchInput">
-		        <input type="text" v-model="searchMore" id="keyword" name="keyword" autofocus="autofocus" class="mui-input-clear" placeholder="请输入内容" @input="busInfos(inputType)" />
-		    </div>
+	    	<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+	    	<h1 class="mui-title">搜索更多</h1>
 	</header>
 	<div class="mui-content">
+		<div class="index-search-content">
+			<div class="index-search-content-div">
+				<div class="index-search-content-input">
+					<div class="mui-input-row">
+				        <label>
+				        	<span class="mui-icon mui-icon-search"></span>
+				        </label>
+				        <input type="text" v-model="searchMore" id="keyword" name="keyword" autofocus="autofocus" class="mui-input-clear" placeholder="请输入内容" />
+				    </div>
+				</div>
+				<div class="index-search-content-bottom" @click="busInfos(inputType)">搜索</div>
+			</div>
+		</div>
 		<div class="mui-content-businfo">
-			<ul class="mui-table-view">
+			<ul class="mui-table-view search-result-list">
 				 <li class="mui-table-view-cell" v-for="item in items" @click="busNumInfo(item.name, item.fn)">
-				 	<span class="mui-icon mui-icon-location"></span>
+				 	<span class="mui-icon mui-icon-location" v-if="item.fn=='place'"></span>
+				 	<span class="mui-icon iconfont icon-gongjiaoche" v-if="item.fn=='bus'"></span>
+				 	<span class="mui-icon iconfont icon-gongjiaozhanpai" v-if="item.fn=='station'"></span>
 				 	{{item.name}}
 				 </li>
 			</ul>
