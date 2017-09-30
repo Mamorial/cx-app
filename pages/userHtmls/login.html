@@ -34,7 +34,7 @@
 			<!--</form>-->
 			<div class="mui-content-padded">
 				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
-				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+				<div class="link-area"><a id='reg'>注册账号</a> <!--<span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>-->
 				</div>
 			</div>
 			<div class="mui-content-padded oauth-area">
@@ -65,7 +65,6 @@
 			var toMain = function() {
 				//使用定时器的原因：
 				//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
-				mui.toast('登录成功');
 				mui.back();
 			};
 			//检查 "登录状态/锁屏状态" 开始
@@ -130,19 +129,50 @@
 			var accountBox = doc.getElementById('account');
 			var passwordBox = doc.getElementById('password');
 			var regButton = doc.getElementById('reg');
-			var forgetButton = doc.getElementById('forgetPassword');
+//			var forgetButton = doc.getElementById('forgetPassword');
 			loginButton.addEventListener('tap', function(event) {
 				var loginInfo = {
-					account: accountBox.value,
+					username: accountBox.value,
 					password: passwordBox.value
 				};
-				app.login(loginInfo, function(err) {
-					if (err) {
-						plus.nativeUI.toast(err);
-						return;
-					}
+				var conInfo = {
+					url: 'traffic/login/',
+					type: 'PATCH',
+					param: loginInfo
+				};
+				fc.commonAjax(conInfo, function(data) {
+					mui.toast(data.message);
+					console.log(data.username)
+					localStorage.setItem('userId', data.pk);
+					localStorage.setItem('userName', data.username);
 					toMain();
-				});
+				})
+//				$.ajax({
+//					type:"PATCH",
+//					url:"http://172.10.10.130:8000/traffic/login/",
+//					async:true,
+//					data: loginInfo,
+//					success: function(data) {
+//						if(data.results) {
+//							mui.toast(data.results.message);
+//							console.log(data.results.pk)
+//							localStorage.setItem('userId', data.results.pk);
+//							toMain();
+//						} else {
+//							mui.toast(data.message);
+//						}
+//					},
+//					error: function(data) {
+//						console.log('error')
+//					}
+//				});
+//				app.login(loginInfo, function(err) {
+//					if (err) {
+//						plus.nativeUI.toast(err);
+//						return;
+//					}
+//					toMain();
+//				});
 			});
 			$.enterfocus('#login-form input', function() {
 				$.trigger(loginButton, 'tap');
@@ -163,22 +193,22 @@
 					}
 				});
 			}, false);
-			forgetButton.addEventListener('tap', function(event) {
-				$.openWindow({
-					url: 'forget_password.html',
-					id: 'forget_password',
-					preload: true,
-					show: {
-						aniShow: 'pop-in'
-					},
-					styles: {
-						popGesture: 'hide'
-					},
-					waiting: {
-						autoShow: false
-					}
-				});
-			}, false);
+//			forgetButton.addEventListener('tap', function(event) {
+//				$.openWindow({
+//					url: 'forget_password.html',
+//					id: 'forget_password',
+//					preload: true,
+//					show: {
+//						aniShow: 'pop-in'
+//					},
+//					styles: {
+//						popGesture: 'hide'
+//					},
+//					waiting: {
+//						autoShow: false
+//					}
+//				});
+//			}, false);
 			//
 			window.addEventListener('resize', function() {
 				oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';

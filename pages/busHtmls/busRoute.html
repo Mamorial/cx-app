@@ -87,11 +87,11 @@
 			stationsShow: false,
 			bus_station:{
 				start: {
-					name: '鄞州电信局',
+					name: '',
 					id: ''
 				},
 				end: {
-					name: '宁波火车站',
+					name: '',
 					id: ''
 				},
 				firstBus: '05:40',
@@ -235,35 +235,62 @@
 				var _name = plus.webview.currentWebview().busName;
 				console.log(_name)
 				self.busName = _name;
+				self.init(_obj);
 			});
 			var _obj = localStorage.getItem('nearState');
 			_obj = JSON.parse(_obj);
 //			alert(_obj.lng + ',' + _obj.lat);
-			this.init(_obj);
+			
 
 		},
 		methods: {
 			//获取站点位置
 			init: function(area) {      
 				var self = this;
+				var _busName = this.busName.replace('慈溪', '');
 				//站牌信息
-				fc.commonAjax('traffic/stations/route/name/200路/'+area.lng+'/'+area.lat+'/', 'get').done(function(data) {
-					console.log(data.route.name);
-					var len1 = data.up_list.length,len2 = data.down_list.length,len,min1 = data.up_list[0].distance,min2 = data.down_list[0].distance,minId;
+				var conInfo = {
+					url: 'traffic/stations/route/name/'+_busName+'/'+area.lng+'/'+area.lat+'/',
+					type: 'get'
+				};
+				console.log(conInfo.url) 
+				fc.commonAjax(conInfo, function(data) {
+					console.log(data.down_list)
+					var len1,len2,len,min1,min2,minId;
+					if(data.up_list.length) {
+						len1 = data.up_list.length;
+					}
+					if(data.down_list.length) {
+						len2 = data.down_list.length;
+					}
+					if(data.up_list[0].distance) {
+						min1 = data.up_list[0].distance;
+					}
+					if(data.down_list[0].distance) {
+						min2 = data.down_list[0].distance;
+					}
+					
 					self.stations = [];
 					self.bus_station.start.name = data.route.begin_station.name;
 					self.bus_station.start.id = data.route.begin_station.pk;
 					self.bus_station.end.name = data.route.end_station.name;
 					self.bus_station.end.id = data.route.end_station.pk;
-					data.down_list = data.down_list.reverse();
-					self.down_start_id = data.down_list[len2 - 1].id;  //下行开始站点
-					self.down_end_id = data.down_list[0].id;  //下行结束站点
+					data.down_list = data.down_list.reverse() || '';
+					self.down_start_id = data.down_list[len2 - 1].id || '';  //下行开始站点
+					self.down_end_id = data.down_list[0].id || '';  //下行结束站点
 					//取出站点  画圈
-					if(len1 >= len2) {
+					if(len1 && len2) {
+						if(len1 >= len2) {
+							len = len1;
+						} else {
+							len = len2; 
+						}
+					} else if(len1) {
 						len = len1;
-					} else {
+					} else if(len2) {
 						len = len2;
 					}
+					
 					console.log(len);
 //					var ak = data.up_list.pop();
 //					setTimeout(function() {console.log(ak.length);}, 1000);
@@ -279,29 +306,41 @@
 							}
 						};
 						console.log('distance1 = ' + data.up_list[s].distance);
-						if(data.up_list[s].distance) {
+						if(data.up_list[s]) {
 							if(min1 >= data.up_list[s].distance) {
 								min1 = data.up_list[s].distance;
 							}
 						}
-						if(data.down_list[s].distance) {
+						if(data.down_list[s]) {
 							if(min2 >= data.down_list[s].distance) {
 								min2 = data.down_list[s].distance;
 							}
 						}
-						if(min1 >= min2) {
-							minId = data.up_list[s].id;
-						} else {
-							minId = data.down_list[s].id;
+						if(min1 && min2) {
+							if(min1 >= min2) {
+								minId = min2;
+							} else {
+								minId = min1;
+							}
+						} else if(min1) {
+							minId = min1;
+						} else if(min2) {
+							minId = min2;
 						}
-						console.log('testId = ' + data.down_list[s].id);
-						console.log('testIIIIIIId = ' + data.up_list[s].id);
-						if(data.up_list[s].name == 'undefined') data.up_list[s].name = '';
-						if(data.down_list[s].name == 'undefined') data.down_list[s].name = '';
-						_sobj.up_route.name = data.up_list[s].name;
-						_sobj.up_route.id = data.up_list[s].id;
-						_sobj.down_route.name = data.down_list[s].name;
-						_sobj.down_route.id = data.down_list[s].id;
+						
+						if(data.up_list[s]) {
+							if(data.up_list[s].name == 'undefined') data.up_list[s].name = '';
+							_sobj.up_route.name = data.up_list[s].name;
+							_sobj.up_route.id = data.up_list[s].id;
+						}
+						if(data.down_list[s]) {
+							if(data.down_list[s].name == 'undefined') data.down_list[s].name = '';
+							_sobj.down_route.name = data.down_list[s].name;
+							_sobj.down_route.id = data.down_list[s].id;
+						}
+						
+						
+						
 						
 						self.stations.push(_sobj); 
 						
@@ -313,7 +352,7 @@
 					self.getBusInfo();
 					//判断页面是否渲染完成
 					self.$nextTick(function() {
-						mui.toast('渲染完成');
+//						mui.toast('渲染完成');
 						setTimeout(function() {
 							self.stationsShow = true;
 							setTimeout(function() {
@@ -331,15 +370,19 @@
 						
 					})
 					
-				}).fail(function() {
-					mui.toast('error')
-				});
+				})
 				 
 			},
 			//公交车信息
 			getBusInfo: function() {
 				var self = this;
-				fc.commonAjax('traffic/buses/route/name/200路/', 'get').done(function(data) {
+				var _busName = this.busName.replace(/慈溪/g, '');
+				var conInfo = {
+					url: 'traffic/buses/route/name/'+_busName+'/',
+					type: 'get'
+				};
+				console.log(conInfo.url)
+				fc.commonAjax(conInfo, function(data) {
 					console.log(data.length);
 					self.bussUp = [];
 					self.bussDown = [];
@@ -412,9 +455,7 @@
 					
 					setTimeout(function() {self.stationsCoo();}, 500) 
 					
-				}).fail(function() {
-					mui.toast('error')
-				});
+				})
 			},
 			//获取每个站点的2d坐标
 			stationsCoo: function() {

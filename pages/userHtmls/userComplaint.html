@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="userCom">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			    <h1 class="mui-title">我的投诉</h1>
+			</header>
+			<div class="mui-content">
+				<ul class="mui-table-view">  
+					<li class="mui-table-view-cell mui-media" @click="userComplaintInfo(item)" v-for="item in complaints">
+						<a href="javascript:;" class="mui-navigate-right">
+							<img class="mui-media-object mui-pull-left" src="../../images/complaint.png" style="margin-top: 5px;width: 30px;height: 30px;" />
+							<div class="mui-media-body" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-right: 30%;position: relative;">
+								<span v-if="!item.status" style="width: auto;height: auto;border: 1px solid #49C257;color: #49C257;position: absolute;top: 10px;right: 20px;padding: 0 10px;font-size: 12px;">
+									已发送
+								</span>
+								<span v-else style="width: auto;height: auto;position: absolute;border: 1px solid #3BA1F0;color: #3BA1F0;top: 10px;right: 20px;padding: 0 10px;font-size: 12px;">
+									已受理
+								</span>
+								{{item.title}}
+								<p class='mui-ellipsis'>{{item.time}}</p>
+							</div>
+						</a>
+					</li>
+	
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#userCom',
+		data: {
+			complaints: [],
+			userId: ''
+		},
+		mounted: function() {
+			this.userId = localStorage.getItem('userId');
+			this.init();
+//			this.complaints = [{
+//				title: '15路驾驶员未aaaaaaaaaaaaaaaaaa系安全带',
+//				time: '2017-09-21 12:15',
+//				status: false
+//			},{
+//				title: '15路驾驶员未系安全带',
+//				time: '2017-09-21 12:15',
+//				status: true
+//			},{
+//				title: '15路驾驶员未系安全带',
+//				time: '2017-09-21 12:15',
+//				status: true
+//			}]
+		},
+		methods: {
+			//初始化
+			init: function() {
+				var self = this;
+				var conInfo = {
+					url: 'traffic/complaint/'+self.userId+'/',
+					type: 'get'
+				};
+				fc.commonAjax(conInfo, function(data) {
+					console.log(data.length);
+					data.forEach(function(v, i) {
+						var obj = {
+							title: '',
+							time: '',
+							status: '',
+							id: ''
+						};
+						obj.title = v.message;
+						obj.time = v.create_date.split('.')[0].replace('T', ' ');
+						obj.status = v.status;
+						obj.id = v.pk;
+						self.complaints.push(obj);
+					})
+				})
+			},
+			//投诉详情
+			userComplaintInfo: function(info) {
+				mui.openWindow({
+					url: 'userComplaintInfo.html',
+					id: 'userComplaintInfo',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						infos: info
+					}
+				})
+			}
+		}
+	})
+</script>

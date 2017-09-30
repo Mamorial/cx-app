@@ -206,6 +206,9 @@
 		margin: 5px 0;
 		display: block;
 		font-size: 14px;
+		text-overflow: ellipsis;
+	    overflow: hidden;
+	    white-space: nowrap;
 	}
 	.bus-list-top .bus-list-top-R{
 		margin-left: 65%;
@@ -457,7 +460,9 @@
 									end_station: '',
 									name_marquee: '',
 									bus: [],
-									id: ''
+									id: '',
+									time: '',
+									arrive_stations: ''
 								};
 								var len = v.segments.length, stations = 0;
 								for(var j = 0; j < len; j++) {   
@@ -508,12 +513,21 @@
 								}
 								
 								setTimeout(function() {    //总线路
-									var _d = '';
+									var _d = '', bus_name = v.segments[0].bus.buslines[0].name.split('(')[0],
+										posi = self.startPlace.split(',');
 									if(v.distance > 1000) {
 										_d = (Math.round(v.distance/100)/10).toFixed(1) + '公里';
 									} else {
 										_d = v.distance + '米';
 									}
+									var conInfo = {
+										url: 'traffic/distance/route/name/'+bus_name+'/'+posi[0]+'/'+posi[1]+'/',
+										type: 'get'
+									};
+									fc.commonAjax(conInfo, function(data) {
+										obj.time = '';
+										obj.arrive_stations = '';
+									})
 									obj.all_stations = stations + 2;
 									obj.all_distance = _d;
 									obj.all_times = Math.floor(parseInt(v.duration) / 60);
@@ -523,7 +537,7 @@
 									obj.start_bus = v.segments[0].bus.buslines[0].name.split('(')[0];
 									console.log('obj.start_bus.length() = ' + obj.start_bus.length);
 									var _len = obj.start_bus.length;
-									if(_len > 5) {
+									if(_len > 4) {
 										obj.name_marquee = true;
 									} else {
 										obj.name_marquee = false
@@ -533,9 +547,9 @@
 									self.busInfo.push(obj);
 								}, 500);
 							})
-							mui.toast(bus.length);
+//							mui.toast(bus.length);
 							self.$nextTick(function() {
-								mui.toast('渲染完成');
+//								mui.toast('渲染完成');
 								setTimeout(function() {
 									self.showRouteList = true;
 									self.busRouteList = true;

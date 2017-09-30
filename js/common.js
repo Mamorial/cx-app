@@ -3,7 +3,9 @@ var fc = {};
 //高德地图web服务请求域名   web服务key: e00e7ed74876f674fa2f01bf36f429c8
 fc.post = 'http://restapi.amap.com/';
 //调试 post
-fc.urlPost = 'http://172.10.10.130:8000/';
+//fc.urlPost = 'http://172.10.10.130:8000/';
+//线上 post
+fc.urlPost = 'https://cxgy.zhijiasoft.com/';
 //jQuery ajax
 fc.ajax = function(url, param, type) {
 	var url = fc.post + url;
@@ -18,17 +20,42 @@ fc.ajax = function(url, param, type) {
 		mui.toast('连接失败');
 	})
 }
-fc.commonAjax = function(url, param, type) {
-	var url = fc.urlPost + url;
-	return $.ajax(url, param, type).then(function(data) {
-		if(data.results) {
-			return data.results;
-		} else {
-			mui.toast('服务错误');
+fc.commonAjax = function(connectInfo, callback) {
+	var callback = callback || '';
+	var url = fc.urlPost + connectInfo.url || postUrl;
+	var param = connectInfo.param || {};
+	var type = connectInfo.type || 'get';
+	var dataType = connectInfo.dataType || '';
+	$.ajax({
+		type:type,
+		url:url,
+		async:true,
+		data: param,
+		dataType: dataType,
+		beforeSend: function() {},
+		success: function(data) {
+			if(data.results) {
+				return callback(data.results);
+			} else {
+				if(data.message) {
+					mui.toast(data.message);
+					return;
+				} else {
+					return callback(JSON.parse(data));
+				}
+				
+			}
+		},
+		error: function(data) {
+			mui.toast('连接失败');
+			return;
 		}
-	}, function(err) {
-		mui.toast('连接失败');
-	})
+	});
+}
+//用户的登录
+fc.userInfo = {
+	userId: localStorage.getItem('userId'),
+	userName: localStorage.getItem('userName')
 }
 
 //预加载页面

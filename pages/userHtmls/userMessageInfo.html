@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="userMessageInfo">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			    <h1 class="mui-title">消息详情</h1>
+			</header>
+			<div class="mui-content article">
+				<div class="article_title">{{messageInfo.title}}</div>
+				<div class="article_content">{{messageInfo.message}}</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#userMessageInfo',
+		data: {
+			messageInfo: ''
+		},
+		mounted: function() {
+			var self = this;
+			mui.plusReady(function() {
+				self.messageInfo = plus.webview.currentWebview().infos;
+			})
+		},
+		methods: {
+			
+		}
+	})
+</script>

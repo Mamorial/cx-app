@@ -4,6 +4,11 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.index-tabI a.mui-active{
+				color: #25A7FF!important;
+			}
+		</style>
 	</head>
 	<body>
 		<div id="testId" class="mui-content">
@@ -47,9 +52,9 @@
 			<div id="slider" class="mui-slider mui-fullscreen bus-take-tab" style="top: 130px;">
 				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 					<div class="mui-scroll index-tabI" style="width: 100%;background: #fff;">
-						<a class="mui-control-item mui-active" href="#item1mobile">
+						<!--<a class="mui-control-item mui-active" href="#item1mobile">
 							附近收藏
-						</a>
+						</a>-->
 						<a class="mui-control-item" href="#item2mobile">
 							附近车站
 						</a>
@@ -58,16 +63,15 @@
 						</a>
 					</div>
 				</div>
-				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4" style="background: #25A7FF;width: 50%;"></div>
 				<div class="mui-slider-group">
-					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<!--<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view mui-table-view-chevron busNum-ul" v-for="station in nearAllInfo">
 									<li :data-name="station.nearStationName" class="mui-table-view-cell mui-media busStation-li">
 										<a class="mui-navigate-right">
 											<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongjiaozhanpai"></span>
-											<!--<img class="mui-media-object mui-pull-left" src="../images/cbd.jpg">-->
 											<div class="mui-media-body" style="height: 30px;line-height: 45px;padding-right: 20px;">
 												<div style="float: left;">{{station.nearStationName}}</div>
 												<div style="float: right;color: #2EB4F7;">相距</div>
@@ -83,8 +87,8 @@
 											</div>
 										</div>
 										<div style="height: 40px;" :data-name="bus.busName" class="busInfo">
-											<div class="busNum">
-												<span>{{bus.busName}}</span>
+											<div class="busNum" style="width: auto;">
+												<span style="width: 60px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{bus.busName}}</span>
 												<span></span>
 											</div>
 											<div class="busNumInfo">
@@ -100,11 +104,17 @@
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div>-->
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="mui-table-view mui-table-view-chevron busNum-ul">
+								<div v-show="showNearNoInfo" style="text-align: center;padding: 10px;">
+									<span>未找到相关站台，请扩大范围！</span>
+								</div>
+								<div v-show="showNearInfo" class="loading" style="width: 50%;margin: auto;">
+									<img src="../../images/loading.gif"/>
+								</div>
+								<ul v-show="!showNearInfo&&!showNearNoInfo?true:false" class="mui-table-view mui-table-view-chevron busNum-ul">
 									<li :data-name="station.nearStationName" class="mui-table-view-cell mui-media busStation-li" v-for="station in nearStationInfo">
 										<a class="mui-navigate-right" @click="nearStation">
 											<span class="mui-media-object mui-pull-left mui-icon iconfont icon-gongjiaozhanpai"></span>
@@ -122,17 +132,23 @@
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
 						<div class="mui-scroll-wrapper">
 							<div class="mui-scroll">
-								<ul class="mui-table-view mui-table-view-chevron busNum-ul">
+								<div v-show="showNearNoInfo" style="text-align: center;padding: 10px;">
+									<span>未找到相关车次，请扩大范围！</span>
+								</div>
+								<div v-show="showNearInfo" class="loading" style="width: 50%;margin: auto;">
+									<img src="../../images/loading.gif"/>
+								</div>
+								<ul v-show="!showNearInfo&&!showNearNoInfo?true:false" class="mui-table-view mui-table-view-chevron busNum-ul">
 									<li :data-name="bus.busName" class="busNum-li" v-for="bus in nearBusInfo">
 										<div style="width: 40px;height: 40px;float: right;">
 											<div class="busNumInfo-coll">
-												<span v-show="bus.userColl" :data-id="bus.userColl" class="mui-icon iconfont icon-shoucang2"></span>
-												<span v-show="!bus.userColl" class="mui-icon iconfont icon-shoucang" :data-id="bus.userColl"></span>
+												<span v-show="bus.userColl" :data-name="bus.busName" type="false" class="mui-icon iconfont icon-shoucang2"></span>
+												<span v-show="!bus.userColl" :data-name="bus.busName" type="true" class="mui-icon iconfont icon-shoucang"></span>
 											</div>
 										</div>
 										<div style="height: 40px;" class="busInfo" :data-name="bus.busName">
 											<div class="busNum">
-												<span>{{bus.busName}}</span>
+												<span style="width: 60px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{bus.busName}}</span>
 												<span></span>
 											</div>
 											<div class="busNumInfo">
@@ -183,16 +199,22 @@
 		el: '#testId',
 		data: {
 			deceleration: '',
-			nearAllInfo: '',         //附近收藏
-			nearStationInfo: '',         //附近车站
-			nearBusInfo: '',         //附近车次
-			nearDistance: '600m'     // 附近半径
+			userId: '',              //用户id
+			nearAllInfo: [],         //附近收藏
+			nearStationInfo: [],         //附近车站
+			nearBusInfo: [],         //附近车次
+			nearDistance: '600m',     // 附近半径
+			map: '',                  //地图
+			marker: '',
+			showNearInfo: true,     //显示loading
+			showNearNoInfo: false
 		},
 		mounted: function() {
 			var self = this;
-			this.nearAllInfo = busTakeData;
-			this.nearStationInfo = busTakeDataStation;
-			this.nearBusInfo = busTakeDataBus;
+			this.init();
+//			this.nearAllInfo = busTakeData;
+//			this.nearStationInfo = busTakeDataStation;
+//			this.nearBusInfo = busTakeDataBus;
 			$("#field-range").bind('input', function() {
 				var htm = $(".mui-tooltip").html();
 				self.selectDistance();
@@ -212,9 +234,15 @@
 							down: {
 								callback: function() {
 									var _self = this;
-									setTimeout(function() {
-										_self.endPullDownToRefresh();
-									}, 1000);
+									self.showNearInfo = true;
+									self.showNearNoInfo = false;
+									self.init(_self);
+//									if(!self.showNearInfo) {
+//										_self.endPullDownToRefresh();
+//									}
+//									setTimeout(function() {
+//										_self.endPullDownToRefresh();
+//									}, 1000);
 								}
 							}
 						});
@@ -231,17 +259,110 @@
 						self.nearStation(_name);
 					});
 					mui('.busNumInfo-coll').on("tap", 'span', function() {
-						var _name = this.getAttribute('data-id');
-						self.busUserColl(this, _name);
+						var _name = this.getAttribute('data-name');
+						var _type = this.getAttribute('type');
+						console.log(_name);
+						console.log(_type);
+						self.busUserColl(this, _name, _type);
 					})
 				}, 500)
 			})(mui);
 			
 		},
 		methods: {
+			//初始化
+			init: function(ak) {
+				var self = this;
+			    var _location = localStorage.getItem('nearState');
+			    self.userId = localStorage.getItem('userId');
+			    _location = JSON.parse(_location);
+			    var lnglatXY = _location.lng+','+_location.lat;//已知点坐标
+			    var dis = self.nearDistance.split('m')[0]; 
+			    this.nearAllInfo = [];
+			    this.nearStationInfo = [];
+			    this.nearBusInfo = [];
+			    console.log(lnglatXY);
+			    console.log(dis);
+			    fc.ajax('v3/place/around?key=e00e7ed74876f674fa2f01bf36f429c8&location='+lnglatXY+'&types=公交&radius='+dis+'&sortrule=distance', 'get').done(function(data) {
+			    	console.log('data.pois.length = ' + data.pois.length);
+			    	data.pois.forEach(function(v, i) {
+			        		console.log(v)
+			        		var obj = {
+				        		nearStationName: '',
+				        		distance: '',
+				        		nearBuss: []
+				        	};
+				        	obj.nearStationName = v.name;
+				        	obj.distance = v.distance + 'm';
+				        	self.nearStationInfo.push(obj);
+				        	var buss = v.address.replace(/;/g, ',').split(',');
+				        	for(var i =  0; i < buss.length; i++) {
+				        		var conInfo = {
+				        			url: 'traffic/distance/route/name/'+buss[i]+'/'+_location.lng+'/'+_location.lat+'/',
+				        			type: 'get'
+				        		};
+				        		var _obj = {
+					        		busName: buss[i],
+					        		arriveStation: '',
+					        		arriveStationTime: '',
+					        		nextArriveStation: '',
+					        		nextArriveStationTime: '',
+					        		userColl: false
+					        	};
+//					        	fc.commonAjax(conInfo, function(data) {
+//					        		if(data.route) {
+//					        			_obj.arriveStation = data.route.min_distance + 'm';
+//					        			_obj.arriveStationTime = parseInt(data.route.min_duration / 60) + '分钟';
+//					        		} else {
+//					        			_obj.arriveStation = Math.floor(Math.random()*2+1) + '站';
+//					        			_obj.arriveStationTime = Math.floor(Math.random()*10+1) + '分钟';
+//					        		}
+//					        		
+//					        	})
+					        	_obj.arriveStation = Math.floor(Math.random()*2+1) + '站';
+					        	_obj.arriveStationTime = Math.floor(Math.random()*10+1) + '分钟';
+					        	_obj.nextArriveStation = Math.floor(Math.random()*5+2) + '站';
+					        	_obj.nextArriveStationTime = Math.floor(Math.random()*20+10) + '分钟';
+					        	self.nearBusInfo.push(_obj);
+					        	if(obj.nearBuss.length < 3) { 
+					        		obj.nearBuss.push(_obj);
+					        	}
+					        	
+				        	}
+				        	self.nearAllInfo.push(obj);
+			        	})
+			    });
+			    this.$nextTick(function() {
+			    	setTimeout(function() {
+			    		self.showNearInfo = false;
+			    		if(self.nearAllInfo.length == 0) {
+			    			self.showNearNoInfo = true;
+			    		}
+			    		if(ak) {
+			    			ak.endPullDownToRefresh();
+			    		}
+			    	}, 500)
+			    })
+			},
 			//公交车收藏、取消收藏
-			busUserColl: function(index, coll) {
+			busUserColl: function(index, name, type) {
+				var self = this;
+				console.log(name + ',,'+ type);
 				$(index).attr('style', 'display: none').siblings().attr('style', 'display: block');
+				var conInfo = {
+					url: 'traffic/user/id/' + self.userId + '/',
+					type: 'patch',
+					param: { 
+						id: self.userId,
+						route_name: name,
+						type: type
+					}
+				};
+				setTimeout(function() {
+					fc.commonAjax(conInfo, function(data) {
+						mui.toast(data.message);
+					})
+				}, 500);
 			},
 			//搜索
 			indexSearch: function() {
@@ -312,6 +433,9 @@
 			},
 			//area modal 确定按钮
 			confirm: function() {
+				this.showNearInfo = true;
+				this.showNearNoInfo = false;
+				this.init();
 				$(".area-modal").addClass('mui-hidden');
 			},
 			//公告

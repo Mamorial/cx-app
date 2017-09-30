@@ -25,6 +25,8 @@
 
 .icon-icon1:before { content: "\e600"; }
 
+.icon-iconfonttousubaoxiu-copy:before { content: "\e62d"; }
+
 .icon-qiapian:before { content: "\e621"; }
 
 .icon-wo1:before { content: "\e614"; }
@@ -118,5 +120,7 @@
 .icon-jiucuo:before { content: "\e6b6"; }
 
 .icon-jiantou2-copy:before { content: "\e975"; }
+
+.icon-shoucang-copy:before { content: "\e976"; }
 
 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.complaint_info{
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+				position: relative;
+				height: 50px;
+			}
+			.complaint_info table{
+				width: 100%;
+			}
+			.complaint_info table tr td{
+				width: 33%;
+				padding: 5px 1px;
+				text-align: center;
+			}
+			.complaint_info table tr td span{
+				display: block;
+				width: 100%;
+				height: 1px;
+				background: #CECECE;
+			}
+			.complaint_img{
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+			}
+			.complaint_img img{
+				width: 90%;
+				display: block;
+				margin: auto;
+			}
+			.complaint_img .complaint_timeL{
+				float: left;
+				color: #A8A8A8;
+				font-size: 15px;
+				padding: 5px 0;
+			}
+			.complaint_img .complaint_timeR{
+				float: right;
+				color: #A8A8A8;
+				font-size: 15px;
+				padding: 5px 0;
+			}
+			.complaint_info_con{
+				text-align: center;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="userComplaintInfo">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			    <h1 class="mui-title">投诉详情</h1>
+			</header>
+			<div class="mui-content">
+				<div style="width: 95%;height: auto;margin: 15px auto;box-shadow: 0 0 2px 2px #CBCBCB;border-radius: 5px;padding: 10px;">
+					<div class="complaint_info">
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td><span></span></td><td>投诉进度</td><td><span></span></td>
+							</tr>
+						</table>
+					</div>
+					<div class="complaint_img">
+						<img v-show="com_info.status" src="../../images/accepted.png" />
+						<img v-show="!com_info.status" src="../../images/sended.png" />
+						<div class="complaint_timeL">{{com_info.time}}</div>
+						<div v-show="com_info.status" class="complaint_timeR">2017-09-15 15:00</div>
+					</div>
+				</div>
+				<div style="width: 95%;height: auto;margin: 15px auto;box-shadow: 0 0 2px 2px #CBCBCB;border-radius: 5px;padding: 10px;">
+					<div class="complaint_info">
+						<table border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td><span></span></td><td>投诉内容</td><td><span></span></td>
+							</tr>
+						</table>
+					</div>
+					<div class="complaint_info_con">
+						{{com_info.title}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: "#userComplaintInfo",
+		data: {
+			com_info: ''    //投诉详情
+		},
+		mounted: function() {
+			var self = this;
+			mui.plusReady(function() {
+				var status = plus.webview.currentWebview().infos;
+				self.init(status);
+			})
+		},
+		methods: {
+			//初始化
+			init: function(status) {
+				this.com_info = status;
+			}
+		}
+	})
+</script>

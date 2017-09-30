@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../js/headHtml.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="userMessage">
+			<header class="mui-bar mui-bar-nav">
+			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
+			    <h1 class="mui-title">我的消息</h1>
+			</header>
+			<div class="mui-content">
+				<ul class="mui-table-view" v-if="showList">
+					<li class="mui-table-view-cell mui-media" @click="userMessageInfo(item)" v-for="item in user_info">
+						<a href="javascript:;" class="mui-navigate-right" style="padding-right: 40px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
+							<img class="mui-media-object mui-pull-left" src="../../images/complaint.png" style="margin-top: 5px;width: 30px;height: 30px;" />
+							<div class="mui-media-body">
+								{{item.title}}
+								<p class='mui-ellipsis'>{{item.message}}</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<div v-else style="width: 100%;height: auto;text-align: center;padding: 10px;color: #ccc;font-size: 17px;">暂无消息</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript">
+	var app = new Vue({
+		el: '#userMessage',
+		data: {
+			user_info: [],
+			showList: true
+		},
+		mounted: function() {
+			this.init();
+//			this.user_info = [{
+//				title: '系统消息',
+//				content: '双台风已经来袭，请市民积极配合相关部门进行防护措施'
+//			},{
+//				title: '系统消息',
+//				content: '双台风已经来袭，请市民积极配合相关部门进行防护措施'
+//			},{
+//				title: '系统消息',
+//				content: '双台风已经来袭，请市民积极配合相关部门进行防护措施'
+//			},{
+//				title: '系统消息',
+//				content: '双台风已经来袭，请市民积极配合相关部门进行防护措施'
+//			}]
+		},
+		methods: {
+			/*初始化*/
+			init: function() {
+				var self = this;
+				var conInfo = {
+					url: 'traffic/personmessage/'+fc.userInfo.userId+'/',
+					type: 'get'
+				};
+				fc.commonAjax(conInfo, function(data) {
+					if(data.length == 0) {
+						mui.toast('暂无消息');
+						self.showList = false;
+					} else {
+						self.user_info = data;
+						self.showList = true;
+					}
+				})
+			},
+			//消息详情
+			userMessageInfo: function(info) {
+				mui.openWindow({
+					url: 'userMessageInfo.html',
+					id: 'userMessageInfo',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						infos: info
+					}
+				})
+			}
+		}
+	})
+</script>

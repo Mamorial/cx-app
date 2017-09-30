@@ -11,33 +11,31 @@
 			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			    <button class="-blue mui-btn-link mui-btn-nav mui-pull-left">返回</button>
 			    <h1 class="mui-title">公交乘车</h1>
-			    <a class="mui-icon mui-icon-right-nav mui-pull-right mui-icon-camera"></a>
+			    <a class="mui-icon mui-icon-right-nav mui-pull-right iconfont icon-icon-yxj-wodezhangdan"></a>
 			</header>
 			<div class="mui-content bustecketCon">
-				<div class="bus-tecket">
-					<div class="bus-tecket-top">
-						<div class="bus-tecket-topL">
-							<span>出行金额: 10元</span>
-							<span>姓名</span>
+				<div style="width: 95%;height: auto;box-shadow: 0 0 2px 2px #D0D0D0;border-radius: 5px;margin: 0 auto;background: #fff;">
+					<div class="bus-rcode">
+						<div class="bus-rcode-tip">
+							消费码，每分钟自动刷新，限当页使用
 						</div>
-						<div class="bus-tecket-topR">
-							<img src="../../images/logo.png" />
+						<div class="bus-rcode-img">
+							<div id="qrcode" class="qrcode" style="width: auto;width: 160px;height: 160px;padding-top: 5px;background: #fff;"></div>
 						</div>
-					</div>
-					<div class="bus-tecket-bottom">
-						NO.3155801080
 					</div>
 				</div>
-				<div class="bus-rcode">
-					<div class="bus-rcode-img">
-						<div id="qrcode" class="qrcode" style="width: auto;width: 160px;height: 160px;padding-top: 5px;background: #fff;"></div>
+				<div style="width: 95%;height: auto;box-shadow: 0 0 2px 2px #D0D0D0;border-radius: 5px;margin: auto;background: #fff;">
+					<div class="bus-rcode-tip" style="border-bottom: 5px solid #1D8BDD;width: 90%;margin: 10px auto;">
+						<span>张伟</span>
+						<span>NO.3155801080</span>
 					</div>
-					<div class="bus-rcode-tip">
-						消费码，每分钟自动刷新，限当页使用
+					<div class="bus-ticket">
+						<span>充足</span>
+						<span>余额动态</span>
 					</div>
-				</div>
-				<div class="mui-button-row bus-tecket-in">
-					<button class="mui-btn-primary">充值</button>
+					<div class="mui-button-row bus-tecket-in">
+						<button class="mui-btn-primary">充值</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -69,6 +67,7 @@
 		height: 100%;
 	}
 	.bustecketCon{
+		border: 1px solid red;
 		height: 100%;
 		background: #E7E7E7;
 	}
@@ -121,7 +120,7 @@
 		width: 90%;
 		height: auto;
 		overflow: hidden;
-		margin: 50px auto;
+		margin: 15px auto;
 		overflow: hidden;
 	}
 	.bus-rcode-img {
@@ -129,6 +128,7 @@
 		height: auto;
 		text-align: center;
 		overflow: hidden;
+		margin: 0 0 20px 0;
 	}
 	.bus-rcode-img .qrcode {
 		width: auto;
@@ -144,18 +144,47 @@
 		width: 100%;
 		height: auto;
 		text-align: center;
-		margin-top: 10px;
+		margin: 10px 0;
 		color: #9E9E9E;
+		overflow: hidden;
+	}
+	.bus-rcode-tip span{
+		display: block;
+		float: left;
+		margin: 10px 0;
+	}
+	.bus-rcode-tip span:last-child{
+		float: right;
+	}
+	.bus-ticket{
+		width: 100%;height: auto;overflow: hidden;
+	}
+	.bus-ticket span{
+		display: block;
+		margin: auto;
+		text-align: center;
+		padding: 15px 0;
+	}
+	.bus-ticket span:first-child{
+		width: 80px;
+		height: 80px;
+		line-height: 80px;
+		color: #6DC86A;
+		font-weight: bold;
+		border: 2px solid #6DC86A;
+		border-radius: 50%;
+		padding: 0;
 	}
 	.bus-tecket-in{
 		width: 100%;
 		text-align: center;
-		position: absolute;
-		bottom: 10px;
+		padding: 10px 0;
 	}
 	.bus-tecket-in button{
 		width: 70%;
 		height: 45px;
+		font-size: 18px;
 		background: #1B99F0;
+		border: none;
 	}
 </style>

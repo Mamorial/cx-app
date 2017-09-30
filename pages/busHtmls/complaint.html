@@ -11,9 +11,11 @@
 			    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
 			    <h1 class="mui-title">投诉</h1>
+			    <button id="telephone" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">电话投诉</button>
 			</header>
 			<div class="complaint-content">
 				<textarea v-model="complaint_content" placeholder="请输入投诉的内容"></textarea>
+				<input type="text" placeholder="请输入您的姓名" v-model="user_name" />
 				<input type="text" placeholder="请输入您的联系方式" v-model="user_phone" readonly="readonly" />
 			</div>
 			<div class="mui-button-row complaint-bottom">
@@ -23,9 +25,6 @@
 	</body>
 </html>
 <style type="text/css">
-	body, html{
-		overflow: hidden;
-	}
 	.complaint-content{
 		width: 90%;
 		height: auto;
@@ -44,7 +43,6 @@
 	}
 	.complaint-bottom button{
 		width: 50%;
-		margin-top: 10px;
 		height: 40px;
 	}
 </style>
@@ -53,46 +51,47 @@
 		el: '#complaint',
 		data: {
 			complaint_content: '',    //投诉内容
-			user_phone: '18279132664'       //投诉人联系方式
+			user_phone: '18279132664',       //投诉人联系方式
+			userId: '',
+			user_name: ''
 		},
 		mounted: function() {
-			
+			this.userId = localStorage.getItem('userId');
+			document.getElementById("telephone").addEventListener('tap',function(){
+	            var btnArray=['拨打','取消'];
+	            var phone="12328";
+	            mui.confirm('是否拨打'+phone+'?','提示',btnArray,function(e){
+	                if(e.index == 0){
+	                    plus.device.dial(phone,false);
+	                }
+	            });
+	        });
 		},
 		methods: {
 			//提交按钮
 			submitComplaint: function() {
 				var self = this;
 				var param = {
-					user: null,
+					user: self.userId,
 					message: self.complaint_content,
 					phone_number: self.user_phone,
-					status: null
+					status: null,
+					name: self.user_name
 				};
 				if(self.complaint_content == '') {
 					mui.toast('请输入投诉内容');
 					return;
 				}
-				$.ajax({
-					type:"post",
-					url:"http://172.10.10.130:8000/traffic/complaint/",
-					async:true,
-					dataType: "application/json",
-					data: param,
-					success: function(data) {
-						console.log(data.results)
-//						if(data.results) {
-//							mui.toast(data.results.message);
-//							self.complaint_content = '';
-//						}
-					},
-					error: function(data) {
-						self.complaint_content = '';
-						mui.toast(JSON.parse(data.responseText).results.message)
-					}
-				});
-//				fc.commonAjax('traffic/complaint/', param, 'POST').done(function(data) {
-//					console.log(data.message)
-//				})
+				var conInfo = {
+					url: 'traffic/complaint/',
+					type: 'post',
+					dataType: 'text',
+					param: param
+				};
+				fc.commonAjax(conInfo, function(data) {
+					self.complaint_content = '';
+					mui.toast(data.results.message);
+				})
 			}
 		}
 	})

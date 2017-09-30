@@ -26,7 +26,7 @@
 	var app = new Vue({
 		el: '#busMapInfo',
 		data: {
-			busName: '200路',
+			busName: '',
 			busStations: [],  //所有车站信息
 			busCars: [],    //所有车的信息
 			map: '',     //地图
@@ -36,7 +36,7 @@
 			endPot: '',     //终点
 			allLocation: []   //路线所有的经纬度
 		},
-		mounted() {
+		mounted: function() {
 			this.map = new AMap.Map("container", {
 		        resizeEnable: true,
 		        zoom: 15 //地图显示的缩放级别
@@ -48,6 +48,8 @@
 			   //显示地图
 			
 			   mui.plusReady(function() {
+			   	var name = plus.webview.currentWebview().name;
+			   	self.busName = name;
 //			   	fc.commonAjax('traffic/stations/route/name/200路/', 'get').done(function(data) {
 ////			   		alert(data.up_list.length);
 //					var len = data.up_list.length;
@@ -154,7 +156,7 @@
 						self.init();          //绘制公交路线上的所有站点
 		                self.lineSearch_Callback(result);
 		            } else {
-		                alert(result);
+//		                alert(result);
 		            }
 		        });
 			},

@@ -52,7 +52,7 @@
 		    	transfer.search(new AMap.LngLat(self.startM[0], self.startM[1]), new AMap.LngLat(self.endM[0], self.endM[1]), function(status, result) {
 		    		if(status == 'complete') {
 		    			self.$nextTick(function() {
-							mui.toast('渲染完成');
+//							mui.toast('渲染完成');
 							setTimeout(function() {self.init(_id);}, 200);
 						})
 		    			

@@ -14,19 +14,11 @@
 			</header>
 			<div class="mui-content">
 				<ul class="mui-table-view index-notice-list">
-					<li class="mui-table-view-cell mui-media" @click="noticeMsgInfo">
+					<li class="mui-table-view-cell mui-media" v-for="item in noticeMsg" @click="noticeMsgInfo(item)">
 						<a class="mui-navigate-right">
 							<span class="mui-media-object mui-pull-left mui-icon iconfont icon-icon-test"></span>
-							<div class="mui-media-body">
-								161路站牌变更提醒
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media" @click="noticeMsgInfo">
-						<a class="mui-navigate-right">
-							<span class="mui-media-object mui-pull-left mui-icon iconfont icon-icon-test"></span>
-							<div class="mui-media-body">
-								161路站牌变更提醒
+							<div class="mui-media-body" style="padding-right: 15px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+								{{item.title}}
 							</div>
 						</a>
 					</li>
@@ -39,14 +31,25 @@
 	var app = new Vue({
 		el: '#noticeMsg',
 		data: {
-			
+			noticeMsg: []
 		},
 		mounted() {
-			
+			this.init();
 		},
 		methods: {
+			//初始化
+			init: function() {
+				var self = this;
+				var conInfo = {
+					url: 'traffic/announcement/',
+					type: 'get'
+				};
+				fc.commonAjax(conInfo, function(data) {
+					self.noticeMsg = data;
+				})
+			},
 			//公告提示详情
-			noticeMsgInfo: function() {
+			noticeMsgInfo: function(info) {
 				mui.openWindow({
 					url: 'noticeMsgInfo.html',
 					id: 'noticeMsgInfo',
@@ -56,6 +59,9 @@
 					waiting: {
 						autoshow: false,
 						title: '正在加载...'
+					},
+					extras: {
+						infos: info
 					}
 				})
 			}

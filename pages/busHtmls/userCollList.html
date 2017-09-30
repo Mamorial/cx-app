@@ -17,8 +17,8 @@
 			<h1 class="mui-title">收藏</h1>
 		</header>
 		<div class="mui-content" style="height: 100%;">
-			<ul class="mui-table-view coll-info-ul">
-				<li class="mui-table-view-cell" v-for="(item,i) in userCollList">
+			<ul class="mui-table-view coll-info-ul" v-if="showUserCollList">
+				<li class="mui-table-view-cell" v-for="(item,i) in userCollList" @click="collListInfo(item)">
 					<div class="coll-list-icon" @click="cancelColl(i)">
 						<span v-if="item.isColl" class="mui-icon iconfont icon-shoucang2"></span>
 						<span v-else class="mui-icon iconfont icon-shoucang"></span>
@@ -29,6 +29,9 @@
 					</div>
 				</li>
 			</ul>
+			<div v-else style="width: 100%;height: auto;text-align: center;padding: 10px;color: #ccc;">
+				暂未收藏任何站点和车次
+			</div>
 		</div>
 
 	</div>
@@ -37,6 +40,7 @@
 		var app = new Vue({
 			el: '#collList',
 			data: {
+				showUserCollList: true,
 				userCollList: [{
 					name: '118路',
 					type: '车次',
@@ -53,16 +57,111 @@
 					name: '138路',
 					type: '车次',
 					isColl: true
-				}]
+				}],
+				userId: ''
 			},
 			mounted: function() {
 				mui.init({
 					swipeBack: false
 				});
+				this.init();
 			},
 			methods: {
+				//初始化
+				init: function() {
+					var self = this;
+					this.userId = localStorage.getItem('userId');
+					this.userCollList = [];
+					console.log(this.userId);
+					var conInfo = {
+						url: 'traffic/user/id/' + self.userId + '/',
+						type: 'get'
+					}
+					fc.commonAjax(conInfo, function(data) {
+						if(data) {
+							var len1 = data[0].collection_station.length,
+								len2 = data[0].collection_route.length,
+								stations = data[0].collection_station,
+								buss = data[0].collection_route;
+							if(len1 == 0 && len2 == 0) {
+								self.showUserCollList = false;
+								return;
+							}
+							console.log(stations.length)
+							stations.forEach(function(v, i) {
+								var obj = {
+									name: '', 
+									type: '站牌',
+									isColl: true
+								};
+								obj.name = v;
+								self.userCollList.push(obj);
+							});
+							buss.forEach(function(v, i) {
+								var obj = {
+									name: '',
+									type: '车次',
+									isColl: true
+								};
+								obj.name = v;
+								self.userCollList.push(obj);
+							})
+						}
+					})
+				},
+				//收藏按钮
 				cancelColl: function(i) {
+					var self = this;
 					this.userCollList[i].isColl = !this.userCollList[i].isColl;
+					var type = this.userCollList[i].isColl;
+					var conInfo = {
+						url: 'traffic/user/id/' + fc.userInfo.userId+ '/',
+						type: 'patch',
+						param: { 
+							id: fc.userInfo.userId,
+							route_name: self.userCollList[i].name,
+							type: type
+						}
+					};
+					setTimeout(function() {
+						fc.commonAjax(conInfo, function(data) {
+							mui.toast(data.message);
+						})
+					}, 500);
+				},
+				//详情
+				collListInfo: function(info) {
+					if(info.type == '车次') {
+						mui.openWindow({
+							url: 'busRoute.html',
+							id: 'busRoute',
+							show: {
+								duration: 300
+							},
+							waiting: {
+								autoshow: false,
+								title: '正在加载...'
+							},
+							extras: {
+								busName: info.name
+							}
+						})
+					} else {
+						mui.openWindow({
+							url: 'stationInfo.html',
+							id: 'stationInfo',
+							show: {
+								duration: 300
+							},
+							waiting: {
+								autoshow: false,
+								title: '正在加载...'
+							},
+							extras: {
+								name: info.name
+							}
+						})
+					}
 				}
 			}
 		})

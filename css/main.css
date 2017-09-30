@@ -15,6 +15,12 @@ ul li, span, a, p, img{
 .ds-none{
 	display: none!important;
 }
+/*超出部分显示点*/
+.text-overflow{
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 header{
 	background: #25A7FF!important;
 }
@@ -134,7 +140,7 @@ header h1, header a, header button{
 }
 .index-tar-li{
 	margin: 5px!important;
-	width: calc(100% / 4 - 10px)!important;
+	width: calc(100% / 4 - 0.625rem)!important;
 	padding: 0!important;
 	border-radius: 5px;
 }
@@ -364,7 +370,7 @@ h5{
 	width: 40px;
 }
 .index-tabI a{
-	width: 30%!important;
+	width: 50%!important;
 }
 /*下拉刷新样式结束*/
 /*tab 公交列表样式*/
@@ -664,7 +670,7 @@ ul.coll-info-ul li div.coll-list-icon span.icon-shoucang2{
 }
 #station_info .goStation {
 	position: absolute;
-	bottom: 20px;
+	bottom: 10px;
 	width: 100%;
 	text-align: center;
 }
@@ -757,4 +763,18 @@ ul.coll-info-ul li div.coll-list-icon span.icon-shoucang2{
 
 .oauth-area .oauth-btn.disabled {
 	background-color: #ddd;
+}
+/*文章详情页面样式*/
+.article .article_title {
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+}
+.article .article_content {
+	margin-top: 10px;
+	overflow: hidden;
+	text-indent: 35px;
+	padding: 5px;
 }

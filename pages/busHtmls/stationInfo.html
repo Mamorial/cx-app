@@ -10,29 +10,33 @@
 		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">&nbsp;返回</button>
 		    <h1 class="mui-title">{{stationName}}</h1>
+		    <a v-if="stationColl" @click="stationCollBtn" class="mui-icon iconfont icon-shoucang mui-pull-right"></a>
+		    <a v-else @click="stationCollBtn" class="mui-icon iconfont icon-shoucang2 mui-pull-right" style="color: #FFE826!important;"></a>
 		</header>
 		<div class="mui-content">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tbody>
-					<tr v-for="(item,i) in stationBus">
-						<td>{{item.name}}</td>
-						<td>
-							<span class="nextS">距到站</span>
-							<span>下一辆</span>
-						</td>
-						<td>
-							<span>{{item.time1}}</span>
-							<span>{{item.time2}}</span>
-						</td>
-						<td>
-							<div @click="cancelColl(i)">
-								<span v-if="item.isColl" class="mui-icon iconfont icon-shoucang2"></span>
-								<span v-else class="mui-icon iconfont icon-shoucang"></span>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<div style="height: calc(100% - 100px);overflow-y: auto;">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr v-for="(item,i) in stationBus">
+							<td @click="collBusListInfo(item.name)">{{item.name}}</td>
+							<td @click="collBusListInfo(item.name)">
+								<span class="nextS">距到站</span>
+								<span>下一辆</span>
+							</td>
+							<td @click="collBusListInfo(item.name)">
+								<span>{{item.arriveStation}}/{{item.arriveStationTime}}</span>
+								<span>{{item.nextArriveStation}}/{{item.nextArriveStationTime}}</span>
+							</td>
+							<td>
+								<div @click="cancelColl(i)">
+									<span v-if="item.userColl" class="mui-icon iconfont icon-shoucang2"></span>
+									<span v-else class="mui-icon iconfont icon-shoucang"></span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 			<div class="mui-button-row goStation">
 				<button class="mui-btn-primary" @click="go_station">前往该站牌</button>
 			</div>
@@ -45,37 +49,73 @@
 		el: '#station_info',
 		data: {
 			stationName: '',
-			stationBus: []
+			stationBus: [],
+			stationColl: true,
+			userId: ''
 		},
 		mounted: function() {
 			var self = this;
-			this.init();
 			mui.plusReady(function() {
 				var name = plus.webview.currentWebview().name;
 				self.stationName = name;
+				self.init();
 			});
-			this.stationBus = [{
-				name: '118路',
-				time1: '1站/10分钟',
-				time2: '2站/20分钟',
-				isColl: true
-			},{
-				name: '128路',
-				time1: '1站/10分钟',
-				time2: '2站/20分钟',
-				isColl: true
-			},{
-				name: '138路',
-				time1: '1站/10分钟',
-				time2: '2站/20分钟',
-				isColl: true
-			}]
+//			this.stationBus = [{
+//				name: '118路',
+//				time1: '1站/10分钟',
+//				time2: '2站/20分钟',
+//				isColl: true
+//			},{
+//				name: '128路',
+//				time1: '1站/10分钟',
+//				time2: '2站/20分钟',
+//				isColl: true
+//			},{
+//				name: '138路',
+//				time1: '1站/10分钟',
+//				time2: '2站/20分钟',
+//				isColl: true
+//			}]
 		},
 		methods: {
 			init: function() {
+				var self = this;
+				this.userId = localStorage.getItem('userId');
+				var conInfo = {
+					url: 'traffic/routes/station/name/' + self.stationName.split('(')[0] + '/',
+//					url: 'traffic/routes/station/name/庵东南站/', 
+					type: 'get',
+					data: {user_id: fc.userInfo.userId}
+				}; 
+				console.log(conInfo.url)
+				fc.commonAjax(conInfo, function(data) {
+					self.stationColl =! data[data.length - 1].collection;
+					console.log(data.length)
+					if(!(data.length - 1)) {
+						mui.toast(data.message);
+						return;
+					}
+					data.forEach(function(v, i) {
+						var obj = {
+							name: '',
+							arriveStation: '1站',
+			        		arriveStationTime: '10分钟',
+			        		nextArriveStation: '3站',
+			        		nextArriveStationTime: '20分钟'
+						};
+//						obj.userColl = v.route.collection;
+//						self.$set(self.stationBus)
+						if(v.route.name) {
+							obj.name = v.route.name;
+							self.stationBus.push(obj);
+						}
+//						self.stationBus = Object.assign({}, self.stationBus, {userColl: v.route.collection});
+					});
+					
+				})
 			},
 			//前往该站台
-			go_station: function() {
+			go_station: function() { 
 				var self = this;
 				mui.openWindow({
 					url: 'busMap.html',
@@ -95,6 +135,45 @@
 			//取消收藏
 			cancelColl: function(i) {
 				this.stationBus[i].isColl =! this.stationBus[i].isColl;
+				console.log(this.stationBus[i].isColl); 
+			},
+			//站牌收藏
+			stationCollBtn: function() {
+				this.stationColl =! this.stationColl;
+				var self = this;
+				var type = !this.stationColl;
+				console.log(type)
+				var conInfo = {
+					url: 'traffic/user/id/' + fc.userInfo.userId+ '/',
+					type: 'patch',
+					param: { 
+						id: fc.userInfo.userId,
+						route_name: self.stationName,
+						type: type
+					}
+				};
+				setTimeout(function() {
+					fc.commonAjax(conInfo, function(data) {
+						mui.toast(data.message);
+					})
+				}, 500);
+			},
+			//车次详情
+			collBusListInfo: function(name) {
+				mui.openWindow({
+					url: 'busRoute.html',
+					id: 'busRoute',
+					show: {
+						duration: 300
+					},
+					waiting: {
+						autoshow: false,
+						title: '正在加载...'
+					},
+					extras: {
+						busName: name
+					}
+				})
 			}
 		}
 
